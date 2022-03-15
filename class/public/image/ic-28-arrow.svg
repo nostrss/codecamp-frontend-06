@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+    <g fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g stroke="#CACACA" stroke-width="2">
+            <g>
+                <path d="M17 20L5 20 5 8" transform="translate(-564 -158) translate(564 158) rotate(-135 11 14)"/>
+            </g>
+        </g>
+    </g>
+</svg>
