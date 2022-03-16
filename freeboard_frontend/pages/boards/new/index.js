@@ -1,169 +1,79 @@
-import styled from '@emotion/styled';
+import { useState } from 'react';
+import { Wrapper, WrapperCanvas, Title, RowWrapper, ColumnWrapper, ColumnWrapperItem, InputLable, IntputText, InputContents,RowAddressWrap, InputZipCode, ButtonZip, InputAddress,UploadImageWrapper, UploadButtonWrapper, UploadButton, RadioWrapper,RadioItem, SubmitButton, Warning } from '../../../styles/emotion';
+
+
 
 export default function Home() {
-  const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  `;
-  const WrapperCanvas = styled.div`
-    width: 1200px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 60px 100px;
-    margin: 100px 0px;
-    background: #ffffff;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-  `;
 
-  const Title = styled.h2`
-    font-family: 'Noto Sans CJK KR';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 53px;
-    text-align: center;
-    color: #000000;
-  `;
+  const [name, setName]= useState('')
+  const [nameError, setNameError] = useState('')
+  const [password, setPassword]= useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [title, setTitle]= useState('')
+  const [titleError, setTitleError] = useState('')
+  const [contents, setContents]= useState('')
+  const [contentsError, setContentsError] = useState('')
 
-  const RowWrapper = styled.div`
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    padding: 20px 0px;
-  `;
 
-  const ColumnWrapper = styled.div`
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    padding: 20px 0px;
-  `;
 
-  const ColumnWrapperItem = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-right: 24px;
-  `;
-  const InputLable = styled.label`
-    font-family: 'Noto Sans CJK KR';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #000000;
-    margin: 8px 0px;
-  `;
-  const IntputText = styled.input`
-    width: 100%;
-    height: 52px;
-    background: #ffffff;
-    border: 1px solid #bdbdbd;
-    padding: 14px;
-  `;
 
-  const InputContents = styled.input`
-    width: 100%;
-    height: 480px;
-    background: #ffffff;
-    border: 1px solid #bdbdbd;
-    padding: 14px;
-  `;
 
-  const RowAddressWrap = styled.div`
-    display: flex;
-    flex-direction: row;
-    padding: 16px 0px;
-  `;
-  const InputZipCode = styled.input`
-    width: 77px;
-    height: 52px;
-    border: 1px solid #bdbdbd;
-    text-align: center;
-    font-family: 'Noto Sans CJK KR';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #bdbdbd;
-    margin-right: 20px;
-  `;
+  const onChangeName = (event) => {
+    setName(event.target.value)
+    if(name !== ''){
+      setNameError('')
+    }
+  }
 
-  const ButtonZip = styled.button`
-    width: 124px;
-    height: 52px;
-    background-color: black;
-    color: white;
-    font-family: 'Noto Sans CJK KR';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-  `;
+  const onChangePw = (event) => {
+    setPassword(event.target.value)
+    if(password !== ''){
+      setPasswordError('')
+    }
+  }
 
-  const InputAddress = styled.input`
-    width: 100%;
-    height: 52px;
-    background: #ffffff;
-    border: 1px solid #bdbdbd;
-    padding: 14px;
-    margin-bottom: 30px;
-  `;
+  const onChangeTitle = (event) => {
+    setTitle(event.target.value)
+    if(title !== ''){
+      setTitleError('')
+    }
+  }
 
-  const UploadImageWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  `;
-  const UploadButtonWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-  `;
 
-  const UploadButton = styled.button`
-    color: white;
-    width: 78px;
-    height: 78px;
-    background: #bdbdbd;
-    margin-right: 24px;
-  `;
+  const onChangeContents = (event) => {
+    setContents(event.target.value)
+    if(contents !== ''){
+      setContentsError('')
+    }
+  }
 
-  const RadioWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-  `;
 
-  const RadioItem = styled.div`
-    display: flex;
-    flex-direction: row;
-  `;
 
-  const SubmitButton = styled.button`
-    width: 179px;
-    height: 52px;
-    background-color: #ffd600;
-    border: none;
-    font-family: 'Noto Sans CJK KR';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
 
-    text-align: center;
 
-    color: #000000;
-  `;
-  // 변수 첫글자는 대문자(파스칼표기법?)
+
+  const submitContents = () => {
+    if( name === '' ){
+      setNameError('name is empty')
+    }
+
+    if( password === '' ){
+      setPasswordError('password is empty')
+    }
+
+    if( title === '' ){
+      setTitleError('Title is empty')
+    }
+
+    if( contents === '' ){
+      setContentsError('contents is empty')
+    }
+
+
+
+  }
 
   return (
-    // html 쓰는곳
     <Wrapper>
       <WrapperCanvas>
         <Title>게시물 등록</Title>
@@ -171,33 +81,39 @@ export default function Home() {
           <ColumnWrapperItem>
             <InputLable for="name">작성자</InputLable>
             <IntputText
-              name="name"
-              placeholder="이름을 적어주세요"
+              name="name"   
+              placeholder="이름을 적어주세요" onChange={onChangeName}
             ></IntputText>
+            <Warning>{nameError}</Warning>
           </ColumnWrapperItem>
           <ColumnWrapperItem>
             <InputLable for="pw">비밀번호</InputLable>
             <IntputText
               name="pw"
-              placeholder="비밀번호를 입력해주세요"
+              placeholder="비밀번호를 입력해주세요" onChange={onChangePw}
             ></IntputText>
+             <Warning>{passwordError}</Warning>
           </ColumnWrapperItem>
         </RowWrapper>
         <ColumnWrapper>
           <ColumnWrapperItem>
             <InputLable for="title">제목</InputLable>
+            <Warning>{titleError}</Warning>
             <IntputText
               name="title"
               placeholder="제목을 작성해주세요"
+              onChange={onChangeTitle}
             ></IntputText>
           </ColumnWrapperItem>
         </ColumnWrapper>
         <ColumnWrapper>
           <ColumnWrapperItem>
             <InputLable for="contents">내용</InputLable>
+            <Warning>{contentsError}</Warning>
             <InputContents
               name="contents"
               placeholder="내용을 작성해주세요"
+              onChange={onChangeContents}
             ></InputContents>
           </ColumnWrapperItem>
         </ColumnWrapper>
@@ -244,7 +160,7 @@ export default function Home() {
             </RadioWrapper>
           </ColumnWrapperItem>
         </ColumnWrapper>
-        <SubmitButton>등록하기</SubmitButton>
+        <SubmitButton onClick={submitContents}>등록하기</SubmitButton>
       </WrapperCanvas>
     </Wrapper>
   );
