@@ -1,76 +1,114 @@
-import { useState } from 'react';
-import { Wrapper, WrapperCanvas, Title, RowWrapper, ColumnWrapper, ColumnWrapperItem, InputLable, IntputText, InputContents,RowAddressWrap, InputZipCode, ButtonZip, InputAddress,UploadImageWrapper, UploadButtonWrapper, UploadButton, RadioWrapper,RadioItem, SubmitButton, Warning } from '../../../styles/emotion';
+import { useState } from 'react'
+import { useMutation, gql } from '@apollo/client'
+import {
+  Wrapper,
+  WrapperCanvas,
+  Title,
+  RowWrapper,
+  ColumnWrapper,
+  ColumnWrapperItem,
+  InputLable,
+  IntputText,
+  InputContents,
+  RowAddressWrap,
+  InputZipCode,
+  ButtonZip,
+  InputAddress,
+  UploadImageWrapper,
+  UploadButtonWrapper,
+  UploadButton,
+  RadioWrapper,
+  RadioItem,
+  SubmitButton,
+  Warning,
+} from '../../../styles/emotion'
 
-
+const SEND_CONTENTS = gql`
+  mutation mutationPost($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
+      _id
+      writer
+      title
+      contents
+      createdAt
+    }
+  }
+`
 
 export default function Home() {
-
-  const [name, setName]= useState('')
+  const [data, setData] = useState('')
+  const [name, setName] = useState('')
   const [nameError, setNameError] = useState('')
-  const [password, setPassword]= useState('')
+  const [password, setPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
-  const [title, setTitle]= useState('')
+  const [title, setTitle] = useState('')
   const [titleError, setTitleError] = useState('')
-  const [contents, setContents]= useState('')
+  const [contents, setContents] = useState('')
   const [contentsError, setContentsError] = useState('')
 
-
-
-
+  const [sendContents] = useMutation(SEND_CONTENTS)
 
   const onChangeName = (event) => {
     setName(event.target.value)
-    if(name !== ''){
+    if (name !== '') {
       setNameError('')
     }
   }
 
   const onChangePw = (event) => {
     setPassword(event.target.value)
-    if(password !== ''){
+    if (password !== '') {
       setPasswordError('')
     }
   }
 
   const onChangeTitle = (event) => {
     setTitle(event.target.value)
-    if(title !== ''){
+    if (title !== '') {
       setTitleError('')
     }
   }
 
-
   const onChangeContents = (event) => {
     setContents(event.target.value)
-    if(contents !== ''){
+    if (contents !== '') {
       setContentsError('')
     }
   }
 
-
-
-
-
-
-  const submitContents = () => {
-    if( name === '' ){
+  const submitContents = async () => {
+    if (name === '') {
       setNameError('name is empty')
     }
 
-    if( password === '' ){
+    if (password === '') {
       setPasswordError('password is empty')
     }
 
-    if( title === '' ){
+    if (title === '') {
       setTitleError('Title is empty')
     }
 
-    if( contents === '' ){
+    if (contents === '') {
       setContentsError('contents is empty')
     }
-
-
-
+    const response = await sendContents({
+      variables: {
+        createBoardInput: {
+          writer: name,
+          password: password,
+          title: title,
+          contents: contents,
+        },
+      },
+    })
+    console.log(response)
+    setData(response.data)
+    alert(`게시물이 정상적으로 등록되었습니다
+    등록일자 ${data.createBoard.createdAt}
+    작성자 ${data.createBoard.writer}
+    컨텐츠ID ${data.createBoard._id}
+    `)
   }
 
   return (
@@ -81,8 +119,9 @@ export default function Home() {
           <ColumnWrapperItem>
             <InputLable for="name">작성자</InputLable>
             <IntputText
-              name="name"   
-              placeholder="이름을 적어주세요" onChange={onChangeName}
+              name="name"
+              placeholder="이름을 적어주세요"
+              onChange={onChangeName}
             ></IntputText>
             <Warning>{nameError}</Warning>
           </ColumnWrapperItem>
@@ -90,9 +129,10 @@ export default function Home() {
             <InputLable for="pw">비밀번호</InputLable>
             <IntputText
               name="pw"
-              placeholder="비밀번호를 입력해주세요" onChange={onChangePw}
+              placeholder="비밀번호를 입력해주세요"
+              onChange={onChangePw}
             ></IntputText>
-             <Warning>{passwordError}</Warning>
+            <Warning>{passwordError}</Warning>
           </ColumnWrapperItem>
         </RowWrapper>
         <ColumnWrapper>
@@ -163,5 +203,5 @@ export default function Home() {
         <SubmitButton onClick={submitContents}>등록하기</SubmitButton>
       </WrapperCanvas>
     </Wrapper>
-  );
+  )
 }
