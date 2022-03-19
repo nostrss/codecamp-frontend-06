@@ -32,13 +32,13 @@ query fetchBoard($boardId: ID!){
 
 export default function renderPost() {
   const router = useRouter()
-  console.log(router)
+  console.log(router.query.number)
 
   const { getData } = useQuery(FETCH_POST, {
-      variables: { boardId: "62359e82a8255b00298838ce" },
+      variables: { boardId: `${router.query.number}` },
   })
   
-  console.log(getData?.data)    
+  console.log(getData)
   
 
   return (
@@ -49,7 +49,7 @@ export default function renderPost() {
             <Profileimage src="/image/user.png">
             </Profileimage>
             <ColumnWrapper>
-              <ProfileName>우진택</ProfileName>
+              <ProfileName>{getData?.data.fetchBoard.writer}</ProfileName>
               <PostCreatedAt>2022.03.18</PostCreatedAt>
             </ColumnWrapper>
           </PostProfile>

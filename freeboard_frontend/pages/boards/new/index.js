@@ -37,7 +37,7 @@ const SEND_CONTENTS = gql`
 `
 
 export default function newContents() {
-  const [data, setData] = useState('')
+  const [getData, setData] = useState('')
   const [name, setName] = useState('')
   const [nameError, setNameError] = useState('')
   const [password, setPassword] = useState('')
@@ -104,13 +104,10 @@ export default function newContents() {
           contents: contents,
         },
       }
-      
-      
-      
     })
-    console.log(response)
+  
     setData(response.data)
-    router.push("../boards/post_list/number")
+    router.push(`../boards/post_list/${response.data.createBoard._id}`)
   }
 
   return (
