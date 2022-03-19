@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { RowWrapper } from './emotion';
+import { RowWrapper, ColumnWrapper } from './emotion';
 
 // 모질라 CSS속성 작성 순서
 // 1. display
@@ -43,16 +43,19 @@ height: 50px;
 export const ProfileName = styled.span`
 display: inline-block;
 width: 100%;
-height: 100%px;
+height: auto;
 vertical-align: bottom;
+font-size: 24px;
 
 `;
 
 export const PostCreatedAt = styled.span`
 display: inline-block;
 width: 100%;
-height: 100%px;
+height: auto;
 vertical-align: bottom;
+font-size: 16px;
+color: #828282;
 `;
 
 
@@ -85,15 +88,17 @@ width: 100%;
 height: auto;
 `;
 
-export const PostBodyTitle = styled.div`
+export const PostBodyTitle = styled.h2`
 width: 100%;
-height: 54px;
+height: auto;
+padding-top: 80px;
+font-size: 36px;
 text-align: left;
 `;
 
 export const PostBodyImg = styled.img`
 width: 100%;
-height: 400px;
+height: auto;
 background-color: gray;
 `;
 
@@ -105,6 +110,11 @@ height: auto;
 export const PostBodyText = styled.p`
 width: 100%;
 height: auto;
+font-family: 'Noto Sans CJK KR';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
 `;
 
 // body css end
@@ -162,8 +172,127 @@ background-color: #fff;
 margin: 0px 12px;
 `;
 
-export const PostComment = styled.div`
-width: 100%;
-height: 100px;
-border: 1px solid black;
+export const WrapComment = styled.div`
+  width: 1200px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
 `;
+
+
+export const CommentHeader = styled.div`
+  display :flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  border-top : 1px solid #bdbdbd;
+`;
+
+
+// export const CommentInputs = styled(ColumnWrapper)`
+//   padding: 0px;
+// `;
+
+
+export const CommentInfo = styled(RowWrapper)`
+	justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  padding-bottom: 20px;
+`;
+
+export const CommentInfoInput = styled.input`
+	width: 180px;
+  height: 52px;
+  margin-right: 24px;
+  padding : 14px 20px;
+  font-size: 16px;
+`;
+
+export const StarBox = styled.div`
+  display: flex;
+  flex-direction : row;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  padding-right: 10px;
+`
+export const CommentContents = styled.textarea`
+	width: 100%;
+  height: 160px;
+  padding: 20px 20px;
+`;
+
+export const CommentList = styled.div`
+	display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+`;
+
+export const CommentItem = styled.div`
+display: flex;
+flex-direction: column;
+  width: 100%;
+  height: auto;
+  border-bottom: 1px gray solid;
+  padding: 20px 0px;
+`
+export const RowItems = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+`
+
+export const RowSpaceBetween = styled(RowItems)`
+justify-content : space-between;  
+`
+export const RowFlexStart = styled(RowItems)`
+justify-content : flex-start;  
+`
+export const RowAlignCenter = styled(RowItems)`
+align-items : center;  
+`
+
+
+export const CommentName = styled.span`
+display: inline-block;
+width: auto;
+height: 24px;
+vertical-align: bottom;
+font-size: 16px;
+line-height: 24px;
+padding-right: 20px;
+`;
+
+export const ColumnItems = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+padding-left: 20px;
+`
+export const UserComments = styled.p`
+width: 100%;
+height: auto;
+color: #4F4F4F;
+`
+export const UserCommentsDate = styled.p`
+width: 100%;
+height: auto;
+font-size: 12px;
+color: #BDBDBD;
+`
+export const IconBox = styled.div`
+  display: flex;
+  flex-direction : row;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  padding-right: 10px;
+`
