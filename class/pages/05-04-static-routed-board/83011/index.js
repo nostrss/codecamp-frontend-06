@@ -20,7 +20,7 @@ export default function StaticRoutedPage() {
 
   return (
     <div>
-      <div> {data?.data.fetchBoard.number}번 게시글에 오신것을 환영합니다 </div>
+      <div> {data?.fetchBoard.number}번 게시글에 오신것을 환영합니다 </div>
       <div>
         작성자 {data?.fetchBoard.writer}번 게시글에 오신것을 환영합니다
       </div>

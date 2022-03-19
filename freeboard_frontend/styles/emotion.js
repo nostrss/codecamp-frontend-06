@@ -41,7 +41,7 @@ export const ColumnWrapper = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 20px 0px;
 `;
 
