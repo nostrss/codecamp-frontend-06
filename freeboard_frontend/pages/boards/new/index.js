@@ -1,3 +1,4 @@
+import {useRouter} from 'next/router'
 import { useState } from 'react'
 import { useMutation, gql } from '@apollo/client'
 import {
@@ -35,7 +36,7 @@ const SEND_CONTENTS = gql`
   }
 `
 
-export default function Home() {
+export default function newContents() {
   const [data, setData] = useState('')
   const [name, setName] = useState('')
   const [nameError, setNameError] = useState('')
@@ -47,6 +48,8 @@ export default function Home() {
   const [contentsError, setContentsError] = useState('')
 
   const [sendContents] = useMutation(SEND_CONTENTS)
+
+  const router = useRouter() // router세팅
 
   const onChangeName = (event) => {
     setName(event.target.value)
@@ -100,15 +103,14 @@ export default function Home() {
           title: title,
           contents: contents,
         },
-      },
+      }
+      
+      
+      
     })
     console.log(response)
     setData(response.data)
-    alert(`게시물이 정상적으로 등록되었습니다
-    등록일자 ${data.createBoard.createdAt}
-    작성자 ${data.createBoard.writer}
-    컨텐츠ID ${data.createBoard._id}
-    `)
+    router.push("../boards/post_list/number")
   }
 
   return (
@@ -135,7 +137,7 @@ export default function Home() {
             <Warning>{passwordError}</Warning>
           </ColumnWrapperItem>
         </RowWrapper>
-        <ColumnWrapper>
+        <RowWrapper>
           <ColumnWrapperItem>
             <InputLable for="title">제목</InputLable>
             <Warning>{titleError}</Warning>
@@ -145,8 +147,8 @@ export default function Home() {
               onChange={onChangeTitle}
             ></IntputText>
           </ColumnWrapperItem>
-        </ColumnWrapper>
-        <ColumnWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <ColumnWrapperItem>
             <InputLable for="contents">내용</InputLable>
             <Warning>{contentsError}</Warning>
@@ -156,8 +158,8 @@ export default function Home() {
               onChange={onChangeContents}
             ></InputContents>
           </ColumnWrapperItem>
-        </ColumnWrapper>
-        <ColumnWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <ColumnWrapperItem>
             <InputLable for="address">주소</InputLable>
             <RowAddressWrap>
@@ -167,8 +169,8 @@ export default function Home() {
             <InputAddress></InputAddress>
             <IntputText></IntputText>
           </ColumnWrapperItem>
-        </ColumnWrapper>
-        <ColumnWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <ColumnWrapperItem>
             <InputLable for="youtube">유튜브</InputLable>
             <IntputText
@@ -176,7 +178,7 @@ export default function Home() {
               placeholder="링크를 복사해주세요"
             ></IntputText>
           </ColumnWrapperItem>
-        </ColumnWrapper>
+        </RowWrapper>
         <UploadImageWrapper>
           <InputLable>사진 첨부</InputLable>
           <UploadButtonWrapper>
@@ -185,7 +187,7 @@ export default function Home() {
             <UploadButton></UploadButton>
           </UploadButtonWrapper>
         </UploadImageWrapper>
-        <ColumnWrapper>
+        <RowWrapper>
           <ColumnWrapperItem>
             <InputLable for="mainset">메인 설정</InputLable>
             <RadioWrapper>
@@ -199,7 +201,7 @@ export default function Home() {
               </RadioItem>
             </RadioWrapper>
           </ColumnWrapperItem>
-        </ColumnWrapper>
+        </RowWrapper>
         <SubmitButton onClick={submitContents}>등록하기</SubmitButton>
       </WrapperCanvas>
     </Wrapper>
