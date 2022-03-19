@@ -221,11 +221,40 @@ export const StarBox = styled.div`
   height: auto;
   padding-right: 10px;
 `
+export const TextareaWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 160px;
+  border: 1px solid gray;
+  padding: 20px 20px;
+`
 export const CommentContents = styled.textarea`
 	width: 100%;
   height: 160px;
-  padding: 20px 20px;
+  border: none;
+  resize: none;
 `;
+
+export const CountTextLength = styled.p`
+width: 43px;
+height: 24px;
+font-size: 16px;
+line-height: 24px;
+color: #BDBDBD;
+`
+export const SubmitComment= styled.button`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 14px 16px;
+width: 91px;
+height: 52px;
+background-color: #000000;
+color: white;
+`
+
 
 export const CommentList = styled.div`
 	display: flex;
