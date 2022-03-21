@@ -1,7 +1,7 @@
 import BoardWriteUI from './BoardWrite.presenter'
 import { useMutation } from '@apollo/client'
 import { useState } from 'react'
-import {CREAT_BOARD} from './BoardWrite.queries'
+import { CREAT_BOARD } from './BoardWrite.queries'
 
 export default function BoardWrite() {
   const [data, setData] = useState('')
