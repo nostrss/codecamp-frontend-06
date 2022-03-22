@@ -1,9 +1,3 @@
-import {useRouter} from 'next/router'
-import { useState } from 'react'
-import { useMutation, } from '@apollo/client'
-import PostingUI from './posting.presenter'
-import { SEND_CONTENTS } from './posting.queries'
-
 export default function PostingContainer() {
   const [getData, setData] = useState('')
   const [name, setName] = useState('')
