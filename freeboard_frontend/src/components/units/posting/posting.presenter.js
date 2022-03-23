@@ -20,8 +20,6 @@ import {
   Warning,
 } from './posting.style'
 
-
-
 export default function PostingUI(props) {
 
   return (
