@@ -21,13 +21,15 @@ export default function productDetail() {
     variables: { productId: router.query.productID },
   })
 
+
+
   return (
     <div>
       <div> 상품명 : {data? data.fetchProduct.name : 'Loading' }</div>
       <div> 상품설명 : {data? data.fetchProduct.detail : 'Loading'}</div>
       <div> 상품가격: {data? data.fetchProduct.price : 'Loading'}</div>
       <div> 판매자 : {data? data.fetchProduct.seller : 'Loading'}</div>
-      <div> 상품등록일 : {data? data.fetchProduct.createdAt : 'Loading'}</div>
+      <div> 상품등록일 : {data ? data.fetchProduct.createdAt : 'Loading'}</div>
     </div>
   )
 }
