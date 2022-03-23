@@ -1,3 +1,9 @@
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useMutation, } from '@apollo/client'
+import { SEND_CONTENTS } from './posting.queries'
+import PostingUI from './posting.presenter'
+
 export default function PostingContainer() {
   const [getData, setData] = useState('')
   const [name, setName] = useState('')
@@ -82,7 +88,5 @@ export default function PostingContainer() {
       contentsError = {contentsError}
       submitContents = {submitContents}
     />
-
-    
   )
 }

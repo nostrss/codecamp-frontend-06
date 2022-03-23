@@ -1,7 +1,7 @@
 import { AiFillLike, AiTwotoneDislike } from "react-icons/ai";
 import { FaCommentAlt, FaStar, FaPen, FaTimes } from "react-icons/fa";
 import Tooltip from '@material-ui/core/Tooltip';  
-
+import { getDate } from '../../../commons/libraries/utils';
 import {
   Wrapper,
   WrapperCanvas,
@@ -25,7 +25,7 @@ export default function PostUI(props) {
             <Profileimage src="/image/user.png"></Profileimage>
             <ColumnItems>
               <ProfileName>{props.data?.fetchBoard.writer}</ProfileName>
-              <PostCreatedAt> Date : {props.data?.fetchBoard.createdAt}</PostCreatedAt>
+              <PostCreatedAt> Date : {getDate(el.createdAt)}</PostCreatedAt>
             </ColumnItems>
           </PostProfile>
           <PostInfo>

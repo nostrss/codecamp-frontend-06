@@ -66,7 +66,7 @@ export const WrapperBestContentsSummary = styled.div`
 `;
 
 
-export const BestContentsTitle = styled.h3`
+export const BestContentsTitle = styled.p`
   width: 100%;
   height: 27px;
   font-family: 'Noto Sans CJK KR';
@@ -75,13 +75,12 @@ export const BestContentsTitle = styled.h3`
   font-size: 18px;
   line-height: 27px;
   color: #000000;
-  margin-bottom: 0px;
+  margin-bottom: 20px;
 `;
 
 export const WrapperFlexRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   width: 100%;
   height: 100%;
 `;
@@ -94,8 +93,6 @@ export const WrapperFlexRowBetween = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-
 
 export const WrapperFlexColumn = styled.div`
   display: flex;
@@ -110,9 +107,16 @@ export const WrapperFlexColumn70= styled.div`
   width: 70%;
   height: 100%;
 `;
+export const WrapperFlexColumn30= styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+`;
 
-export const BestContentsName = styled.h4`
-  width: 50%;
+export const BestContentsName = styled.p`
+  width: 100%;
   height: 24px;
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
@@ -120,6 +124,7 @@ export const BestContentsName = styled.h4`
   font-size: 16px;
   line-height: 24px;
   color: #000000;
+  margin: 0px 0px 0px 5px;
 `;
 
 export const BestContentsDate = styled.p`
@@ -135,7 +140,7 @@ export const BestContentsDate = styled.p`
 
 
 export const BestContentsLike = styled.p`
-  width: 30px;
+  width: 100%;
   height: auto;
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
@@ -256,7 +261,7 @@ export const BodyBox = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 36px;
+  line-height: 50px;
   text-align: center;
   color: #4F4F4F;
 `;
