@@ -14,6 +14,7 @@ export default function PostingContainer() {
   const [titleError, setTitleError] = useState('')
   const [contents, setContents] = useState('')
   const [contentsError, setContentsError] = useState('')
+  const [isActive, setActive] =useState('disabled')
 
   const [sendContents] = useMutation(SEND_CONTENTS)
 
@@ -63,6 +64,7 @@ export default function PostingContainer() {
     if (contents === '') {
       setContentsError('contents is empty')
     }
+    
     const response = await sendContents({
       variables: {
         createBoardInput: {
@@ -85,6 +87,8 @@ export default function PostingContainer() {
       onChangePw = {onChangePw}
       passwordError = {passwordError}
       onChangeTitle = {onChangeTitle}
+      titleError = {titleError}
+      onChangeContents = {onChangeContents}
       contentsError = {contentsError}
       submitContents = {submitContents}
     />
