@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation, } from '@apollo/client'
 import { SEND_CONTENTS } from './posting.queries'
 import PostingUI from './posting.presenter'
+import { ICreateBoardApi } from './posting.type'
 
 export default function PostingContainer() {
   const [getData, setData] = useState('')
@@ -14,34 +15,33 @@ export default function PostingContainer() {
   const [titleError, setTitleError] = useState('')
   const [contents, setContents] = useState('')
   const [contentsError, setContentsError] = useState('')
-  const [isActive, setActive] =useState('disabled')
 
   const [sendContents] = useMutation(SEND_CONTENTS)
 
   const router = useRouter() // router세팅
 
-  const onChangeName = (event) => {
+  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
     if (name !== '') {
       setNameError('')
     }
   }
 
-  const onChangePw = (event) => {
+  const onChangePw = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
     if (password !== '') {
       setPasswordError('')
     }
   }
 
-  const onChangeTitle = (event) => {
+  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value)
     if (title !== '') {
       setTitleError('')
     }
   }
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLInputElement>) => {
     setContents(event.target.value)
     if (contents !== '') {
       setContentsError('')
@@ -49,6 +49,14 @@ export default function PostingContainer() {
   }
 
   const submitContents = async () => {
+    const sendPosting: ICreateBoardApi = {
+      writer: String(name),
+      password: String(password),
+      title: String(title),
+      contents: String(contents)
+    }
+
+
     if (name === '') {
       setNameError('name is empty')
     }
@@ -67,12 +75,7 @@ export default function PostingContainer() {
     
     const response = await sendContents({
       variables: {
-        createBoardInput: {
-          writer: name,
-          password: password,
-          title: title,
-          contents: contents,
-        },
+        createBoardInput: sendPosting
       }
     })
   
