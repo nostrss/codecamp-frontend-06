@@ -111,7 +111,7 @@ export default function PostingUI(props) {
             </RadioWrapper>
           </ColumnWrapperItem>
         </RowWrapper>
-        <SubmitButton onClick={props.submitContents}>등록하기</SubmitButton>
+        <SubmitButton  onClick={props.submitContents}>등록하기</SubmitButton>
       </WrapperCanvas>
     </Wrapper>
   )
