@@ -2,8 +2,9 @@ import { Fragment } from 'react'
 import * as P from './postlist.style'
 import { BsSearch,BsFillPersonFill,BsFillHandThumbsUpFill } from "react-icons/bs";
 import { getDate } from '../../../commons/libraries/utils';
+import { IFetchPostList } from './postlist.type';
 
-export default function PostListUI(props) {
+export default function PostListUI(props : IFetchPostList) {
   
   return (
     <P.Wrapper>
@@ -11,6 +12,7 @@ export default function PostListUI(props) {
         <P.PageTitle>베스트 게시글</P.PageTitle>
 
         <P.WrapperBestContents>
+          
         <P.BestContentsItem> 
           <P.BestContentsImage>
             </P.BestContentsImage> 
@@ -113,11 +115,11 @@ export default function PostListUI(props) {
         </P.WrapperTableHeader>
         <P.WrapperTableBody>
           {props.data?.fetchBoards.map((el, index) => (
-              <Fragment key={el._id}>
+              <Fragment key={el.createdAt}>
                 <P.BodyBox>{index + 1}</P.BodyBox>
                 <P.BodyBox>{el.writer}</P.BodyBox>
                 <P.BodyBox>{el.title}</P.BodyBox>
-                <P.BodyBox>{getDate(el.createdAt)}</P.BodyBox>
+              <P.BodyBox>{ el.createdAt }</P.BodyBox>
               </Fragment>
             )
           )}

@@ -13,9 +13,12 @@ import {
   Profileimage, ProfileName, PostCreatedAt, InfoItem, RowPostInfo, PostBodyTitle, PostBodyImg,PostBodyText, PostBodySection,
   PostLikeCounts,PostBtnItem, WrapComment,CommentHeader, CommentInfo, CommentInfoInput, StarBox, CommentContents, CommentList, CommentItem, RowItems, CommentName, ColumnItems, UserComments, RowSpaceBetween, RowAlignCenter, UserCommentsDate, IconBox, TextareaWrap, CountTextLength,SubmitComment  }
   from './post.style'
+import { IFetchPost } from './post.type';
 
 
-export default function PostUI(props) {
+  
+
+export default function PostUI(props : IFetchPost) {
   
   return (
     <Wrapper>
@@ -25,7 +28,7 @@ export default function PostUI(props) {
             <Profileimage src="/image/user.png"></Profileimage>
             <ColumnItems>
               <ProfileName>{props.data?.fetchBoard.writer}</ProfileName>
-              <PostCreatedAt> Date : {getDate(el.createdAt)}</PostCreatedAt>
+              <PostCreatedAt> Date : {props.data?.fetchBoard?.createdAt}</PostCreatedAt>
             </ColumnItems>
           </PostProfile>
           <PostInfo>
@@ -92,7 +95,7 @@ export default function PostUI(props) {
             </StarBox>
           </CommentInfo>
           <TextareaWrap>
-            <CommentContents  maxlength="100" placeholder='개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.'></CommentContents>
+            <CommentContents   placeholder='개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.'></CommentContents>
             <RowSpaceBetween>
             <CountTextLength>0/100</CountTextLength>
             <SubmitComment>등록하기</SubmitComment>
