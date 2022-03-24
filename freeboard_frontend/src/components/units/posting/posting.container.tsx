@@ -80,7 +80,7 @@ export default function PostingContainer() {
     })
   
     setData(response.data)
-    router.push(`../boards/post_list/${response.data.createBoard._id}`)
+    router.push(`../boards/post/${response.data.createBoard._id}`)
   }
 
   return (

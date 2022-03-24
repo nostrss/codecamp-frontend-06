@@ -11,7 +11,7 @@ export default function PostContainer() {
   
   console.log(router.query.number)
   const { data } = useQuery(FETCH_POST, {
-    variables: { boardId: router.query.number }  
+    variables: { boardId: router.query.postid }  
   })
 
   const textLimit: ITextarea = {
