@@ -1,17 +1,17 @@
-
-
 export interface IFetchPost {
   data: {
-    fetchBoard :{
-      _id: String,
-      writer: String,
-      title: String,
-      contents: String
-      createdAt: String
-      likeCount: Number
-      dislikeCount: Number
-    }
-  }
+    fetchBoard: {
+      _id: String;
+      writer: String;
+      title: String;
+      contents: String;
+      createdAt: String;
+      likeCount: Number;
+      dislikeCount: Number;
+    };
+  };
+  moveUpdate: () => void;
+  movetoBoards: () => void;
 }
 
 export interface ITextarea {

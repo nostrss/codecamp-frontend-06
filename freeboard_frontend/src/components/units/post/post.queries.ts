@@ -1,8 +1,8 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const FETCH_POST = gql`
-query fetchBoard($boardId: ID!){
-    fetchBoard(boardId: $boardId){
+  query fetchBoard($boardId: ID!) {
+    fetchBoard(boardId: $boardId) {
       writer
       createdAt
       title
@@ -12,5 +12,5 @@ query fetchBoard($boardId: ID!){
       likeCount
       dislikeCount
     }
-  }`
-
+  }
+`;
