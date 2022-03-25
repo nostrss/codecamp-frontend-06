@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const FETCH_BOARDS = gql`
   query fetchBoards($page: Int) {
@@ -9,4 +9,4 @@ export const FETCH_BOARDS = gql`
       createdAt
     }
   }
-`
+`;

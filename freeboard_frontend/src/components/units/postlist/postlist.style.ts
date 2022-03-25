@@ -39,7 +39,6 @@ export const WrapperBestContents = styled.div`
   height: 260px;
 `;
 
-
 export const BestContentsItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,7 +63,6 @@ export const WrapperBestContentsSummary = styled.div`
   padding: 0px 20px;
   border-radius: 0px 0px 20px 20px;
 `;
-
 
 export const BestContentsTitle = styled.p`
   width: 100%;
@@ -101,13 +99,13 @@ export const WrapperFlexColumn = styled.div`
   height: 100%;
 `;
 
-export const WrapperFlexColumn70= styled.div`
+export const WrapperFlexColumn70 = styled.div`
   display: flex;
   flex-direction: column;
   width: 70%;
   height: 100%;
 `;
-export const WrapperFlexColumn30= styled.div`
+export const WrapperFlexColumn30 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,7 +135,6 @@ export const BestContentsDate = styled.p`
   line-height: 18px;
   color: #828282;
 `;
-
 
 export const BestContentsLike = styled.p`
   width: 100%;
@@ -177,20 +174,20 @@ export const WrapperSearchBar = styled.div`
   width: 776px;
   height: 50px;
   padding: 0px 10px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 `;
 
 export const SearchBar = styled.input`
   width: 100%;
   height: 100%;
-  border : none;
+  border: none;
   background-color: transparent;
 `;
 
 export const DatePeeker = styled.input`
   width: 120px;
   height: 100%;
-  border : #BDBDBD;
+  border: #bdbdbd;
   background-color: transparent;
 `;
 
@@ -206,15 +203,8 @@ export const SearchButton = styled.button`
   font-size: 16px;
   line-height: 48px;
   text-align: center;
-  color: #FFFFFF;
-
+  color: #ffffff;
 `;
-
-
-
-
-
-
 
 export const WrapperTable = styled.div`
   display: grid;
@@ -222,7 +212,7 @@ export const WrapperTable = styled.div`
   height: auto;
   grid-template-columns: 10% 50% 20% 20%;
   grid-template-rows: repeat(10, 50px);
-  border : 1px solid black;
+  border: 1px solid black;
 `;
 
 export const WrapperTableHeader = styled.div`
@@ -231,8 +221,8 @@ export const WrapperTableHeader = styled.div`
   height: auto;
   grid-template-columns: 10% 50% 20% 20%;
   grid-template-rows: repeat(1, 50px);
-  border-top : 1px solid black;
-  border-bottom: 1px solid #BDBDBD;
+  border-top: 1px solid black;
+  border-bottom: 1px solid #bdbdbd;
 `;
 
 export const WrapperTableBody = styled.div`
@@ -241,28 +231,26 @@ export const WrapperTableBody = styled.div`
   height: auto;
   grid-template-columns: 10% 50% 20% 20%;
   grid-template-rows: repeat(10, 50px);
-  border-bottom : 1px solid black;
+  border-bottom: 1px solid black;
 `;
 
 export const HearderBox = styled.div`
-font-family: 'Noto Sans CJK KR';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 48px;
-text-align: center;
-color: #000000;
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 48px;
+  text-align: center;
+  color: #000000;
 `;
 
-
 export const BodyBox = styled.div`
-  border-bottom : 1px solid gray;
+  border-bottom: 1px solid gray;
   font-family: 'Noto Sans CJK KR';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 50px;
   text-align: center;
-  color: #4F4F4F;
+  color: #4f4f4f;
 `;
-

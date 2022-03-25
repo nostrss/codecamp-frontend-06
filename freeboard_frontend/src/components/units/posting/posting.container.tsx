@@ -1,99 +1,120 @@
-import { ChangeEvent, useState } from 'react'
-import { useRouter } from 'next/router'
-import { useMutation, } from '@apollo/client'
-import { SEND_CONTENTS } from './posting.queries'
-import PostingUI from './posting.presenter'
-import { ICreateBoardApi } from './posting.type'
+import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useMutation } from '@apollo/client';
+import { SEND_CONTENTS, UPDATE_CONTENS } from './posting.queries';
+import PostingUI from './posting.presenter';
+import { IPostingPathProps, ICreateBoardApi } from './posting.type';
+import { IUpdateBoardInput } from '../../../../src/commons/types/generated/types';
 
-export default function PostingContainer() {
-  const [getData, setData] = useState('')
-  const [name, setName] = useState('')
-  const [nameError, setNameError] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-  const [title, setTitle] = useState('')
-  const [titleError, setTitleError] = useState('')
-  const [contents, setContents] = useState('')
-  const [contentsError, setContentsError] = useState('')
+export default function PostingContainer(props: IPostingPathProps) {
+  // const [getData, setData] = useState('');
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [title, setTitle] = useState('');
+  const [titleError, setTitleError] = useState('');
+  const [contents, setContents] = useState('');
+  const [contentsError, setContentsError] = useState('');
+  const [sendContents] = useMutation(SEND_CONTENTS);
+  const [updateContents] = useMutation(UPDATE_CONTENS);
 
-  const [sendContents] = useMutation(SEND_CONTENTS)
+  const router = useRouter(); // router세팅
+  const textLimit: number = 100;
 
-  const router = useRouter() // router세팅
-
+  // 입력값 감지 영역
   const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value)
+    setName(event.target.value);
     if (name !== '') {
-      setNameError('')
+      setNameError('');
     }
-  }
+  };
 
   const onChangePw = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value)
+    setPassword(event.target.value);
     if (password !== '') {
-      setPasswordError('')
+      setPasswordError('');
     }
-  }
+  };
 
   const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value)
+    setTitle(event.target.value);
     if (title !== '') {
-      setTitleError('')
+      setTitleError('');
     }
-  }
+  };
 
-  const onChangeContents = (event: ChangeEvent<HTMLInputElement>) => {
-    setContents(event.target.value)
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContents(event.target.value);
     if (contents !== '') {
-      setContentsError('')
+      setContentsError('');
     }
-  }
+  };
 
+  // 새글 작성 완료 버튼
   const submitContents = async () => {
     const sendPosting: ICreateBoardApi = {
       writer: String(name),
       password: String(password),
       title: String(title),
-      contents: String(contents)
-    }
-
+      contents: String(contents),
+    };
 
     if (name === '') {
-      setNameError('name is empty')
+      setNameError('name is empty');
     }
 
     if (password === '') {
-      setPasswordError('password is empty')
+      setPasswordError('password is empty');
     }
 
     if (title === '') {
-      setTitleError('Title is empty')
+      setTitleError('Title is empty');
     }
 
     if (contents === '') {
-      setContentsError('contents is empty')
+      setContentsError('contents is empty');
     }
-    
+
     const response = await sendContents({
       variables: {
-        createBoardInput: sendPosting
-      }
-    })
-  
-    setData(response.data)
-    router.push(`../boards/post_list/${response.data.createBoard._id}`)
-  }
+        createBoardInput: sendPosting,
+      },
+    });
+
+    router.push(`../boards/post/${response.data.createBoard._id}`);
+  };
+
+  const updateButton = async () => {
+    const updatePostingData: IUpdateBoardInput = {
+      title: String(title),
+      contents: String(contents),
+    };
+    await updateContents({
+      variables: {
+        boardId: router.query.postid,
+        password: password,
+        updateBoardInput: updatePostingData,
+      },
+    });
+
+    router.push(`/boards/post/${router.query.postid}`);
+  };
 
   return (
     <PostingUI
-      onChangeName = {onChangeName}
-      nameError = {nameError}
-      onChangePw = {onChangePw}
-      passwordError = {passwordError}
-      onChangeTitle = {onChangeTitle}
-      titleError = {titleError}
-      onChangeContents = {onChangeContents}
-      contentsError = {contentsError}
-      submitContents = {submitContents}
+      isEdit={props.isEdit}
+      onChangeName={onChangeName}
+      nameError={nameError}
+      onChangePw={onChangePw}
+      passwordError={passwordError}
+      onChangeTitle={onChangeTitle}
+      titleError={titleError}
+      onChangeContents={onChangeContents}
+      contentsError={contentsError}
+      submitContents={submitContents}
+      updateButton={updateButton}
+      textLimit={textLimit}
     />
-  )
+  );
 }
