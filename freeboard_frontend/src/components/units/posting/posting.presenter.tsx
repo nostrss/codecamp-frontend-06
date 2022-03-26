@@ -14,6 +14,8 @@ export default function PostingUI(props: IPostingUIProps) {
               name='name'
               placeholder='이름을 적어주세요'
               onChange={props.onChangeName}
+              defaultValue={props.originData?.data?.fetchBoard.writer}
+              readOnly={!!props.originData.data?.fetchBoard.writer}
             ></p.IntputText>
             <p.Warning>{props.nameError}</p.Warning>
           </p.ColumnWrapperItem>
@@ -35,6 +37,7 @@ export default function PostingUI(props: IPostingUIProps) {
               name='title'
               placeholder='제목을 작성해주세요'
               onChange={props.onChangeTitle}
+              defaultValue={props.originData?.data?.fetchBoard.title}
             ></p.IntputText>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
@@ -47,6 +50,7 @@ export default function PostingUI(props: IPostingUIProps) {
               name='contents'
               placeholder='내용을 작성해주세요'
               onChange={props.onChangeContents}
+              defaultValue={props.originData?.data?.fetchBoard.contents}
             ></p.InputContents>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
