@@ -108,7 +108,7 @@ export default function PostUI(props: IFetchPost) {
       <PostBtns>
         <PostBtnItem onClick={props.movetoBoards}>목록으로</PostBtnItem>
         <PostBtnItem onClick={props.moveUpdate}>수정하기</PostBtnItem>
-        <PostBtnItem>삭제하기</PostBtnItem>
+        <PostBtnItem onClick={props.deleteButton}>삭제하기</PostBtnItem>
       </PostBtns>
       <WrapComment>
         <CommentHeader>

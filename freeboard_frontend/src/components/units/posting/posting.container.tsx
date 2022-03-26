@@ -85,6 +85,7 @@ export default function PostingContainer(props: IPostingPathProps) {
     router.push(`../boards/post/${response.data.createBoard._id}`);
   };
 
+  // 수정하기로 들어왔을때  수정버튼 영역
   const updateButton = async () => {
     const updatePostingData: IUpdateBoardInput = {
       title: String(title),

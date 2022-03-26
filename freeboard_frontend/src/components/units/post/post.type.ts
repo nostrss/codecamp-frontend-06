@@ -12,6 +12,7 @@ export interface IFetchPost {
   };
   moveUpdate: () => void;
   movetoBoards: () => void;
+  deleteButton: () => void;
 }
 
 export interface ITextarea {
