@@ -1,8 +1,9 @@
 import { ChangeEvent } from 'react';
+import {} from '../../../commons/types/generated/types';
 
 export interface IPostingPathProps {
   isEdit: boolean;
-  data?: any;
+  originData?: any;
 }
 
 export interface IPostingUIProps {
@@ -18,6 +19,7 @@ export interface IPostingUIProps {
   contentsError?: string;
   isEdit?: boolean;
   textLimit: number;
+  originData: any;
 }
 
 export interface ICreateBoardApi {

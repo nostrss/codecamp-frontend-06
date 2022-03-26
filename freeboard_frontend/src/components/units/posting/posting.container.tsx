@@ -7,7 +7,6 @@ import { IPostingPathProps, ICreateBoardApi } from './posting.type';
 import { IUpdateBoardInput } from '../../../../src/commons/types/generated/types';
 
 export default function PostingContainer(props: IPostingPathProps) {
-  // const [getData, setData] = useState('');
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState('');
   const [password, setPassword] = useState('');
@@ -51,6 +50,7 @@ export default function PostingContainer(props: IPostingPathProps) {
     }
   };
 
+  // 버튼 영역
   // 새글 작성 완료 버튼
   const submitContents = async () => {
     const sendPosting: ICreateBoardApi = {
@@ -87,10 +87,11 @@ export default function PostingContainer(props: IPostingPathProps) {
 
   // 수정하기로 들어왔을때  수정버튼 영역
   const updateButton = async () => {
-    const updatePostingData: IUpdateBoardInput = {
-      title: String(title),
-      contents: String(contents),
-    };
+    const updatePostingData: IUpdateBoardInput = {};
+
+    if (title) updatePostingData.title = title;
+    if (contents) updatePostingData.contents = contents;
+
     await updateContents({
       variables: {
         boardId: router.query.postid,
@@ -116,6 +117,7 @@ export default function PostingContainer(props: IPostingPathProps) {
       submitContents={submitContents}
       updateButton={updateButton}
       textLimit={textLimit}
+      originData={props.originData}
     />
   );
 }
