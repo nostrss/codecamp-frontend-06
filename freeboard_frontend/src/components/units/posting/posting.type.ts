@@ -18,7 +18,6 @@ export interface IPostingUIProps {
   titleError?: string;
   contentsError?: string;
   isEdit?: boolean;
-  textLimit: number;
   originData: any;
 }
 

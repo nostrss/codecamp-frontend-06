@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const FETCH_POST = gql`
   query fetchBoard($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
+      _id
       writer
       createdAt
       title
