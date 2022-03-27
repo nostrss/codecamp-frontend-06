@@ -94,7 +94,14 @@ export default function PostCommentUI(props: IFetchCommentData) {
                         <FaPen color='grey' size='24'></FaPen>
                       </P.IconBox>
                       <P.IconBox>
-                        <FaTimes color='grey' size='24'></FaTimes>
+                        <button
+                          id={item._id}
+                          onClick={props.onClickDeleteComment}
+                        >
+                          {' '}
+                          삭제버튼
+                          {/* <FaTimes color='grey' size='24'></FaTimes> */}
+                        </button>
                       </P.IconBox>
                     </P.RowItems>
                   </P.RowSpaceBetween>

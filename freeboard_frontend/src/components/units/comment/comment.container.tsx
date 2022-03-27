@@ -1,8 +1,12 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, MouseEvent } from 'react';
 import { IMutationCreateBoardCommentArgs } from '../../../commons/types/generated/types';
 import PostCommentUI from './comment.presenter';
-import { FETCH_COMMENTS, CREATE_COMMENT } from './comment.queries';
+import {
+  FETCH_COMMENTS,
+  CREATE_COMMENT,
+  DELETE_COMMENT,
+} from './comment.queries';
 import { IPostToCommnetData } from './comment.type';
 
 export default function PostComment(props: IPostToCommnetData) {
@@ -17,13 +21,14 @@ export default function PostComment(props: IPostToCommnetData) {
   const [comment, setComment] = useState('');
   const [commentError, setcommentError] = useState('');
   const [sendComment] = useMutation(CREATE_COMMENT);
+  const [deleteComment] = useMutation(DELETE_COMMENT);
 
   // 댓글 정보 불러오기
 
   const fetchCommentData = useQuery(FETCH_COMMENTS, {
     variables: {
       page: 1,
-      boardId: props.data?.fetchBoard._id,
+      boardId: props?.data?.fetchBoard?._id,
     },
   });
 
@@ -60,10 +65,12 @@ export default function PostComment(props: IPostToCommnetData) {
     console.log(comment);
   };
 
+  // 댓글 작성버튼 클릭
+
   const onClickSubmitComment = async () => {
     if (writer && password && rating && comment) {
       const commentData: IMutationCreateBoardCommentArgs = {
-        boardId: String(props.data?.fetchBoard._id),
+        boardId: String(props?.data?.fetchBoard._id),
         createBoardCommentInput: {
           contents: String(comment),
           password: String(password),
@@ -73,15 +80,54 @@ export default function PostComment(props: IPostToCommnetData) {
       };
 
       try {
-        const response = await sendComment({
+        await sendComment({
           variables: commentData,
-          refetchQueries: [{ query: FETCH_COMMENTS }],
+          refetchQueries: [
+            {
+              query: FETCH_COMMENTS,
+              variables: {
+                page: 1,
+                boardId: props?.data?.fetchBoard?._id,
+              },
+            },
+          ],
         });
       } catch (error) {
         alert(error instanceof Error);
       }
     } else {
       alert('필수정보가 누락되었습니다');
+    }
+  };
+
+  // 댓글 삭제 버튼 클릭
+
+  const onClickDeleteComment = async (event: MouseEvent<HTMLButtonElement>) => {
+    console.log('삭제클릭');
+    console.log(event.target.id);
+    const confirmPw = prompt('비밀번호를 입력하세요');
+    alert(confirmPw);
+    console.log(confirmPw);
+
+    try {
+      await deleteComment({
+        variables: {
+          password: String(confirmPw),
+          boardCommentId: event.target.id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_COMMENTS,
+            variables: {
+              page: 1,
+              boardId: props?.data?.fetchBoard?._id,
+            },
+          },
+        ],
+      });
+    } catch (error) {
+      console.log('catch');
+      alert(error instanceof Error);
     }
   };
 
@@ -94,6 +140,7 @@ export default function PostComment(props: IPostToCommnetData) {
       onChangeRating={onChangeRating}
       onChangeComment={onChangeComment}
       onClickSubmitComment={onClickSubmitComment}
+      onClickDeleteComment={onClickDeleteComment}
     />
   );
 }
