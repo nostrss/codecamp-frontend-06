@@ -166,6 +166,10 @@ export const PostBtnItem = styled.button`
   border: 1px solid #bdbdbd;
   background-color: #fff;
   margin: 0px 12px;
+  :hover {
+    border: 2px solid black;
+    font-weight: 700px;
+  }
 `;
 
 export const ColumnItems = styled.div`

@@ -125,7 +125,9 @@ export default function PostListUI(props: IFetchPostList) {
           {props.data?.fetchBoards.map((el, index) => (
             <Fragment key={el.createdAt}>
               <P.BodyBox>{index + 1}</P.BodyBox>
-              <P.BodyBox>{el.writer}</P.BodyBox>
+              <P.BodyBox onClick={props.onClickTitle} id={el._id}>
+                {el.writer}
+              </P.BodyBox>
               <P.BodyBox>{el.title}</P.BodyBox>
               <P.BodyBox>{el.createdAt}</P.BodyBox>
             </Fragment>
