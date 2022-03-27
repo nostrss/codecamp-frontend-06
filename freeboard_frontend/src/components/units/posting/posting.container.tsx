@@ -19,7 +19,6 @@ export default function PostingContainer(props: IPostingPathProps) {
   const [updateContents] = useMutation(UPDATE_CONTENS);
 
   const router = useRouter(); // router세팅
-  const textLimit: number = 100;
 
   // 입력값 감지 영역
   const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -123,7 +122,6 @@ export default function PostingContainer(props: IPostingPathProps) {
       contentsError={contentsError}
       submitContents={submitContents}
       updateButton={updateButton}
-      textLimit={textLimit}
       originData={props.originData}
     />
   );

@@ -6,6 +6,7 @@ import {
   IMutation,
   IMutationDeleteBoardArgs,
 } from '../../../commons/types/generated/types';
+import PostComment from '../comment/comment.container';
 
 export default function PostContainer() {
   const router = useRouter();
@@ -16,12 +17,12 @@ export default function PostContainer() {
   });
 
   // 보드리스트로 이동하기 버튼
-  const movetoBoards = async () => {
+  const movetoBoards = () => {
     router.push('/boards');
   };
 
   // 수정하기(edit)페이지로 이동하기 버튼
-  const moveUpdate = async () => {
+  const moveUpdate = () => {
     router.push(`/boards/post/${router.query.postid}/edit`);
   };
 
@@ -50,11 +51,14 @@ export default function PostContainer() {
   };
 
   return (
-    <PostUI
-      data={data}
-      moveUpdate={moveUpdate}
-      movetoBoards={movetoBoards}
-      deleteButton={deleteButton}
-    />
+    <>
+      <PostUI
+        data={data}
+        moveUpdate={moveUpdate}
+        movetoBoards={movetoBoards}
+        deleteButton={deleteButton}
+      />
+      <PostComment data={data} />
+    </>
   );
 }

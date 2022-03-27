@@ -5,7 +5,6 @@ import {
   BsFillPersonFill,
   BsFillHandThumbsUpFill,
 } from 'react-icons/bs';
-// import { getDate } from '../../../commons/libraries/utils';
 import { IFetchPostList } from './postlist.type';
 
 export default function PostListUI(props: IFetchPostList) {

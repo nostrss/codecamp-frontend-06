@@ -46,7 +46,6 @@ export default function PostingUI(props: IPostingUIProps) {
             <p.InputLable>내용</p.InputLable>
             <p.Warning>{props.contentsError}</p.Warning>
             <p.InputContents
-              maxLength={props.textLimit}
               name='contents'
               placeholder='내용을 작성해주세요'
               onChange={props.onChangeContents}
