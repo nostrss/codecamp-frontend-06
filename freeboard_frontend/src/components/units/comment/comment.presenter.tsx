@@ -15,12 +15,20 @@ export default function PostCommentUI(props: IFetchCommentData) {
             <P.CommentInfoInput
               type='text'
               placeholder='작성자'
+              onChange={props.onChangeWriter}
             ></P.CommentInfoInput>
             <P.CommentInfoInput
               type='password'
               placeholder='비밀번호'
+              onChange={props.onChangePw}
             ></P.CommentInfoInput>
-            <P.StarBox>
+            <P.CommentInfoInput
+              type='number'
+              placeholder='rating'
+              onChange={props.onChangeRating}
+            ></P.CommentInfoInput>
+
+            {/* <P.StarBox>
               <FaStar color='grey' size='24'></FaStar>
             </P.StarBox>
             <P.StarBox>
@@ -34,12 +42,13 @@ export default function PostCommentUI(props: IFetchCommentData) {
             </P.StarBox>
             <P.StarBox>
               <FaStar color='grey' size='24'></FaStar>
-            </P.StarBox>
+            </P.StarBox> */}
           </P.CommentInfo>
           <P.TextareaWrap>
             <P.CommentContents
               maxLength={props.textLimit}
               placeholder='개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.'
+              onChange={props.onChangeComment}
             ></P.CommentContents>
             <P.RowSpaceBetween>
               <P.CountTextLength>0/100</P.CountTextLength>
