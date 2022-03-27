@@ -14,7 +14,3 @@ export interface IFetchPost {
   movetoBoards: () => void;
   deleteButton: () => void;
 }
-
-export interface ITextarea {
-  maxLength?: Number;
-}

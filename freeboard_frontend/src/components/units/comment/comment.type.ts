@@ -1,4 +1,4 @@
-import { ChangeEvent, Key } from 'react';
+import { ChangeEvent, Key, MouseEvent } from 'react';
 
 export interface IPostToCommnetData {
   data: {
@@ -19,7 +19,7 @@ export interface IFetchCommentData {
     data: {
       fetchBoardComments: [
         {
-          _id: String;
+          _id: string;
           writer: String;
           contents: String;
           rating: any;
@@ -35,4 +35,5 @@ export interface IFetchCommentData {
   onChangeRating: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeComment: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickSubmitComment: () => void;
+  onClickDeleteComment: (event: MouseEvent<HTMLButtonElement>) => void;
 }

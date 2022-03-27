@@ -13,7 +13,7 @@ export default function PostContainer() {
 
   // 작성된 컨텐츠 정보 불러오기
   const { data } = useQuery(FETCH_POST, {
-    variables: { boardId: router.query.postid },
+    variables: { boardId: router?.query.postid },
   });
 
   // 보드리스트로 이동하기 버튼
