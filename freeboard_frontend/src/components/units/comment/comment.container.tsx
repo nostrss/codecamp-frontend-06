@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { ChangeEvent, useState } from 'react';
-// import { IMutationCreateBoardCommentArgs } from '../../../commons/types/generated/types';
+import { IMutationCreateBoardCommentArgs } from '../../../commons/types/generated/types';
 import PostCommentUI from './comment.presenter';
 import { FETCH_COMMENTS, CREATE_COMMENT } from './comment.queries';
 import { IPostToCommnetData } from './comment.type';
@@ -16,7 +16,7 @@ export default function PostComment(props: IPostToCommnetData) {
   const [ratingError, setratingError] = useState('');
   const [comment, setComment] = useState('');
   const [commentError, setcommentError] = useState('');
-  // const [sendComment] = useMutation(CREATE_COMMENT);
+  const [sendComment] = useMutation(CREATE_COMMENT);
 
   // 댓글 정보 불러오기
 
@@ -26,7 +26,6 @@ export default function PostComment(props: IPostToCommnetData) {
       boardId: props.data?.fetchBoard._id,
     },
   });
-  console.log(fetchCommentData.data);
 
   // 댓글 작성 정보 담기
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,25 +60,30 @@ export default function PostComment(props: IPostToCommnetData) {
     console.log(comment);
   };
 
-  // const onClickSubmitComment = async () => {
-  //   const commentData: IMutationCreateBoardCommentArgs = {
-  //     boardId: String(props.data?.fetchBoard._id),
-  //     createBoardCommentInput: {
-  //       contents: String(comment),
-  //       password: String(password),
-  //       rating: Number(rating),
-  //       writer: String(writer),
-  //     },
-  //   };
+  const onClickSubmitComment = async () => {
+    if (writer && password && rating && comment) {
+      const commentData: IMutationCreateBoardCommentArgs = {
+        boardId: String(props.data?.fetchBoard._id),
+        createBoardCommentInput: {
+          contents: String(comment),
+          password: String(password),
+          rating: Number(rating),
+          writer: String(writer),
+        },
+      };
 
-  //   try {
-  //     const response = await sendComment({
-  //       variables: commentData,
-  //     });
-  //   } catch (error) {
-  //     alert(error instanceof Error);
-  //   }
-  // };
+      try {
+        const response = await sendComment({
+          variables: commentData,
+          refetchQueries: [{ query: FETCH_COMMENTS }],
+        });
+      } catch (error) {
+        alert(error instanceof Error);
+      }
+    } else {
+      alert('필수정보가 누락되었습니다');
+    }
+  };
 
   return (
     <PostCommentUI
@@ -89,7 +93,7 @@ export default function PostComment(props: IPostToCommnetData) {
       onChangePw={onChangePw}
       onChangeRating={onChangeRating}
       onChangeComment={onChangeComment}
-      // onClickSubmitComment={onClickSubmitComment}
+      onClickSubmitComment={onClickSubmitComment}
     />
   );
 }

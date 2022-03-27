@@ -34,5 +34,5 @@ export interface IFetchCommentData {
   onChangePw: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeRating: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeComment: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  // onClickSubmitComment: () => void;
+  onClickSubmitComment: () => void;
 }
