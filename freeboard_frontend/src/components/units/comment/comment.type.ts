@@ -1,4 +1,4 @@
-import { Key } from 'react';
+import { ChangeEvent, Key } from 'react';
 
 export interface IPostToCommnetData {
   data: {
@@ -30,4 +30,9 @@ export interface IFetchCommentData {
     };
   };
   textLimit: number;
+  onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangePw: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeRating: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeComment: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  // onClickSubmitComment: () => void;
 }
