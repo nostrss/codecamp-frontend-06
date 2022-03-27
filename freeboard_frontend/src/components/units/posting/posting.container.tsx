@@ -76,13 +76,16 @@ export default function PostingContainer(props: IPostingPathProps) {
       setContentsError('contents is empty');
     }
 
-    const response = await sendContents({
-      variables: {
-        createBoardInput: sendPosting,
-      },
-    });
-
-    router.push(`../boards/post/${response.data.createBoard._id}`);
+    try {
+      const response = await sendContents({
+        variables: {
+          createBoardInput: sendPosting,
+        },
+      });
+      router.push(`../boards/post/${response.data.createBoard._id}`);
+    } catch (error) {
+      alert(error instanceof Error);
+    }
   };
 
   // 수정하기로 들어왔을때  수정버튼 영역
@@ -92,15 +95,19 @@ export default function PostingContainer(props: IPostingPathProps) {
     if (title) updatePostingData.title = title;
     if (contents) updatePostingData.contents = contents;
 
-    await updateContents({
-      variables: {
-        boardId: router.query.postid,
-        password: password,
-        updateBoardInput: updatePostingData,
-      },
-    });
+    try {
+      await updateContents({
+        variables: {
+          boardId: router.query.postid,
+          password: password,
+          updateBoardInput: updatePostingData,
+        },
+      });
 
-    router.push(`/boards/post/${router.query.postid}`);
+      router.push(`/boards/post/${router.query.postid}`);
+    } catch (error) {
+      alert(error instanceof Error);
+    }
   };
 
   return (

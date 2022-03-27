@@ -15,14 +15,14 @@ export default function PostingUI(props: IPostingUIProps) {
               placeholder='이름을 적어주세요'
               onChange={props.onChangeName}
               defaultValue={props.originData?.data?.fetchBoard.writer}
-              readOnly={!!props.originData.data?.fetchBoard.writer}
+              readOnly={!!props.originData?.data?.fetchBoard.writer}
             ></p.IntputText>
             <p.Warning>{props.nameError}</p.Warning>
           </p.ColumnWrapperItem>
           <p.ColumnWrapperItem>
             <p.InputLable>비밀번호</p.InputLable>
             <p.IntputText
-              name='pw'
+              type='password'
               placeholder='비밀번호를 입력해주세요'
               onChange={props.onChangePw}
             ></p.IntputText>
