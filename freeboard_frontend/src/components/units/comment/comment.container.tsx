@@ -8,7 +8,6 @@ import {
   DELETE_COMMENT,
 } from './comment.queries';
 import { IPostToCommnetData } from './comment.type';
-// 여기가 계속 에러가 나옴 이유파악중
 
 export default function PostComment(props: IPostToCommnetData) {
   // 댓글 작성 글자수 제한 변수
@@ -93,6 +92,10 @@ export default function PostComment(props: IPostToCommnetData) {
             },
           ],
         });
+        setWriter('');
+        setPassword('');
+        setRating('');
+        setComment('');
       } catch (error) {
         alert(error instanceof Error);
       }
@@ -142,6 +145,10 @@ export default function PostComment(props: IPostToCommnetData) {
       onChangeComment={onChangeComment}
       onClickSubmitComment={onClickSubmitComment}
       onClickDeleteComment={onClickDeleteComment}
+      writer={writer}
+      password={password}
+      rating={rating}
+      comment={comment}
     />
   );
 }

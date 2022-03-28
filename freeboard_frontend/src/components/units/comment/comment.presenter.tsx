@@ -2,8 +2,13 @@ import * as P from './comment.style';
 import { FaCommentAlt, FaStar, FaPen } from 'react-icons/fa';
 import { Wrapper, ColumnWrapper } from '../posting/posting.style';
 import { IFetchCommentData } from './comment.type';
+import { MouseEvent } from 'react';
 
 export default function PostCommentUI(props: IFetchCommentData) {
+  const aaa = (event: MouseEvent<HTMLDivElement>) => {
+    alert(event.currentTarget.id);
+  };
+
   return (
     <Wrapper>
       <P.WrapComment>
@@ -16,16 +21,19 @@ export default function PostCommentUI(props: IFetchCommentData) {
               type='text'
               placeholder='작성자'
               onChange={props.onChangeWriter}
+              value={props.writer}
             ></P.CommentInfoInput>
             <P.CommentInfoInput
               type='password'
               placeholder='비밀번호'
               onChange={props.onChangePw}
+              value={props.password}
             ></P.CommentInfoInput>
             <P.CommentInfoInput
               type='number'
               placeholder='rating'
               onChange={props.onChangeRating}
+              value={props.rating}
             ></P.CommentInfoInput>
 
             {/* <P.StarBox>
@@ -49,9 +57,10 @@ export default function PostCommentUI(props: IFetchCommentData) {
               onChange={props.onChangeComment}
               maxLength={props.textLimit}
               placeholder='개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.'
+              value={props.comment}
             ></P.CommentContents>
             <P.RowSpaceBetween>
-              <P.CountTextLength>0/100</P.CountTextLength>
+              <P.CountTextLength>{props.comment.length}/100</P.CountTextLength>
               <P.SubmitComment onClick={props.onClickSubmitComment}>
                 등록하기
               </P.SubmitComment>
@@ -62,7 +71,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
           <P.CommentList>
             <P.CommentItem>
               {props.fetchCommentData?.data?.fetchBoardComments.map((item) => (
-                <P.RowItems key={item.createdAt}>
+                <P.RowItems id={item.writer} onClick={aaa} key={item.createdAt}>
                   <P.Profileimage src='/image/user.png'></P.Profileimage>
                   <P.RowSpaceBetween>
                     <P.ColumnItems>
