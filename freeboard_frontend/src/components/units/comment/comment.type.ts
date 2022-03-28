@@ -36,8 +36,12 @@ export interface IFetchCommentData {
   onChangeComment: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickSubmitComment: () => void;
   onClickDeleteComment: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickEditComment: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickSubmitEdit: (event: MouseEvent<HTMLButtonElement>) => void;
   writer: string;
   password: string;
   comment: string;
   rating: string;
+  isEdit: boolean;
+  commentId: string;
 }

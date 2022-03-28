@@ -10,6 +10,5 @@ export default function EditPosting() {
   const originData = useQuery(FETCH_POST, {
     variables: { boardId: router.query.postid },
   });
-  console.log(router.query.postid);
   return <PostingContainer isEdit={true} originData={originData} />;
 }

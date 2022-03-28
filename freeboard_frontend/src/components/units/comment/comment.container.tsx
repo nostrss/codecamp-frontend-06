@@ -1,11 +1,15 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { ChangeEvent, useState, MouseEvent } from 'react';
-import { IMutationCreateBoardCommentArgs } from '../../../commons/types/generated/types';
+import { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
+import {
+  IMutationCreateBoardCommentArgs,
+  IMutationUpdateBoardCommentArgs,
+} from '../../../commons/types/generated/types';
 import PostCommentUI from './comment.presenter';
 import {
   FETCH_COMMENTS,
   CREATE_COMMENT,
   DELETE_COMMENT,
+  UPDATE_COMMENT,
 } from './comment.queries';
 import { IPostToCommnetData } from './comment.type';
 
@@ -22,6 +26,9 @@ export default function PostComment(props: IPostToCommnetData) {
   const [commentError, setcommentError] = useState('');
   const [sendComment] = useMutation(CREATE_COMMENT);
   const [deleteComment] = useMutation(DELETE_COMMENT);
+  const [submitEdit] = useMutation(UPDATE_COMMENT);
+  const [isEdit, setIsEdit] = useState(false);
+  const [commentId, setCommentId] = useState(String(''));
 
   // 댓글 정보 불러오기
 
@@ -107,11 +114,8 @@ export default function PostComment(props: IPostToCommnetData) {
   // 댓글 삭제 버튼 클릭
 
   const onClickDeleteComment = async (event: MouseEvent<HTMLButtonElement>) => {
-    console.log('삭제클릭');
-    console.log(event.target.id);
     const confirmPw = prompt('비밀번호를 입력하세요');
     alert(confirmPw);
-    console.log(confirmPw);
 
     try {
       await deleteComment({
@@ -135,6 +139,48 @@ export default function PostComment(props: IPostToCommnetData) {
     }
   };
 
+  // 댓글 수정icon 클릭
+  const onClickEditComment = (event: MouseEvent<HTMLButtonElement>) => {
+    setCommentId(event.target.id);
+    setIsEdit(true);
+  };
+
+  // 수정 완료 버튼 클릭
+
+  const onClickSubmitEdit = async (event: MouseEvent<HTMLButtonElement>) => {
+    const updateData: IMutationUpdateBoardCommentArgs = {
+      updateBoardCommentInput: {
+        contents: String(comment),
+        rating: Number(rating),
+      },
+      password: String(password),
+      boardCommentId: String(event.target.id),
+    };
+
+    try {
+      await submitEdit({
+        variables: updateData,
+        refetchQueries: [
+          {
+            query: FETCH_COMMENTS,
+            variables: {
+              page: 1,
+              boardId: props?.data?.fetchBoard?._id,
+            },
+          },
+        ],
+      });
+      setIsEdit(false);
+      setWriter('');
+      setPassword('');
+      setRating('');
+      setComment('');
+    } catch (error) {
+      console.log('catch');
+      alert(error instanceof Error);
+    }
+  };
+
   return (
     <PostCommentUI
       fetchCommentData={fetchCommentData}
@@ -149,6 +195,10 @@ export default function PostComment(props: IPostToCommnetData) {
       password={password}
       rating={rating}
       comment={comment}
+      isEdit={isEdit}
+      onClickEditComment={onClickEditComment}
+      commentId={commentId}
+      onClickSubmitEdit={onClickSubmitEdit}
     />
   );
 }
