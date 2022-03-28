@@ -8,7 +8,6 @@ import {
   DELETE_COMMENT,
 } from './comment.queries';
 import { IPostToCommnetData } from './comment.type';
-// 여기가 계속 에러가 나옴 이유파악중
 
 export default function PostComment(props: IPostToCommnetData) {
   // 댓글 작성 글자수 제한 변수

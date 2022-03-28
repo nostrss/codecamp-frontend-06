@@ -2,8 +2,13 @@ import * as P from './comment.style';
 import { FaCommentAlt, FaStar, FaPen } from 'react-icons/fa';
 import { Wrapper, ColumnWrapper } from '../posting/posting.style';
 import { IFetchCommentData } from './comment.type';
+import { MouseEvent } from 'react';
 
 export default function PostCommentUI(props: IFetchCommentData) {
+  const aaa = (event: MouseEvent<HTMLDivElement>) => {
+    alert(event.currentTarget.id);
+  };
+
   return (
     <Wrapper>
       <P.WrapComment>
@@ -66,10 +71,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
           <P.CommentList>
             <P.CommentItem>
               {props.fetchCommentData?.data?.fetchBoardComments.map((item) => (
-                <P.RowItems
-                  onClick={() => alert(item.writer)}
-                  key={item.createdAt}
-                >
+                <P.RowItems id={item.writer} onClick={aaa} key={item.createdAt}>
                   <P.Profileimage src='/image/user.png'></P.Profileimage>
                   <P.RowSpaceBetween>
                     <P.ColumnItems>
