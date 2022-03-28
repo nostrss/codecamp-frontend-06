@@ -93,6 +93,10 @@ export default function PostComment(props: IPostToCommnetData) {
             },
           ],
         });
+        setWriter('');
+        setPassword('');
+        setRating('');
+        setComment('');
       } catch (error) {
         alert(error instanceof Error);
       }
@@ -142,6 +146,10 @@ export default function PostComment(props: IPostToCommnetData) {
       onChangeComment={onChangeComment}
       onClickSubmitComment={onClickSubmitComment}
       onClickDeleteComment={onClickDeleteComment}
+      writer={writer}
+      password={password}
+      rating={rating}
+      comment={comment}
     />
   );
 }
