@@ -5,7 +5,7 @@ export default function AAApage() {
     // html 쓰는곳
     <div>
       안녕하세요!!
-      <input type="text" />
+      <input type='text' />
     </div>
   );
 }
