@@ -1,6 +1,8 @@
 import * as p from './posting.style';
 
 import { IPostingUIProps } from './posting.type';
+import { Modal } from 'antd';
+import DaumPostcode from 'react-daum-postcode';
 
 export default function PostingUI(props: IPostingUIProps) {
   return (
@@ -60,10 +62,23 @@ export default function PostingUI(props: IPostingUIProps) {
               <p.InputZipCode
                 name='address'
                 placeholder='07250'
+                defaultValue={props?.isAddress.zonecode}
               ></p.InputZipCode>
-              <p.ButtonZip>우편번호검색</p.ButtonZip>
+              <p.ButtonZip onClick={props.showModal}>우편번호검색</p.ButtonZip>
+              {props.isOpen && (
+                <Modal
+                  title='주소검색'
+                  visible={props.isOpen}
+                  onOk={props.handleOk}
+                  onCancel={props.handleCancel}
+                >
+                  <DaumPostcode onComplete={props.handleComplete} />
+                </Modal>
+              )}
             </p.RowAddressWrap>
-            <p.InputAddress></p.InputAddress>
+            <p.InputAddress
+              defaultValue={props?.isAddress.address}
+            ></p.InputAddress>
             <p.IntputText></p.IntputText>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
@@ -104,6 +119,14 @@ export default function PostingUI(props: IPostingUIProps) {
         >
           {props.isEdit ? '수정' : '등록'}하기
         </p.SubmitButton>
+        <Modal
+          title='에러'
+          visible={props.warning}
+          onOk={props.handleOk}
+          onCancel={props.handleCancel}
+        >
+          {props.isError}
+        </Modal>
       </p.WrapperCanvas>
     </p.Wrapper>
   );
