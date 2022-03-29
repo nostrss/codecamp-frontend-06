@@ -17,6 +17,10 @@ export default function PostingContainer(props: IPostingPathProps) {
   const [contentsError, setContentsError] = useState('');
   const [sendContents] = useMutation(SEND_CONTENTS);
   const [updateContents] = useMutation(UPDATE_CONTENS);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAddress, setIsAddress] = useState('');
+  const [warning, setWarning] = useState(false);
+  const [isError, setIsError] = useState('');
 
   const router = useRouter(); // router세팅
 
@@ -83,7 +87,8 @@ export default function PostingContainer(props: IPostingPathProps) {
       });
       router.push(`../boards/post/${response.data.createBoard._id}`);
     } catch (error) {
-      alert(error instanceof Error);
+      setIsError(error.message);
+      setWarning(true);
     }
   };
 
@@ -105,8 +110,29 @@ export default function PostingContainer(props: IPostingPathProps) {
 
       router.push(`/boards/post/${router.query.postid}`);
     } catch (error) {
-      alert(error instanceof Error);
+      setIsError(error.message);
+      setWarning(true);
     }
+  };
+
+  // antd 모달 띄우기
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsOpen(false);
+    setWarning(false);
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+    setWarning(false);
+  };
+
+  const handleComplete = (data: any) => {
+    setIsAddress(data);
+    setIsOpen(false);
   };
 
   return (
@@ -123,6 +149,14 @@ export default function PostingContainer(props: IPostingPathProps) {
       submitContents={submitContents}
       updateButton={updateButton}
       originData={props.originData}
+      showModal={showModal}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+      handleComplete={handleComplete}
+      isOpen={isOpen}
+      isAddress={isAddress}
+      warning={warning}
+      isError={isError}
     />
   );
 }

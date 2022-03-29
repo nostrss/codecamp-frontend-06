@@ -19,6 +19,14 @@ export interface IPostingUIProps {
   contentsError?: string;
   isEdit?: boolean;
   originData: any;
+  showModal: () => void;
+  handleOk: () => void;
+  handleCancel: () => void;
+  handleComplete: (data: any) => void;
+  isOpen: boolean;
+  isAddress: any;
+  warning: boolean;
+  isError: String;
 }
 
 export interface ICreateBoardApi {
