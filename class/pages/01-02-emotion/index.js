@@ -10,8 +10,8 @@ export default function AAApage() {
     <Wrapper>
       <MyTitle>
         로그인
-        <MyEmail type="text" />
-        <img src="/aaa/lotto.png" />
+        <MyEmail type='text' />
+        <img src='/aaa/lotto.png' />
       </MyTitle>
     </Wrapper>
   );
