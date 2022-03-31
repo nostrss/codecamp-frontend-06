@@ -46,13 +46,13 @@ export default function PostUI(props: IFetchPost) {
         <P.PostFooter>
           <P.PostLikes>
             <P.PostLikeItem>
-              <AiFillLike size='20' color='#FFD600'></AiFillLike>
+              <AiFillLike size='30' color='#FFD600'></AiFillLike>
               <P.PostLikeCounts>
                 {props.data?.fetchBoard.likeCount}
               </P.PostLikeCounts>
             </P.PostLikeItem>
             <P.PostLikeItem>
-              <AiTwotoneDislike size='20' color='grey'></AiTwotoneDislike>
+              <AiTwotoneDislike size='30' color='grey'></AiTwotoneDislike>
               <P.PostLikeCounts>
                 {props.data?.fetchBoard.dislikeCount}
               </P.PostLikeCounts>

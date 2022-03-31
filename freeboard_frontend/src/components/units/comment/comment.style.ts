@@ -61,6 +61,7 @@ export const CommentContents = styled.textarea`
   height: 160px;
   border: none;
   resize: none;
+  font-size: 16px;
 `;
 
 export const CountTextLength = styled.p`
@@ -80,6 +81,7 @@ export const SubmitComment = styled.button`
   height: 52px;
   background-color: #000000;
   color: white;
+  font-size: 14px;
 `;
 
 export const CommentList = styled.div`

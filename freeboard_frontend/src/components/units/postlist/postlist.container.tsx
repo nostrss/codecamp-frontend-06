@@ -15,9 +15,17 @@ export default function PostListContainer() {
     router.push(`/boards/post/${event.target.id}`);
   };
 
+  const onClickMoveWrite = () => {
+    router.push('/boards/new');
+  };
+
   return (
     <>
-      <PostListUI data={data} onClickTitle={onClickTitle} />;
+      <PostListUI
+        data={data}
+        onClickTitle={onClickTitle}
+        onClickMoveWrite={onClickMoveWrite}
+      />
       <Pagination refetch={refetch} lastPage={lastPage} />
     </>
   );

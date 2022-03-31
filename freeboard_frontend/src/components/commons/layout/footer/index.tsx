@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 
 const Wrapper = styled.div`
-  height: 50px;
-  background-color: green;
+  width: 100%;
+  height: 300px;
+  margin-top: 200px;
+  background-color: darkgray;
 `;
 
 export default function LayoutFooter() {
-  return <Wrapper>여기는 Footer 영역입니다</Wrapper>;
+  return <Wrapper></Wrapper>;
 }

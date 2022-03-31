@@ -1,110 +1,17 @@
 import { Fragment } from 'react';
 import * as P from './postlist.style';
-import {
-  BsSearch,
-  BsFillPersonFill,
-  BsFillHandThumbsUpFill,
-} from 'react-icons/bs';
+import { BsSearch } from 'react-icons/bs';
 import { IFetchPostList } from './postlist.type';
+import BestContents from './bestcontents/bestcontents.container';
 
 export default function PostListUI(props: IFetchPostList) {
   return (
     <P.Wrapper>
       <P.WrapperCanvas>
         <P.PageTitle>베스트 게시글</P.PageTitle>
-        <P.WrapperBestContents>
-          <P.BestContentsItem>
-            <P.BestContentsImage></P.BestContentsImage>
-            <P.WrapperBestContentsSummary>
-              <P.BestContentsTitle>게시물 제목입니다</P.BestContentsTitle>
-              <P.WrapperFlexRow>
-                <P.WrapperFlexColumn70>
-                  <P.WrapperFlexRow>
-                    <BsFillPersonFill size='20'></BsFillPersonFill>
-                    <P.BestContentsName>우진택</P.BestContentsName>
-                  </P.WrapperFlexRow>
-                  <P.BestContentsDate>2022.03.22</P.BestContentsDate>
-                </P.WrapperFlexColumn70>
-                <P.WrapperFlexColumn30>
-                  <BsFillHandThumbsUpFill
-                    size='20'
-                    color='#FFD600'
-                  ></BsFillHandThumbsUpFill>
-                  <P.BestContentsLike>356</P.BestContentsLike>
-                </P.WrapperFlexColumn30>
-              </P.WrapperFlexRow>
-            </P.WrapperBestContentsSummary>
-          </P.BestContentsItem>
-
-          <P.BestContentsItem>
-            <P.BestContentsImage></P.BestContentsImage>
-            <P.WrapperBestContentsSummary>
-              <P.BestContentsTitle>게시물 제목입니다</P.BestContentsTitle>
-              <P.WrapperFlexRow>
-                <P.WrapperFlexColumn70>
-                  <P.WrapperFlexRow>
-                    <BsFillPersonFill size='20'></BsFillPersonFill>
-                    <P.BestContentsName>우진택</P.BestContentsName>
-                  </P.WrapperFlexRow>
-                  <P.BestContentsDate>2022.03.22</P.BestContentsDate>
-                </P.WrapperFlexColumn70>
-                <P.WrapperFlexColumn30>
-                  <BsFillHandThumbsUpFill
-                    size='20'
-                    color='#FFD600'
-                  ></BsFillHandThumbsUpFill>
-                  <P.BestContentsLike>356</P.BestContentsLike>
-                </P.WrapperFlexColumn30>
-              </P.WrapperFlexRow>
-            </P.WrapperBestContentsSummary>
-          </P.BestContentsItem>
-
-          <P.BestContentsItem>
-            <P.BestContentsImage></P.BestContentsImage>
-            <P.WrapperBestContentsSummary>
-              <P.BestContentsTitle>게시물 제목입니다</P.BestContentsTitle>
-              <P.WrapperFlexRow>
-                <P.WrapperFlexColumn70>
-                  <P.WrapperFlexRow>
-                    <BsFillPersonFill size='20'></BsFillPersonFill>
-                    <P.BestContentsName>우진택</P.BestContentsName>
-                  </P.WrapperFlexRow>
-                  <P.BestContentsDate>2022.03.22</P.BestContentsDate>
-                </P.WrapperFlexColumn70>
-                <P.WrapperFlexColumn30>
-                  <BsFillHandThumbsUpFill
-                    size='20'
-                    color='#FFD600'
-                  ></BsFillHandThumbsUpFill>
-                  <P.BestContentsLike>356</P.BestContentsLike>
-                </P.WrapperFlexColumn30>
-              </P.WrapperFlexRow>
-            </P.WrapperBestContentsSummary>
-          </P.BestContentsItem>
-
-          <P.BestContentsItem>
-            <P.BestContentsImage></P.BestContentsImage>
-            <P.WrapperBestContentsSummary>
-              <P.BestContentsTitle>게시물 제목입니다</P.BestContentsTitle>
-              <P.WrapperFlexRow>
-                <P.WrapperFlexColumn70>
-                  <P.WrapperFlexRow>
-                    <BsFillPersonFill size='20'></BsFillPersonFill>
-                    <P.BestContentsName>우진택</P.BestContentsName>
-                  </P.WrapperFlexRow>
-                  <P.BestContentsDate>2022.03.22</P.BestContentsDate>
-                </P.WrapperFlexColumn70>
-                <P.WrapperFlexColumn30>
-                  <BsFillHandThumbsUpFill
-                    size='20'
-                    color='#FFD600'
-                  ></BsFillHandThumbsUpFill>
-                  <P.BestContentsLike>356</P.BestContentsLike>
-                </P.WrapperFlexColumn30>
-              </P.WrapperFlexRow>
-            </P.WrapperBestContentsSummary>
-          </P.BestContentsItem>
-        </P.WrapperBestContents>
+        <P.WrapperFlexRow>
+          <BestContents></BestContents>
+        </P.WrapperFlexRow>
         <P.WrapperSearch>
           <P.WrapperSearchBar>
             <BsSearch size='24'></BsSearch>
@@ -125,13 +32,16 @@ export default function PostListUI(props: IFetchPostList) {
             <Fragment key={el.createdAt}>
               <P.BodyBox>{index + 1}</P.BodyBox>
               <P.BodyBox onClick={props.onClickTitle} id={el._id}>
-                {el.writer}
+                {el.title}
               </P.BodyBox>
-              <P.BodyBox>{el.title}</P.BodyBox>
+              <P.BodyBox>{el.writer}</P.BodyBox>
               <P.BodyBox>{el.createdAt}</P.BodyBox>
             </Fragment>
           ))}
         </P.WrapperTableBody>
+        <P.WrapperButton>
+          <button onClick={props.onClickMoveWrite}>글쓰기</button>
+        </P.WrapperButton>
       </P.WrapperCanvas>
     </P.Wrapper>
   );

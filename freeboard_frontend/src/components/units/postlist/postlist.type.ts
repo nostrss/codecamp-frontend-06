@@ -12,4 +12,5 @@ export interface IFetchPostList {
     ];
   };
   onClickTitle: (event: MouseEvent<HTMLElement>) => void;
+  onClickMoveWrite: (event: MouseEvent<HTMLElement>) => void;
 }
