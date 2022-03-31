@@ -12,7 +12,6 @@ export default function PostListUI(props: IFetchPostList) {
     <P.Wrapper>
       <P.WrapperCanvas>
         <P.PageTitle>베스트 게시글</P.PageTitle>
-
         <P.WrapperBestContents>
           <P.BestContentsItem>
             <P.BestContentsImage></P.BestContentsImage>
