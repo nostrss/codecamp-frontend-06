@@ -162,12 +162,14 @@ export const PostBtns = styled.div`
 export const PostBtnItem = styled.button`
   width: 180px;
   height: 45px;
-  padding: 14px 60px;
+  padding: 13px 30px;
   border: 1px solid #bdbdbd;
   background-color: #fff;
   margin: 0px 12px;
+  font-size: 18px;
+  line-height: 24px;
   :hover {
-    border: 2px solid black;
+    border: 3px solid black;
     font-weight: 700px;
   }
 `;

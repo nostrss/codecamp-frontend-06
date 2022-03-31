@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { MouseEvent } from 'react';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -32,6 +34,9 @@ const WrapperLogo = styled.div`
   width: 200px;
   height: 40px;
   line-height: 40px;
+  :hover {
+    background-color: lightgray;
+  }
 `;
 
 const SignUpButton = styled.button`
@@ -44,10 +49,15 @@ const SignUpButton = styled.button`
 `;
 
 export default function LayoutHeader() {
+  const router = useRouter();
+  const onClickLogo = () => {
+    router.push('/boards');
+  };
+
   return (
     <Wrapper>
       <WrapperHeader>
-        <WrapperLogo>NoStrss</WrapperLogo>
+        <WrapperLogo onClick={onClickLogo}>NoStrss</WrapperLogo>
         <WrapperHeaderMenu>
           <SignUpButton>로그인</SignUpButton>
           <SignUpButton>회원가입</SignUpButton>

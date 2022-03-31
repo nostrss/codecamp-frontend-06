@@ -36,15 +36,17 @@ interface ILayoutProps {
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
   console.log(router);
-  const HIDDEN_BANNER = ['/boards/post/[postid]'];
-
+  const HIDDEN_BANNER = ['/boards/post/[postid]', '/boards/new'];
   const isHiddenBanner = HIDDEN_BANNER.includes(router.pathname);
+
+  const HIDDEN_NAV = ['/boards/new'];
+  const isHiddenNav = HIDDEN_NAV.includes(router.pathname);
 
   return (
     <>
       <WrapperLayout>
         <LayoutHeader />
-        <LayoutNav />
+        {!isHiddenBanner && !isHiddenNav && <LayoutNav />}
         {!isHiddenBanner && <LayoutBanner />}
         <BodyWrapper>
           <Body>{props.children}</Body>
