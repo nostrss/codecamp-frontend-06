@@ -7,6 +7,8 @@ const Wrapper = styled.div`
   background-color: white;
   justify-content: center;
   position: fixed;
+  box-shadow: -1px 1px 1px 0 rgb(42 42 42 / 27%);
+  z-index: 100;
 `;
 
 const WrapperHeader = styled.div`
