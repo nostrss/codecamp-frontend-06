@@ -62,7 +62,13 @@ export default function PostingUI(props: IPostingUIProps) {
               <p.InputZipCode
                 name='address'
                 placeholder='07250'
-                defaultValue={props?.isAddress.zonecode}
+                readOnly
+                value={
+                  props.zipcode ||
+                  props.originData?.data?.fetchBoard.boardAddress?.zipcode ||
+                  ''
+                }
+                onChange={props.onChangeZipcode}
               ></p.InputZipCode>
               <p.ButtonZip onClick={props.showModal}>우편번호검색</p.ButtonZip>
               {props.isOpen && (
@@ -77,9 +83,19 @@ export default function PostingUI(props: IPostingUIProps) {
               )}
             </p.RowAddressWrap>
             <p.InputAddress
-              defaultValue={props?.isAddress.address}
+              readOnly
+              value={
+                props.isAddress ||
+                props.originData?.data?.fetchBoard.boardAddress?.address ||
+                ''
+              }
             ></p.InputAddress>
-            <p.IntputText></p.IntputText>
+            <p.IntputText
+              onChange={props.onChangeAddress2}
+              defaultValue={
+                props.originData?.data?.fetchBoard.boardAddress?.addressDetail
+              }
+            ></p.IntputText>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
         <p.RowWrapper>

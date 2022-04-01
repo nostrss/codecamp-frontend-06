@@ -7,6 +7,7 @@ import { IPostingPathProps, ICreateBoardApi } from './posting.type';
 import { IUpdateBoardInput } from '../../../../src/commons/types/generated/types';
 
 export default function PostingContainer(props: IPostingPathProps) {
+  // 입력 받는 부분
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState('');
   const [password, setPassword] = useState('');
@@ -16,13 +17,18 @@ export default function PostingContainer(props: IPostingPathProps) {
   const [contents, setContents] = useState('');
   const [contentsError, setContentsError] = useState('');
   const [youtube, setYoutube] = useState('');
-
-  const [sendContents] = useMutation(SEND_CONTENTS);
-  const [updateContents] = useMutation(UPDATE_CONTENS);
-  const [isOpen, setIsOpen] = useState(false);
+  const [zipcode, setZipcode] = useState('');
   const [isAddress, setIsAddress] = useState('');
+  const [address2, setAddress2] = useState('');
+
+  // state 모음
   const [warning, setWarning] = useState(false);
   const [isError, setIsError] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
+  // mutation
+  const [sendContents] = useMutation(SEND_CONTENTS);
+  const [updateContents] = useMutation(UPDATE_CONTENS);
 
   const router = useRouter(); // router세팅
 
@@ -59,6 +65,14 @@ export default function PostingContainer(props: IPostingPathProps) {
     setYoutube(event.target.value);
   };
 
+  const onChangeZipcode = (event: ChangeEvent<HTMLInputElement>) => {
+    setZipcode(event.target.value);
+  };
+
+  const onChangeAddress2 = (event: ChangeEvent<HTMLInputElement>) => {
+    setAddress2(event.target.value);
+  };
+
   // 버튼 영역
   // 새글 작성 완료 버튼
   const submitContents = async () => {
@@ -68,6 +82,11 @@ export default function PostingContainer(props: IPostingPathProps) {
       title: String(title),
       contents: String(contents),
       youtubeUrl: String(youtube),
+      boardAddress: {
+        zipcode: String(zipcode),
+        address: String(isAddress),
+        addressDetail: String(address2),
+      },
     };
 
     if (name === '') {
@@ -138,7 +157,8 @@ export default function PostingContainer(props: IPostingPathProps) {
   };
 
   const handleComplete = (data: any) => {
-    setIsAddress(data);
+    setIsAddress(data.address);
+    setZipcode(data.zonecode);
     setIsOpen(false);
   };
 
@@ -165,6 +185,10 @@ export default function PostingContainer(props: IPostingPathProps) {
       warning={warning}
       isError={isError}
       onChangeYoutube={onChangeYoutube}
+      onChangeZipcode={onChangeZipcode}
+      onChangeAddress2={onChangeAddress2}
+      zipcode={zipcode}
+      address2={address2}
     />
   );
 }

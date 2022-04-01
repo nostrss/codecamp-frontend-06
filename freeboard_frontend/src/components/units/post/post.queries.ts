@@ -12,6 +12,11 @@ export const FETCH_POST = gql`
       youtubeUrl
       likeCount
       dislikeCount
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;
