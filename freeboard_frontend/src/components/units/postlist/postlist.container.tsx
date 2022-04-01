@@ -12,7 +12,7 @@ export default function PostListContainer() {
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
 
   const onClickTitle = (event: MouseEvent<HTMLElement>) => {
-    router.push(`/boards/post/${event.target.id}`);
+    router.push(`/boards/post/${event.target instanceof Element}`);
   };
 
   const onClickMoveWrite = () => {

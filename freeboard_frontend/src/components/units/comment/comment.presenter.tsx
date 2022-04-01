@@ -1,5 +1,5 @@
 import * as P from './comment.style';
-import { FaCommentAlt, FaStar, FaPen } from 'react-icons/fa';
+import { FaCommentAlt, FaStar } from 'react-icons/fa';
 import { Wrapper, ColumnWrapper } from '../posting/posting.style';
 import { IFetchCommentData } from './comment.type';
 import { Fragment } from 'react';

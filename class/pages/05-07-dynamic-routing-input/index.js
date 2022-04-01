@@ -1,7 +1,5 @@
-import InputContainer from './Input.container'
+import InputContainer from './Input.container';
 
 export default function RoutingInput() {
-  
-  return <InputContainer/>
-  
+  return <InputContainer />;
 }

@@ -14,3 +14,7 @@ export interface IPagenationToPaginationUI {
   refetch: any;
   lastPage: number;
 }
+
+export interface IPresenterToStyle {
+  current: boolean;
+}
