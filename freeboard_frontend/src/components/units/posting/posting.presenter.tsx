@@ -105,6 +105,7 @@ export default function PostingUI(props: IPostingUIProps) {
               name='youtube'
               placeholder='링크를 복사해주세요'
               onChange={props.onChangeYoutube}
+              defaultValue={props.originData?.data?.fetchBoard.youtubeUrl}
             ></p.IntputText>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
