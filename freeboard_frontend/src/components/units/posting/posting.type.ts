@@ -24,9 +24,15 @@ export interface IPostingUIProps {
   handleCancel: () => void;
   handleComplete: (data: any) => void;
   isOpen: boolean;
-  isAddress: any;
   warning: boolean;
   isError: String;
+  onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeZipcode: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeAddress1: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeAddress2: (event: ChangeEvent<HTMLInputElement>) => void;
+  zipcode: string;
+  isAddress: any;
+  address2: string;
 }
 
 export interface ICreateBoardApi {
@@ -34,4 +40,10 @@ export interface ICreateBoardApi {
   password: string;
   title: string;
   contents: string;
+  youtubeUrl: string;
+  boardAddress: {
+    zipcode: String;
+    address: String;
+    addressDetail: String;
+  };
 }
