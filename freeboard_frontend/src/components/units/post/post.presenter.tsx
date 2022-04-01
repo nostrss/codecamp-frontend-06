@@ -1,5 +1,5 @@
-import { AiFillLike, AiTwotoneDislike } from 'react-icons/ai';
 import Tooltip from '@material-ui/core/Tooltip';
+import ReactPlayer from 'react-player';
 
 import { Wrapper, WrapperCanvas } from '../posting/posting.style';
 import * as P from './post.style';
@@ -15,7 +15,6 @@ export default function PostUI(props: IFetchPost) {
             <P.ColumnItems>
               <P.ProfileName>{props.data?.fetchBoard.writer}</P.ProfileName>
               <P.PostCreatedAt>
-                {' '}
                 Date : {props.data?.fetchBoard?.createdAt}
               </P.PostCreatedAt>
             </P.ColumnItems>
@@ -41,18 +40,19 @@ export default function PostUI(props: IFetchPost) {
           <P.PostBodyImg src=''></P.PostBodyImg>
           <P.PostBodySection>
             <P.PostBodyText>{props.data?.fetchBoard.contents}</P.PostBodyText>
+            <ReactPlayer url={props.data?.fetchBoard.youtubeUrl} />
           </P.PostBodySection>
         </P.PostBody>
         <P.PostFooter>
           <P.PostLikes>
             <P.PostLikeItem>
-              <AiFillLike size='30' color='#FFD600'></AiFillLike>
+              <P.PostLikeBtn src='/image/like.png'></P.PostLikeBtn>
               <P.PostLikeCounts>
                 {props.data?.fetchBoard.likeCount}
               </P.PostLikeCounts>
             </P.PostLikeItem>
             <P.PostLikeItem>
-              <AiTwotoneDislike size='30' color='grey'></AiTwotoneDislike>
+              <P.PostDislikeBtn src='/image/dislike.png'></P.PostDislikeBtn>
               <P.PostLikeCounts>
                 {props.data?.fetchBoard.dislikeCount}
               </P.PostLikeCounts>

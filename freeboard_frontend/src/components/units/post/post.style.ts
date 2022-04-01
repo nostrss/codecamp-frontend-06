@@ -141,6 +141,16 @@ export const PostLikeItem = styled.div`
   height: 40px;
 `;
 
+export const PostLikeBtn = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+export const PostDislikeBtn = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
 export const PostLikeCounts = styled.div`
   display: flex;
   flex-direction: column;
