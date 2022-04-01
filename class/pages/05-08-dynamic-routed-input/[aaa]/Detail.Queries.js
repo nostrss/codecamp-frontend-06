@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 export const FETCH_BOARD = gql`
   query fetchBoard($number: Int) {
     fetchBoard(number: $number) {
@@ -8,4 +8,4 @@ export const FETCH_BOARD = gql`
       contents
     }
   }
-`
+`;

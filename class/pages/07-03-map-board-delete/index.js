@@ -1,6 +1,5 @@
-import { useQuery, gql, useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
-import { Fragment } from "react";
+import { useQuery, gql, useMutation } from '@apollo/client';
+import styled from '@emotion/styled';
 
 const FETCH_BOARDS = gql`
   query fetchBoards {
@@ -46,7 +45,7 @@ export default function MapBoardPage() {
         // <Fragment key={el.number}>
         <Row key={el.number}>
           <Column>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </Column>
           <Column>{el.number}</Column>
           <Column>{el.writer}</Column>

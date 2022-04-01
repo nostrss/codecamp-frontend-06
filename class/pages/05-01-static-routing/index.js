@@ -1,14 +1,10 @@
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router';
 
 export default function StaticRoutingpage() {
-    const router = useRouter()
+  const router = useRouter();
 
-    const onClickMove = () => {
-            router.push("/05-02-static-routed")
-
-    }
-        return(
-                
-            <button onClick={onClickMove}>페이지 이동하기 !!!</button>
-        )
+  const onClickMove = () => {
+    router.push('/05-02-static-routed');
+  };
+  return <button onClick={onClickMove}>페이지 이동하기 !!!</button>;
 }

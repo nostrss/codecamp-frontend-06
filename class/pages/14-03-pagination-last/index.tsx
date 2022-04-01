@@ -1,6 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 import styled from '@emotion/styled';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, MouseEvent } from 'react';
 
 const FETCH_BOARDS = gql`
   query fetchBoards($page: Int) {
@@ -35,8 +35,8 @@ export default function MapBoardPage() {
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
 
-  const onClickPage = (event) => {
-    refetch({ page: Number(event.target.id) });
+  const onClickPage = (event: MouseEvent<HTMLElement>) => {
+    refetch({ page: Number(event.target instanceof Element) });
   };
 
   const onClickPrevPage = () => {
@@ -52,7 +52,7 @@ export default function MapBoardPage() {
 
   return (
     <Fragment>
-      {data?.fetchBoards.map((el, index) => (
+      {data?.fetchBoards.map((el: any, index: number) => (
         <MyRow key={el._id}>
           <MyColumn>{index}</MyColumn>
           <MyColumn>{el.writer}</MyColumn>

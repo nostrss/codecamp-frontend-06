@@ -7,7 +7,7 @@ export default function BestContents() {
   const { data } = useQuery(FETCH_BOARD_BEST);
   return (
     <>
-      {data?.fetchBoardsOfTheBest.map((el, index) => (
+      {data?.fetchBoardsOfTheBest.map((el: any, index: number) => (
         <Fragment key={el._id}>
           <BestContentsUI data={data} el={el}></BestContentsUI>
         </Fragment>

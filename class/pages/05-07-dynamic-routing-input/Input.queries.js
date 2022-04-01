@@ -1,5 +1,4 @@
-
-import {  gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const CREAT_BOARD = gql`
   mutation myMutation($writer: String, $title: String, $contents: String) {
@@ -9,4 +8,4 @@ export const CREAT_BOARD = gql`
       message
     }
   }
-`
+`;

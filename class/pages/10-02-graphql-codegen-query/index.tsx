@@ -1,8 +1,8 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql } from '@apollo/client';
 import {
   IQuery,
   IQueryFetchBoardArgs,
-} from "../../src/commons/types/generated/types";
+} from '../../src/commons/types/generated/types';
 
 const FETCH_BOARD = gql`
   query fetchBoard($number: Int) {
@@ -16,7 +16,7 @@ const FETCH_BOARD = gql`
 `;
 
 export default function StaticRoutedPage() {
-  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+  const { data } = useQuery<Pick<IQuery, 'fetchBoard'>, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {
       variables: { number: 83011 },
@@ -33,7 +33,7 @@ export default function StaticRoutedPage() {
       </div>
       <div>제목{data?.fetchBoard?.title}번 게시글에 오신것을 환영합니다 </div>
       <div>
-        게시글{data?.fetchBoard?.contents}번 게시글에 오신것을 환영합니다{" "}
+        게시글{data?.fetchBoard?.contents}번 게시글에 오신것을 환영합니다{' '}
       </div>
     </div>
   );

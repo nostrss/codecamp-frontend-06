@@ -1,9 +1,4 @@
-import DetailContainer from './Detail.Container'
+import DetailContainer from './Detail.Container';
 export default function DetailPage() {
- 
-
-  return (
-    <DetailContainer></DetailContainer>
-   
-  )
+  return <DetailContainer></DetailContainer>;
 }
