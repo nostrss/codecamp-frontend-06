@@ -10,7 +10,6 @@ const ModalCustomPage = () => {
   };
 
   const handleComplete = (data: any) => {
-    console.log(data);
     onToggleModal();
   };
 
