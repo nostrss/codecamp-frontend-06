@@ -15,6 +15,8 @@ export default function PostingContainer(props: IPostingPathProps) {
   const [titleError, setTitleError] = useState('');
   const [contents, setContents] = useState('');
   const [contentsError, setContentsError] = useState('');
+  const [youtube, setYoutube] = useState('');
+
   const [sendContents] = useMutation(SEND_CONTENTS);
   const [updateContents] = useMutation(UPDATE_CONTENS);
   const [isOpen, setIsOpen] = useState(false);
@@ -53,6 +55,10 @@ export default function PostingContainer(props: IPostingPathProps) {
     }
   };
 
+  const onChangeYoutube = (event: ChangeEvent<HTMLInputElement>) => {
+    setYoutube(event.target.value);
+  };
+
   // 버튼 영역
   // 새글 작성 완료 버튼
   const submitContents = async () => {
@@ -61,6 +67,7 @@ export default function PostingContainer(props: IPostingPathProps) {
       password: String(password),
       title: String(title),
       contents: String(contents),
+      youtubeUrl: String(youtube),
     };
 
     if (name === '') {
@@ -157,6 +164,7 @@ export default function PostingContainer(props: IPostingPathProps) {
       isAddress={isAddress}
       warning={warning}
       isError={isError}
+      onChangeYoutube={onChangeYoutube}
     />
   );
 }

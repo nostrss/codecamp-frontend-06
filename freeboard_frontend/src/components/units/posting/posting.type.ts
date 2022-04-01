@@ -27,6 +27,7 @@ export interface IPostingUIProps {
   isAddress: any;
   warning: boolean;
   isError: String;
+  onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface ICreateBoardApi {
@@ -34,4 +35,5 @@ export interface ICreateBoardApi {
   password: string;
   title: string;
   contents: string;
+  youtubeUrl: string;
 }

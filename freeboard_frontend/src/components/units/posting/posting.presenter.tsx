@@ -88,6 +88,7 @@ export default function PostingUI(props: IPostingUIProps) {
             <p.IntputText
               name='youtube'
               placeholder='링크를 복사해주세요'
+              onChange={props.onChangeYoutube}
             ></p.IntputText>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
