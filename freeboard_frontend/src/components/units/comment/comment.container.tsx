@@ -32,12 +32,37 @@ export default function PostComment(props: IPostToCommnetData) {
   const [commentId, setCommentId] = useState(String(''));
 
   // 댓글 정보 불러오기
-
   const fetchCommentData = useQuery(FETCH_COMMENTS, {
     variables: {
       boardId: props?.data?.fetchBoard?._id,
     },
   });
+
+  const onLoadMore = () => {
+    if (!fetchCommentData.data) return;
+
+    console.log('onLoad실행');
+    console.log(fetchCommentData.data);
+
+    fetchCommentData.fetchMore({
+      variables: {
+        page:
+          Math.ceil(fetchCommentData.data.fetchBoardComments.length / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult.fetchBoardComments)
+          return { fetchBoardComments: [...prev.fetchBoardComments] };
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  };
+
+  console.log(fetchCommentData.data?.fetchBoardComments);
 
   // 댓글 작성 정보 담기
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
@@ -185,6 +210,7 @@ export default function PostComment(props: IPostToCommnetData) {
       onClickEditComment={onClickEditComment}
       commentId={commentId}
       onClickSubmitEdit={onClickSubmitEdit}
+      onLoadMore={onLoadMore}
     />
   );
 }
