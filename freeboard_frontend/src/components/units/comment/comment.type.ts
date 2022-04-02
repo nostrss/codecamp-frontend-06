@@ -32,7 +32,7 @@ export interface IFetchCommentData {
   textLimit: number;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePw: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeRating: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeRating: (event: number) => void;
   onChangeComment: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickSubmitComment: () => void;
   onClickDeleteComment: (event: MouseEvent<HTMLButtonElement>) => void;

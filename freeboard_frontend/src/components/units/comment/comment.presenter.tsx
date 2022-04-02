@@ -1,5 +1,5 @@
 import * as P from './comment.style';
-import { FaCommentAlt, FaStar } from 'react-icons/fa';
+import { FaCommentAlt } from 'react-icons/fa';
 import { Wrapper, ColumnWrapper } from '../posting/posting.style';
 import { IFetchCommentData } from './comment.type';
 import { Fragment } from 'react';
@@ -12,6 +12,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
         <P.CommentHeader>
           <FaCommentAlt color='#FFD600'></FaCommentAlt> 댓글
         </P.CommentHeader>
+        {/* 댓글 등록하기 영역 시작 */}
         <ColumnWrapper>
           <P.CommentInfo>
             <P.CommentInfoInput
@@ -43,11 +44,14 @@ export default function PostCommentUI(props: IFetchCommentData) {
             </P.RowSpaceBetween>
           </P.TextareaWrap>
         </ColumnWrapper>
+        {/* 댓글 등록하기 영역 종료 */}
+        {/* 댓글 리스트 시작 */}
         <ColumnWrapper>
           <P.CommentList>
             <P.CommentItem>
               {props.fetchCommentData?.data?.fetchBoardComments.map((item) => (
                 <P.RowItems key={item.createdAt}>
+                  {/* 읽기 모드 댓글 렌더링 */}
                   {props?.commentId === item._id || (
                     <Fragment>
                       <P.Profileimage src='/image/user.png'></P.Profileimage>
@@ -72,22 +76,20 @@ export default function PostCommentUI(props: IFetchCommentData) {
                             >
                               수정하기
                             </button>
-                            {/* <FaPen color='grey' size='24'></FaPen> */}
                           </P.IconBox>
                           <P.IconBox>
                             <button
                               id={item._id}
                               onClick={props.onClickDeleteComment}
                             >
-                              {' '}
                               삭제버튼
-                              {/* <FaTimes color='grey' size='24'></FaTimes> */}
                             </button>
                           </P.IconBox>
                         </P.RowItems>
                       </P.RowSpaceBetween>
                     </Fragment>
                   )}
+                  {/* 수정모드 댓글 렌더링 */}
                   {props.commentId === item._id && (
                     <ColumnWrapper>
                       <P.CommentInfo>
@@ -104,12 +106,17 @@ export default function PostCommentUI(props: IFetchCommentData) {
                           onChange={props.onChangePw}
                         ></P.CommentInfoInput>
 
-                        <P.CommentInfoInput
+                        <Rate
+                          onChange={props.onChangeRating}
+                          defaultValue={item.rating}
+                        />
+
+                        {/* <P.CommentInfoInput
                           type='number'
                           placeholder='rating'
                           onChange={props.onChangeRating}
                           defaultValue={item.rating}
-                        ></P.CommentInfoInput>
+                        ></P.CommentInfoInput> */}
                       </P.CommentInfo>
                       <P.TextareaWrap>
                         <P.CommentContents
@@ -137,6 +144,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
             </P.CommentItem>
           </P.CommentList>
         </ColumnWrapper>
+        {/* 댓글 리스트 종료 */}
       </P.WrapComment>
     </Wrapper>
   );

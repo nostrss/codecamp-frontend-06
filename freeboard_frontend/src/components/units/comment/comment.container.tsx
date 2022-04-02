@@ -24,7 +24,11 @@ export default function PostComment(props: IPostToCommnetData) {
   const [sendComment] = useMutation(CREATE_COMMENT);
   const [deleteComment] = useMutation(DELETE_COMMENT);
   const [submitEdit] = useMutation(UPDATE_COMMENT);
+
+  // 댓글의 수정 모드 스테이트
   const [isEdit, setIsEdit] = useState(false);
+
+  // 수정 클릭한 댓글의 id정보 담는 스테이트
   const [commentId, setCommentId] = useState(String(''));
 
   // 댓글 정보 불러오기
@@ -73,7 +77,6 @@ export default function PostComment(props: IPostToCommnetData) {
             {
               query: FETCH_COMMENTS,
               variables: {
-                page: 1,
                 boardId: props?.data?.fetchBoard?._id,
               },
             },
@@ -81,7 +84,7 @@ export default function PostComment(props: IPostToCommnetData) {
         });
         setWriter('');
         setPassword('');
-        setRating('');
+        setRating(0);
         setComment('');
       } catch (error) {
         alert(error instanceof Error);
@@ -144,17 +147,20 @@ export default function PostComment(props: IPostToCommnetData) {
           {
             query: FETCH_COMMENTS,
             variables: {
-              page: 1,
               boardId: props?.data?.fetchBoard?._id,
             },
           },
         ],
       });
       setIsEdit(false);
+      console.log(isEdit);
       setWriter('');
       setPassword('');
-      setRating('');
+      setRating(0);
       setComment('');
+      setCommentId('');
+      Modal.success({ content: '댓글이 수정되었습니다.' });
+      console.log(isEdit);
     } catch (error) {
       console.log('catch');
       alert(error instanceof Error);
