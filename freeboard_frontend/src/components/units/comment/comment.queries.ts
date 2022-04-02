@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const FETCH_COMMENTS = gql`
-  query fetchBoardComments($page: Int, $boardId: ID!) {
-    fetchBoardComments(page: $page, boardId: $boardId) {
+  query fetchBoardComments($boardId: ID!) {
+    fetchBoardComments(boardId: $boardId) {
       _id
       writer
       contents

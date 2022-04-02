@@ -3,6 +3,7 @@ import { FaCommentAlt, FaStar } from 'react-icons/fa';
 import { Wrapper, ColumnWrapper } from '../posting/posting.style';
 import { IFetchCommentData } from './comment.type';
 import { Fragment } from 'react';
+import { Rate } from 'antd';
 
 export default function PostCommentUI(props: IFetchCommentData) {
   return (
@@ -25,28 +26,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
               onChange={props.onChangePw}
               value={props.password}
             ></P.CommentInfoInput>
-            <P.CommentInfoInput
-              type='number'
-              placeholder='rating'
-              onChange={props.onChangeRating}
-              value={props.rating}
-            ></P.CommentInfoInput>
-
-            {/* <P.StarBox>
-              <FaStar color='grey' size='24'></FaStar>
-            </P.StarBox>
-            <P.StarBox>
-              <FaStar color='grey' size='24'></FaStar>
-            </P.StarBox>
-            <P.StarBox>
-              <FaStar color='grey' size='24'></FaStar>
-            </P.StarBox>
-            <P.StarBox>
-              <FaStar color='grey' size='24'></FaStar>
-            </P.StarBox>
-            <P.StarBox>
-              <FaStar color='grey' size='24'></FaStar>
-            </P.StarBox> */}
+            <Rate onChange={props.onChangeRating} />
           </P.CommentInfo>
           <P.TextareaWrap>
             <P.CommentContents
@@ -76,21 +56,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                           <P.RowAlignCenter>
                             <P.CommentName>{item.writer}</P.CommentName>
                             <P.RowItems>
-                              <P.StarBox>
-                                <FaStar color='grey' size='24'></FaStar>
-                              </P.StarBox>
-                              <P.StarBox>
-                                <FaStar color='grey' size='24'></FaStar>
-                              </P.StarBox>
-                              <P.StarBox>
-                                <FaStar color='grey' size='24'></FaStar>
-                              </P.StarBox>
-                              <P.StarBox>
-                                <FaStar color='grey' size='24'></FaStar>
-                              </P.StarBox>
-                              <P.StarBox>
-                                <FaStar color='grey' size='24'></FaStar>
-                              </P.StarBox>
+                              <Rate disabled defaultValue={item.rating} />
                             </P.RowItems>
                           </P.RowAlignCenter>
                           <P.UserComments>{item.contents}</P.UserComments>
@@ -137,28 +103,13 @@ export default function PostCommentUI(props: IFetchCommentData) {
                           placeholder='비밀번호'
                           onChange={props.onChangePw}
                         ></P.CommentInfoInput>
+
                         <P.CommentInfoInput
                           type='number'
                           placeholder='rating'
                           onChange={props.onChangeRating}
                           defaultValue={item.rating}
                         ></P.CommentInfoInput>
-
-                        {/* <P.StarBox>
-                        <FaStar color='grey' size='24'></FaStar>
-                      </P.StarBox>
-                      <P.StarBox>
-                        <FaStar color='grey' size='24'></FaStar>
-                      </P.StarBox>
-                      <P.StarBox>
-                        <FaStar color='grey' size='24'></FaStar>
-                      </P.StarBox>
-                      <P.StarBox>
-                        <FaStar color='grey' size='24'></FaStar>
-                      </P.StarBox>
-                      <P.StarBox>
-                        <FaStar color='grey' size='24'></FaStar>
-                      </P.StarBox> */}
                       </P.CommentInfo>
                       <P.TextareaWrap>
                         <P.CommentContents

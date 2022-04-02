@@ -7,6 +7,9 @@ export const FETCH_BOARDS = gql`
       title
       writer
       createdAt
+      youtubeUrl
+      likeCount
+      dislikeCount
     }
   }
 `;

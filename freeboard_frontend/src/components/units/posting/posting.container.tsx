@@ -5,9 +5,10 @@ import { SEND_CONTENTS, UPDATE_CONTENS } from './posting.queries';
 import PostingUI from './posting.presenter';
 import { IPostingPathProps, ICreateBoardApi } from './posting.type';
 import { IUpdateBoardInput } from '../../../../src/commons/types/generated/types';
+import { Modal } from 'antd';
 
 export default function PostingContainer(props: IPostingPathProps) {
-  // 입력 받는 부분
+  // 입력 값 스테이트
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState('');
   const [password, setPassword] = useState('');
@@ -105,16 +106,20 @@ export default function PostingContainer(props: IPostingPathProps) {
       setContentsError('contents is empty');
     }
 
-    try {
-      const response = await sendContents({
-        variables: {
-          createBoardInput: sendPosting,
-        },
-      });
-      router.push(`../boards/post/${response.data.createBoard._id}`);
-    } catch (error) {
-      setIsError(error.message);
-      setWarning(true);
+    if (name !== '' && password !== '' && title !== '' && contents !== '') {
+      try {
+        const response = await sendContents({
+          variables: {
+            createBoardInput: sendPosting,
+          },
+        });
+        Modal.success({ content: '게시물 등록에 성공하였습니다!' });
+        router.push(`../boards/post/${response.data.createBoard._id}`);
+      } catch (error) {
+        Modal.error({ content: error.message });
+        setIsError(error.message);
+        setWarning(true);
+      }
     }
   };
 
@@ -124,20 +129,30 @@ export default function PostingContainer(props: IPostingPathProps) {
 
     if (title) updatePostingData.title = title;
     if (contents) updatePostingData.contents = contents;
+    if (youtube) updatePostingData.youtubeUrl = youtube;
 
-    try {
-      await updateContents({
-        variables: {
-          boardId: router.query.postid,
-          password: password,
-          updateBoardInput: updatePostingData,
-        },
-      });
+    // 주소
+    if (zipcode || isAddress || address2) {
+      updatePostingData.boardAddress = {};
+      if (zipcode) updatePostingData.boardAddress.zipcode = zipcode;
+      if (isAddress) updatePostingData.boardAddress.address = isAddress;
+      if (address2) updatePostingData.boardAddress.addressDetail = address2;
 
-      router.push(`/boards/post/${router.query.postid}`);
-    } catch (error) {
-      setIsError(error.message);
-      setWarning(true);
+      try {
+        await updateContents({
+          variables: {
+            boardId: router.query.postid,
+            password: password,
+            updateBoardInput: updatePostingData,
+          },
+        });
+
+        Modal.success({ content: '게시물 수정에 성공하였습니다!' });
+        router.push(`/boards/post/${router.query.postid}`);
+      } catch (error) {
+        setIsError(error.message);
+        setWarning(true);
+      }
     }
   };
 
