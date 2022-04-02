@@ -117,13 +117,6 @@ export default function PostCommentUI(props: IFetchCommentData) {
                               onChange={props.onChangeRating}
                               defaultValue={item.rating}
                             />
-
-                            {/* <P.CommentInfoInput
-                          type='number'
-                          placeholder='rating'
-                          onChange={props.onChangeRating}
-                          defaultValue={item.rating}
-                        ></P.CommentInfoInput> */}
                           </P.CommentInfo>
                           <P.TextareaWrap>
                             <P.CommentContents
