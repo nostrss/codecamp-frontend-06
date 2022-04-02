@@ -6,6 +6,7 @@ import PostingUI from './posting.presenter';
 import { IPostingPathProps, ICreateBoardApi } from './posting.type';
 import { IUpdateBoardInput } from '../../../../src/commons/types/generated/types';
 import { Modal } from 'antd';
+import InfiniteScroll from 'react-infinite-scroller';
 
 export default function PostingContainer(props: IPostingPathProps) {
   // 입력 값 스테이트
