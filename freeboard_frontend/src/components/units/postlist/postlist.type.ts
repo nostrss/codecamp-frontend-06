@@ -8,6 +8,9 @@ export interface IFetchPostList {
         writer: String;
         title: String;
         createdAt: Key;
+        youtubeUrl: String;
+        likeCount: Number;
+        dislikeCount: Number;
       }
     ];
   };

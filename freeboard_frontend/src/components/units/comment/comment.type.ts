@@ -41,7 +41,7 @@ export interface IFetchCommentData {
   writer: string;
   password: string;
   comment: string;
-  rating: string;
+  rating: number;
   isEdit: boolean;
   commentId: string;
 }

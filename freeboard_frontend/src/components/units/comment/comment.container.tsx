@@ -12,18 +12,15 @@ import {
   UPDATE_COMMENT,
 } from './comment.queries';
 import { IPostToCommnetData } from './comment.type';
+import { Modal } from 'antd';
 
 export default function PostComment(props: IPostToCommnetData) {
   // 댓글 작성 글자수 제한 변수
   const textLimit: number = 100;
   const [writer, setWriter] = useState('');
-  const [writerError, setWriterError] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [rating, setRating] = useState('');
-  const [ratingError, setratingError] = useState('');
+  const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
-  const [commentError, setcommentError] = useState('');
   const [sendComment] = useMutation(CREATE_COMMENT);
   const [deleteComment] = useMutation(DELETE_COMMENT);
   const [submitEdit] = useMutation(UPDATE_COMMENT);
@@ -34,7 +31,6 @@ export default function PostComment(props: IPostToCommnetData) {
 
   const fetchCommentData = useQuery(FETCH_COMMENTS, {
     variables: {
-      page: 1,
       boardId: props?.data?.fetchBoard?._id,
     },
   });
@@ -42,34 +38,18 @@ export default function PostComment(props: IPostToCommnetData) {
   // 댓글 작성 정보 담기
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
-    if (writer !== '') {
-      setWriterError('');
-    }
-    console.log(writer);
   };
 
   const onChangePw = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
-    if (password !== '') {
-      setPasswordError('');
-    }
-    console.log(password);
   };
 
-  const onChangeRating = (event: ChangeEvent<HTMLInputElement>) => {
-    setRating(event.target.value);
-    if (rating !== '') {
-      setratingError('');
-    }
-    console.log(rating);
+  const onChangeRating = (event: number) => {
+    setRating(event);
   };
 
   const onChangeComment = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
-    if (comment !== '') {
-      setcommentError('');
-    }
-    console.log(comment);
   };
 
   // 댓글 작성버튼 클릭
@@ -107,7 +87,7 @@ export default function PostComment(props: IPostToCommnetData) {
         alert(error instanceof Error);
       }
     } else {
-      alert('필수정보가 누락되었습니다');
+      Modal.warning({ content: '필수 입력사항이 미입력 되었습니다' });
     }
   };
 
