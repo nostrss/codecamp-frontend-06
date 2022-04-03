@@ -1,10 +1,16 @@
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from '@apollo/client';
-import { FETCH_POST, DELETE_CONTENS } from './post.queries';
+import {
+  FETCH_POST,
+  DELETE_CONTENS,
+  BOARD_LIKE,
+  BOARD_DISLIKE,
+} from './post.queries';
 import PostUI from './post.presenter';
 import {
   IMutation,
   IMutationDeleteBoardArgs,
+  IMutationLikeBoardArgs,
 } from '../../../commons/types/generated/types';
 import PostComment from '../comment/comment.container';
 
@@ -16,6 +22,16 @@ export default function PostContainer() {
     variables: { boardId: router?.query.postid },
   });
 
+  const [isBoardLike] = useMutation<
+    Pick<IMutation, 'likeBoard'>,
+    IMutationLikeBoardArgs
+  >(BOARD_LIKE);
+
+  const [isBoardDislike] = useMutation<
+    Pick<IMutation, 'dislikeBoard'>,
+    IMutationDislikeBoardArgs
+  >(BOARD_DISLIKE);
+
   // 보드리스트로 이동하기 버튼
   const movetoBoards = () => {
     router.push('/boards');
@@ -26,7 +42,7 @@ export default function PostContainer() {
     router.push(`/boards/post/${router.query.postid}/edit`);
   };
 
-  // 삭제 쿼리 실행 함수 생성(?)
+  // 삭제 쿼리 실행 함수 생성
 
   const [deleteContents] = useMutation<
     Pick<IMutation, 'deleteBoard'>,
@@ -50,6 +66,34 @@ export default function PostContainer() {
     }
   };
 
+  const onClickLike = () => {
+    isBoardLike({
+      variables: {
+        boardId: String(router.query.postid),
+      },
+      refetchQueries: [
+        {
+          query: FETCH_POST,
+          variables: { boardId: String(router.query.postid) },
+        },
+      ],
+    });
+  };
+
+  const onClickDislike = () => {
+    isBoardDislike({
+      variables: {
+        boardId: String(router.query.postid),
+      },
+      refetchQueries: [
+        {
+          query: FETCH_POST,
+          variables: { boardId: String(router.query.postid) },
+        },
+      ],
+    });
+  };
+
   return (
     <>
       <PostUI
@@ -57,6 +101,8 @@ export default function PostContainer() {
         moveUpdate={moveUpdate}
         movetoBoards={movetoBoards}
         deleteButton={deleteButton}
+        onClickLike={onClickLike}
+        onClickDislike={onClickDislike}
       />
       <PostComment data={data} />
     </>

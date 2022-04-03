@@ -8,7 +8,9 @@ export default function BestContentsUI(props) {
         <P.BestContentsItem>
           <P.BestContentsImage></P.BestContentsImage>
           <P.WrapperBestContentsSummary>
-            <P.BestContentsTitle>{props.el.title}</P.BestContentsTitle>
+            <P.BestContentsTitle id={props.el._id} onClick={props.onClickBest}>
+              {props.el.title}
+            </P.BestContentsTitle>
             <P.WrapperFlexRow>
               <P.WrapperFlexColumn70>
                 <P.WrapperFlexRow>

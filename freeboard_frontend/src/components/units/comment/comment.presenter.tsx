@@ -57,7 +57,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
               >
                 {props.fetchCommentData?.data?.fetchBoardComments.map(
                   (item) => (
-                    <P.RowItems key={item.createdAt}>
+                    <P.RowItems key={item._id}>
                       {/* 읽기 모드 댓글 렌더링 */}
                       {props?.commentId === item._id || (
                         <Fragment>
@@ -78,7 +78,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                             <P.RowItems>
                               <P.IconBox>
                                 <button
-                                  id={item._id}
+                                  id={String(item._id)}
                                   onClick={props.onClickEditComment}
                                 >
                                   수정하기
@@ -86,7 +86,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                               </P.IconBox>
                               <P.IconBox>
                                 <button
-                                  id={item._id}
+                                  id={String(item._id)}
                                   onClick={props.onClickDeleteComment}
                                 >
                                   삭제버튼
