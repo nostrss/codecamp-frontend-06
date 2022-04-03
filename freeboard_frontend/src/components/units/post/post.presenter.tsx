@@ -46,13 +46,19 @@ export default function PostUI(props: IFetchPost) {
         <P.PostFooter>
           <P.PostLikes>
             <P.PostLikeItem>
-              <P.PostLikeBtn src='/image/like.png'></P.PostLikeBtn>
+              <P.PostLikeBtn
+                onClick={props.onClickLike}
+                src='/image/like.png'
+              ></P.PostLikeBtn>
               <P.PostLikeCounts>
                 {props.data?.fetchBoard.likeCount}
               </P.PostLikeCounts>
             </P.PostLikeItem>
             <P.PostLikeItem>
-              <P.PostDislikeBtn src='/image/dislike.png'></P.PostDislikeBtn>
+              <P.PostDislikeBtn
+                onClick={props.onClickDislike}
+                src='/image/dislike.png'
+              ></P.PostDislikeBtn>
               <P.PostLikeCounts>
                 {props.data?.fetchBoard.dislikeCount}
               </P.PostLikeCounts>

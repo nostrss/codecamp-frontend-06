@@ -19,11 +19,11 @@ export interface IFetchCommentData {
     data: {
       fetchBoardComments: [
         {
-          _id: string;
+          _id: Key;
           writer: String;
           contents: String;
           rating: any;
-          createdAt: Key;
+          createdAt: String;
           updatedAt: String;
         }
       ];

@@ -13,4 +13,6 @@ export interface IFetchPost {
   moveUpdate: () => void;
   movetoBoards: () => void;
   deleteButton: () => void;
+  onClickLike: () => void;
+  onClickDislike: () => void;
 }

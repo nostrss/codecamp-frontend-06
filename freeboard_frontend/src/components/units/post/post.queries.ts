@@ -26,3 +26,15 @@ export const DELETE_CONTENS = gql`
     deleteBoard(boardId: $boardId)
   }
 `;
+
+export const BOARD_LIKE = gql`
+  mutation likeBoard($boardId: ID!) {
+    likeBoard(boardId: $boardId)
+  }
+`;
+
+export const BOARD_DISLIKE = gql`
+  mutation dislikeBoard($boardId: ID!) {
+    dislikeBoard(boardId: $boardId)
+  }
+`;
