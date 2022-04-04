@@ -135,7 +135,6 @@ export default function PostComment(props: IPostToCommnetData) {
           {
             query: FETCH_COMMENTS,
             variables: {
-              page: 1,
               boardId: props?.data?.fetchBoard?._id,
             },
           },
