@@ -7,16 +7,8 @@ export interface IPostingPathProps {
 }
 
 export interface IPostingUIProps {
-  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePw: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   submitContents: () => void;
   updateButton: () => void;
-  nameError?: string;
-  passwordError?: string;
-  titleError?: string;
-  contentsError?: string;
   isEdit?: boolean;
   originData: any;
   showModal: () => void;
@@ -26,13 +18,23 @@ export interface IPostingUIProps {
   isOpen: boolean;
   warning: boolean;
   isError: String;
-  onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeZipcode: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeAddress1: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeAddress2: (event: ChangeEvent<HTMLInputElement>) => void;
-  zipcode: string;
-  isAddress: any;
-  address2: string;
+  onChangeInputs: (event) => void;
+  inputs: {
+    name: String;
+    password: String;
+    title: String;
+    contents: String;
+    youtube: String;
+    zipcode: string;
+    isAddress: string;
+    address2: string;
+  };
+  isWarning: {
+    nameError: boolean;
+    passwordError: boolean;
+    titleError: boolean;
+    contentsError: boolean;
+  };
 }
 
 export interface ICreateBoardApi {
