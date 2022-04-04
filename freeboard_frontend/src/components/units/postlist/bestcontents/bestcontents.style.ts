@@ -44,6 +44,9 @@ export const BestContentsTitle = styled.p`
   line-height: 27px;
   color: #000000;
   margin-bottom: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const WrapperFlexRow = styled.div`

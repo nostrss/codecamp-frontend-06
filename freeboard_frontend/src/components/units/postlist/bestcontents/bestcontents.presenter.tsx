@@ -1,6 +1,6 @@
 import * as P from './bestcontents.style';
 import { BsFillPersonFill, BsFillHandThumbsUpFill } from 'react-icons/bs';
-
+import { getDate } from '../../../../commons/libraries/utils';
 export default function BestContentsUI(props) {
   return (
     <>
@@ -17,7 +17,9 @@ export default function BestContentsUI(props) {
                   <BsFillPersonFill size='20'></BsFillPersonFill>
                   <P.BestContentsName>{props.el.writer}</P.BestContentsName>
                 </P.WrapperFlexRow>
-                <P.BestContentsDate>{props.el.createdAt}</P.BestContentsDate>
+                <P.BestContentsDate>
+                  {getDate(props.el.createdAt)}
+                </P.BestContentsDate>
               </P.WrapperFlexColumn70>
               <P.WrapperFlexColumn30>
                 <BsFillHandThumbsUpFill

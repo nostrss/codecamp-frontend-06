@@ -1,9 +1,9 @@
 import Tooltip from '@material-ui/core/Tooltip';
 import ReactPlayer from 'react-player';
-
 import { Wrapper, WrapperCanvas } from '../posting/posting.style';
 import * as P from './post.style';
 import { IFetchPost } from './post.type';
+import { getDate } from '../../../commons/libraries/utils';
 
 export default function PostUI(props: IFetchPost) {
   return (
@@ -15,7 +15,7 @@ export default function PostUI(props: IFetchPost) {
             <P.ColumnItems>
               <P.ProfileName>{props.data?.fetchBoard.writer}</P.ProfileName>
               <P.PostCreatedAt>
-                Date : {props.data?.fetchBoard?.createdAt}
+                Date : {getDate(String(props.data?.fetchBoard?.createdAt))}
               </P.PostCreatedAt>
             </P.ColumnItems>
           </P.PostProfile>
