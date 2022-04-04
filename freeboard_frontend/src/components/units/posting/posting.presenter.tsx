@@ -13,6 +13,7 @@ export default function PostingUI(props: IPostingUIProps) {
           <p.ColumnWrapperItem>
             <p.InputLable>작성자</p.InputLable>
             <p.IntputText
+              id='name'
               name='name'
               placeholder='이름을 적어주세요'
               onChange={props.onChangeName}
@@ -24,6 +25,7 @@ export default function PostingUI(props: IPostingUIProps) {
           <p.ColumnWrapperItem>
             <p.InputLable>비밀번호</p.InputLable>
             <p.IntputText
+              id='password'
               type='password'
               placeholder='비밀번호를 입력해주세요'
               onChange={props.onChangePw}
@@ -36,6 +38,7 @@ export default function PostingUI(props: IPostingUIProps) {
             <p.InputLable>제목</p.InputLable>
             <p.Warning>{props.titleError}</p.Warning>
             <p.IntputText
+              id='title'
               name='title'
               placeholder='제목을 작성해주세요'
               onChange={props.onChangeTitle}
@@ -48,6 +51,7 @@ export default function PostingUI(props: IPostingUIProps) {
             <p.InputLable>내용</p.InputLable>
             <p.Warning>{props.contentsError}</p.Warning>
             <p.InputContents
+              id='contents'
               name='contents'
               placeholder='내용을 작성해주세요'
               onChange={props.onChangeContents}
@@ -60,6 +64,7 @@ export default function PostingUI(props: IPostingUIProps) {
             <p.InputLable>주소</p.InputLable>
             <p.RowAddressWrap>
               <p.InputZipCode
+                id='zipcode'
                 name='address'
                 placeholder='07250'
                 readOnly
@@ -83,6 +88,7 @@ export default function PostingUI(props: IPostingUIProps) {
               )}
             </p.RowAddressWrap>
             <p.InputAddress
+              id='isAddress'
               readOnly
               value={
                 props.isAddress ||
@@ -91,6 +97,7 @@ export default function PostingUI(props: IPostingUIProps) {
               }
             ></p.InputAddress>
             <p.IntputText
+              id='address2'
               onChange={props.onChangeAddress2}
               defaultValue={
                 props.originData?.data?.fetchBoard.boardAddress?.addressDetail
@@ -102,6 +109,7 @@ export default function PostingUI(props: IPostingUIProps) {
           <p.ColumnWrapperItem>
             <p.InputLable>유튜브</p.InputLable>
             <p.IntputText
+              id='youtube'
               name='youtube'
               placeholder='링크를 복사해주세요'
               onChange={props.onChangeYoutube}

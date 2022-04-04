@@ -10,22 +10,41 @@ import { Modal } from 'antd';
 export default function PostingContainer(props: IPostingPathProps) {
   // 입력 값 스테이트
   const [name, setName] = useState('');
-  const [nameError, setNameError] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [title, setTitle] = useState('');
-  const [titleError, setTitleError] = useState('');
   const [contents, setContents] = useState('');
-  const [contentsError, setContentsError] = useState('');
   const [youtube, setYoutube] = useState('');
   const [zipcode, setZipcode] = useState('');
   const [isAddress, setIsAddress] = useState('');
   const [address2, setAddress2] = useState('');
 
+  const [nameError, setNameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [titleError, setTitleError] = useState('');
+  const [contentsError, setContentsError] = useState('');
+
   // state 모음
   const [warning, setWarning] = useState(false);
   const [isError, setIsError] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+
+  // const [inputs, setInputs] = useState({
+  //   name: '',
+  //   password: '',
+  //   title: '',
+  //   contents: '',
+  //   youtube: '',
+  //   zipcode: '',
+  //   isAddress: '',
+  //   address2: '',
+  // });
+
+  // const onChangeInputs = (event) => {
+  //   setInputs({
+  //     ...inputs,
+  //     [event.target.id]: event.target.value,
+  //   });
+  // };
 
   // mutation
   const [sendContents] = useMutation(SEND_CONTENTS);
@@ -125,6 +144,7 @@ export default function PostingContainer(props: IPostingPathProps) {
 
   // 수정하기로 들어왔을때  수정버튼 영역
   const updateButton = async () => {
+    console.log('수정클릭');
     const updatePostingData: IUpdateBoardInput = {};
 
     if (title) updatePostingData.title = title;
@@ -137,22 +157,23 @@ export default function PostingContainer(props: IPostingPathProps) {
       if (zipcode) updatePostingData.boardAddress.zipcode = zipcode;
       if (isAddress) updatePostingData.boardAddress.address = isAddress;
       if (address2) updatePostingData.boardAddress.addressDetail = address2;
+    }
 
-      try {
-        await updateContents({
-          variables: {
-            boardId: router.query.postid,
-            password: password,
-            updateBoardInput: updatePostingData,
-          },
-        });
+    try {
+      await updateContents({
+        variables: {
+          boardId: router.query.postid,
+          password: password,
+          updateBoardInput: updatePostingData,
+        },
+      });
 
-        Modal.success({ content: '게시물 수정에 성공하였습니다!' });
-        router.push(`/boards/post/${router.query.postid}`);
-      } catch (error) {
-        setIsError(error.message);
-        setWarning(true);
-      }
+      Modal.success({ content: '게시물 수정에 성공하였습니다!' });
+      router.push(`/boards/post/${router.query.postid}`);
+    } catch (error) {
+      setIsError(error.message);
+      alert(error.message);
+      setWarning(true);
     }
   };
 
@@ -204,6 +225,7 @@ export default function PostingContainer(props: IPostingPathProps) {
       onChangeAddress2={onChangeAddress2}
       zipcode={zipcode}
       address2={address2}
+      // onChangeInputs={onChangeInputs}
     />
   );
 }
