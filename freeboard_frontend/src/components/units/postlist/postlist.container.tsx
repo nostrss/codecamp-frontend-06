@@ -11,8 +11,6 @@ export default function PostListContainer() {
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
 
-  console.table(data);
-
   const onClickTitle = (event: MouseEvent<HTMLElement>) => {
     router.push(`/boards/post/${event.target.id}`);
   };

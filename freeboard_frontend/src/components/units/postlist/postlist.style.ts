@@ -133,6 +133,9 @@ export const BodyBox = styled.div`
   line-height: 50px;
   text-align: center;
   color: #4f4f4f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const WrapperButton = styled.div`

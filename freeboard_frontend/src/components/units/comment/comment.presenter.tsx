@@ -5,6 +5,7 @@ import { IFetchCommentData } from './comment.type';
 import { Fragment } from 'react';
 import { Rate } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
+import { getDate } from '../../../commons/libraries/utils';
 
 export default function PostCommentUI(props: IFetchCommentData) {
   return (
@@ -20,13 +21,13 @@ export default function PostCommentUI(props: IFetchCommentData) {
               type='text'
               placeholder='작성자'
               onChange={props.onChangeWriter}
-              value={props.writer}
+              // value={props.writer}
             ></P.CommentInfoInput>
             <P.CommentInfoInput
               type='password'
               placeholder='비밀번호'
               onChange={props.onChangePw}
-              value={props.password}
+              // value={props.password}
             ></P.CommentInfoInput>
             <Rate onChange={props.onChangeRating} />
           </P.CommentInfo>
@@ -35,7 +36,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
               onChange={props.onChangeComment}
               maxLength={props.textLimit}
               placeholder='개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.'
-              value={props.comment}
+              // value={props.comment}
             ></P.CommentContents>
             <P.RowSpaceBetween>
               <P.CountTextLength>{props.comment.length}/100</P.CountTextLength>
@@ -72,7 +73,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                               </P.RowAlignCenter>
                               <P.UserComments>{item.contents}</P.UserComments>
                               <P.UserCommentsDate>
-                                {item.createdAt}
+                                {getDate(String(item.createdAt))}
                               </P.UserCommentsDate>
                             </P.ColumnItems>
                             <P.RowItems>

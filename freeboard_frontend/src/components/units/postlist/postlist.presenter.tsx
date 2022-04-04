@@ -3,6 +3,7 @@ import * as P from './postlist.style';
 import { BsSearch } from 'react-icons/bs';
 import { IFetchPostList } from './postlist.type';
 import BestContents from './bestcontents/bestcontents.container';
+import { getDate } from '../../../commons/libraries/utils';
 
 export default function PostListUI(props: IFetchPostList) {
   return (
@@ -35,7 +36,7 @@ export default function PostListUI(props: IFetchPostList) {
                 {el.title}
               </P.BodyBox>
               <P.BodyBox>{el.writer}</P.BodyBox>
-              <P.BodyBox>{el.createdAt}</P.BodyBox>
+              <P.BodyBox>{getDate(el.createdAt)}</P.BodyBox>
             </Fragment>
           ))}
         </P.WrapperTableBody>

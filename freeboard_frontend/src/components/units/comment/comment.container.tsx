@@ -41,28 +41,28 @@ export default function PostComment(props: IPostToCommnetData) {
   const onLoadMore = () => {
     if (!fetchCommentData.data) return;
 
-    console.log('onLoad실행');
-    console.log(fetchCommentData.data);
-
     fetchCommentData.fetchMore({
       variables: {
         page:
           Math.ceil(fetchCommentData.data.fetchBoardComments.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.fetchBoardComments)
+        console.log(!fetchMoreResult);
+        if (!fetchMoreResult.fetchBoardComments) {
           return { fetchBoardComments: [...prev.fetchBoardComments] };
-        return {
-          fetchBoardComments: [
-            ...prev.fetchBoardComments,
-            ...fetchMoreResult.fetchBoardComments,
-          ],
-        };
+        } else {
+          console.log(fetchMoreResult);
+
+          return {
+            fetchBoardComments: [
+              ...prev.fetchBoardComments,
+              ...fetchMoreResult.fetchBoardComments,
+            ],
+          };
+        }
       },
     });
   };
-
-  console.log(fetchCommentData.data?.fetchBoardComments);
 
   // 댓글 작성 정보 담기
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
@@ -115,7 +115,7 @@ export default function PostComment(props: IPostToCommnetData) {
         alert(error instanceof Error);
       }
     } else {
-      Modal.warning({ content: '필수 입력사항이 미입력 되었습니다' });
+      Modal.warning({ content: '미입력 항목이 있습니다.' });
     }
   };
 
@@ -164,6 +164,18 @@ export default function PostComment(props: IPostToCommnetData) {
       password: String(password),
       boardCommentId: String(event.target.id),
     };
+    if (comment) {
+      updateData.updateBoardCommentInput.contents = comment;
+    } else {
+      updateData.updateBoardCommentInput.contents =
+        fetchCommentData.data.fetchBoardComments.contents;
+    }
+    if (rating) {
+      updateData.updateBoardCommentInput.rating = rating;
+    } else {
+      updateData.updateBoardCommentInput.rating =
+        fetchCommentData.data.fetchBoardComments.rating;
+    }
 
     try {
       await submitEdit({
@@ -178,17 +190,14 @@ export default function PostComment(props: IPostToCommnetData) {
         ],
       });
       setIsEdit(false);
-      console.log(isEdit);
       setWriter('');
       setPassword('');
       setRating(0);
       setComment('');
       setCommentId('');
       Modal.success({ content: '댓글이 수정되었습니다.' });
-      console.log(isEdit);
     } catch (error) {
-      console.log('catch');
-      alert(error instanceof Error);
+      Modal.error({ content: `${error.message}` });
     }
   };
 
