@@ -28,7 +28,6 @@ const HIDDEN_HEADERS = ['/07-01-map-fruits']
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter()
-  console.log(router)
 
   const isHidden = HIDDEN_HEADERS.includes(router.asPath)
   return (
