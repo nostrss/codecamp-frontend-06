@@ -14,13 +14,14 @@ export default function PostingUI(props: IPostingUIProps) {
             <p.InputLable>작성자</p.InputLable>
             <p.IntputText
               id='name'
-              name='name'
               placeholder='이름을 적어주세요'
-              onChange={props.onChangeName}
+              onChange={props.onChangeInputs}
               defaultValue={props.originData?.data?.fetchBoard.writer}
               readOnly={!!props.originData?.data?.fetchBoard.writer}
             ></p.IntputText>
-            <p.Warning>{props.nameError}</p.Warning>
+            <p.Warning hidden={props.isWarning.nameError}>
+              이름은 필수항목입니다.
+            </p.Warning>
           </p.ColumnWrapperItem>
           <p.ColumnWrapperItem>
             <p.InputLable>비밀번호</p.InputLable>
@@ -28,20 +29,24 @@ export default function PostingUI(props: IPostingUIProps) {
               id='password'
               type='password'
               placeholder='비밀번호를 입력해주세요'
-              onChange={props.onChangePw}
+              onChange={props.onChangeInputs}
             ></p.IntputText>
-            <p.Warning>{props.passwordError}</p.Warning>
+            <p.Warning hidden={props.isWarning.passwordError}>
+              비밀번호는 필수항목입니다.
+            </p.Warning>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
         <p.RowWrapper>
           <p.ColumnWrapperItem>
             <p.InputLable>제목</p.InputLable>
-            <p.Warning>{props.titleError}</p.Warning>
+            <p.Warning hidden={props.isWarning.titleError}>
+              제목을 입력해주세요.
+            </p.Warning>
             <p.IntputText
               id='title'
               name='title'
               placeholder='제목을 작성해주세요'
-              onChange={props.onChangeTitle}
+              onChange={props.onChangeInputs}
               defaultValue={props.originData?.data?.fetchBoard.title}
             ></p.IntputText>
           </p.ColumnWrapperItem>
@@ -49,12 +54,14 @@ export default function PostingUI(props: IPostingUIProps) {
         <p.RowWrapper>
           <p.ColumnWrapperItem>
             <p.InputLable>내용</p.InputLable>
-            <p.Warning>{props.contentsError}</p.Warning>
+            <p.Warning hidden={props.isWarning.contentsError}>
+              컨텐츠를 입력해주세요
+            </p.Warning>
             <p.InputContents
               id='contents'
               name='contents'
               placeholder='내용을 작성해주세요'
-              onChange={props.onChangeContents}
+              onChange={props.onChangeInputs}
               defaultValue={props.originData?.data?.fetchBoard.contents}
             ></p.InputContents>
           </p.ColumnWrapperItem>
@@ -69,11 +76,11 @@ export default function PostingUI(props: IPostingUIProps) {
                 placeholder='07250'
                 readOnly
                 value={
-                  props.zipcode ||
+                  props.inputs.zipcode ||
                   props.originData?.data?.fetchBoard.boardAddress?.zipcode ||
                   ''
                 }
-                onChange={props.onChangeZipcode}
+                onChange={props.onChangeInputs}
               ></p.InputZipCode>
               <p.ButtonZip onClick={props.showModal}>우편번호검색</p.ButtonZip>
               {props.isOpen && (
@@ -91,14 +98,14 @@ export default function PostingUI(props: IPostingUIProps) {
               id='isAddress'
               readOnly
               value={
-                props.isAddress ||
+                props.inputs.isAddress ||
                 props.originData?.data?.fetchBoard.boardAddress?.address ||
                 ''
               }
             ></p.InputAddress>
             <p.IntputText
               id='address2'
-              onChange={props.onChangeAddress2}
+              onChange={props.onChangeInputs}
               defaultValue={
                 props.originData?.data?.fetchBoard.boardAddress?.addressDetail
               }
@@ -112,7 +119,7 @@ export default function PostingUI(props: IPostingUIProps) {
               id='youtube'
               name='youtube'
               placeholder='링크를 복사해주세요'
-              onChange={props.onChangeYoutube}
+              onChange={props.onChangeInputs}
               defaultValue={props.originData?.data?.fetchBoard.youtubeUrl}
             ></p.IntputText>
           </p.ColumnWrapperItem>

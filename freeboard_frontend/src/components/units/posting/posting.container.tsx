@@ -3,133 +3,87 @@ import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { SEND_CONTENTS, UPDATE_CONTENS } from './posting.queries';
 import PostingUI from './posting.presenter';
-import { IPostingPathProps, ICreateBoardApi } from './posting.type';
-import { IUpdateBoardInput } from '../../../../src/commons/types/generated/types';
+import { IPostingPathProps } from './posting.type';
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+  IUpdateBoardInput,
+} from '../../../../src/commons/types/generated/types';
 import { Modal } from 'antd';
 
 export default function PostingContainer(props: IPostingPathProps) {
-  // 입력 값 스테이트
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [title, setTitle] = useState('');
-  const [contents, setContents] = useState('');
-  const [youtube, setYoutube] = useState('');
-  const [zipcode, setZipcode] = useState('');
-  const [isAddress, setIsAddress] = useState('');
-  const [address2, setAddress2] = useState('');
-
-  const [nameError, setNameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [titleError, setTitleError] = useState('');
-  const [contentsError, setContentsError] = useState('');
-
   // state 모음
   const [warning, setWarning] = useState(false);
   const [isError, setIsError] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  // const [inputs, setInputs] = useState({
-  //   name: '',
-  //   password: '',
-  //   title: '',
-  //   contents: '',
-  //   youtube: '',
-  //   zipcode: '',
-  //   isAddress: '',
-  //   address2: '',
-  // });
+  const [inputs, setInputs] = useState({
+    name: '',
+    password: '',
+    title: '',
+    contents: '',
+    youtube: '',
+    zipcode: '',
+    isAddress: '',
+    address2: '',
+  });
 
-  // const onChangeInputs = (event) => {
-  //   setInputs({
-  //     ...inputs,
-  //     [event.target.id]: event.target.value,
-  //   });
-  // };
+  const [isWarning, setIsWarning] = useState({
+    nameError: true,
+    passwordError: true,
+    titleError: true,
+    contentsError: true,
+  });
+
+  const onChangeInputs = (event) => {
+    setInputs({
+      ...inputs,
+      [event.target.id]: event.target.value,
+    });
+  };
 
   // mutation
-  const [sendContents] = useMutation(SEND_CONTENTS);
+  const [sendContents] = useMutation<
+    Pick<IMutation, 'createBoard'>,
+    IMutationCreateBoardArgs
+  >(SEND_CONTENTS);
+
   const [updateContents] = useMutation(UPDATE_CONTENS);
 
   const router = useRouter(); // router세팅
 
-  // 입력값 감지 영역
-  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-    if (name !== '') {
-      setNameError('');
-    }
-  };
-
-  const onChangePw = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-    if (password !== '') {
-      setPasswordError('');
-    }
-  };
-
-  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-    if (title !== '') {
-      setTitleError('');
-    }
-  };
-
-  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setContents(event.target.value);
-    if (contents !== '') {
-      setContentsError('');
-    }
-  };
-
-  const onChangeYoutube = (event: ChangeEvent<HTMLInputElement>) => {
-    setYoutube(event.target.value);
-  };
-
-  const onChangeZipcode = (event: ChangeEvent<HTMLInputElement>) => {
-    setZipcode(event.target.value);
-  };
-
-  const onChangeAddress2 = (event: ChangeEvent<HTMLInputElement>) => {
-    setAddress2(event.target.value);
-  };
-
   // 버튼 영역
   // 새글 작성 완료 버튼
   const submitContents = async () => {
-    const sendPosting: ICreateBoardApi = {
-      writer: String(name),
-      password: String(password),
-      title: String(title),
-      contents: String(contents),
-      youtubeUrl: String(youtube),
-      boardAddress: {
-        zipcode: String(zipcode),
-        address: String(isAddress),
-        addressDetail: String(address2),
-      },
-    };
+    setIsWarning({
+      ...isWarning,
+      nameError: inputs.name ? true : false,
+      passwordError: inputs.password ? true : false,
+      titleError: inputs.title ? true : false,
+      contentsError: inputs.contents ? true : false,
+    });
 
-    if (name === '') {
-      setNameError('name is empty');
-    }
-
-    if (password === '') {
-      setPasswordError('password is empty');
-    }
-
-    if (title === '') {
-      setTitleError('Title is empty');
-    }
-
-    if (contents === '') {
-      setContentsError('contents is empty');
-    }
-
-    if (name !== '' && password !== '' && title !== '' && contents !== '') {
+    if (
+      inputs.name !== '' &&
+      inputs.password !== '' &&
+      inputs.title !== '' &&
+      inputs.contents !== ''
+    ) {
       try {
         const response = await sendContents({
           variables: {
-            createBoardInput: sendPosting,
+            createBoardInput: {
+              writer: String(inputs.name),
+              title: String(inputs.title),
+              contents: String(inputs.contents),
+              password: String(inputs.password),
+              youtubeUrl: String(inputs.youtube),
+              boardAddress: {
+                zipcode: String(inputs.zipcode),
+                address: String(inputs.isAddress),
+                addressDetail: String(inputs.address2),
+              },
+            },
           },
         });
         Modal.success({ content: '게시물 등록에 성공하였습니다!' });
@@ -147,23 +101,26 @@ export default function PostingContainer(props: IPostingPathProps) {
     console.log('수정클릭');
     const updatePostingData: IUpdateBoardInput = {};
 
-    if (title) updatePostingData.title = title;
-    if (contents) updatePostingData.contents = contents;
-    if (youtube) updatePostingData.youtubeUrl = youtube;
+    if (inputs.title) updatePostingData.title = inputs.title;
+    if (inputs.contents) updatePostingData.contents = inputs.contents;
+    if (inputs.youtube) updatePostingData.youtubeUrl = inputs.youtube;
 
     // 주소
-    if (zipcode || isAddress || address2) {
+    if (inputs.zipcode || inputs.isAddress || inputs.address2) {
       updatePostingData.boardAddress = {};
-      if (zipcode) updatePostingData.boardAddress.zipcode = zipcode;
-      if (isAddress) updatePostingData.boardAddress.address = isAddress;
-      if (address2) updatePostingData.boardAddress.addressDetail = address2;
+      if (inputs.zipcode)
+        updatePostingData.boardAddress.zipcode = inputs.zipcode;
+      if (inputs.isAddress)
+        updatePostingData.boardAddress.address = inputs.isAddress;
+      if (inputs.address2)
+        updatePostingData.boardAddress.addressDetail = inputs.address2;
     }
 
     try {
       await updateContents({
         variables: {
           boardId: router.query.postid,
-          password: password,
+          password: inputs.password,
           updateBoardInput: updatePostingData,
         },
       });
@@ -193,22 +150,18 @@ export default function PostingContainer(props: IPostingPathProps) {
   };
 
   const handleComplete = (data: any) => {
-    setIsAddress(data.address);
-    setZipcode(data.zonecode);
+    setInputs({
+      ...inputs,
+      isAddress: data.address,
+      zipcode: data.zonecode,
+    });
+
     setIsOpen(false);
   };
 
   return (
     <PostingUI
       isEdit={props.isEdit}
-      onChangeName={onChangeName}
-      nameError={nameError}
-      onChangePw={onChangePw}
-      passwordError={passwordError}
-      onChangeTitle={onChangeTitle}
-      titleError={titleError}
-      onChangeContents={onChangeContents}
-      contentsError={contentsError}
       submitContents={submitContents}
       updateButton={updateButton}
       originData={props.originData}
@@ -217,15 +170,11 @@ export default function PostingContainer(props: IPostingPathProps) {
       handleCancel={handleCancel}
       handleComplete={handleComplete}
       isOpen={isOpen}
-      isAddress={isAddress}
       warning={warning}
       isError={isError}
-      onChangeYoutube={onChangeYoutube}
-      onChangeZipcode={onChangeZipcode}
-      onChangeAddress2={onChangeAddress2}
-      zipcode={zipcode}
-      address2={address2}
-      // onChangeInputs={onChangeInputs}
+      onChangeInputs={onChangeInputs}
+      inputs={inputs}
+      isWarning={isWarning}
     />
   );
 }
