@@ -23,6 +23,9 @@ const MyColumn = styled.div`
 
 export default function MapBoardPage() {
   const { data, fetchMore } = useQuery(FETCH_BOARDS);
+
+  console.log('data');
+  console.log(data);
   const onLoadMore = () => {
     if (!data) return;
 
