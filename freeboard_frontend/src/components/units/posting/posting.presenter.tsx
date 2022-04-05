@@ -59,11 +59,10 @@ export default function PostingUI(props: IPostingUIProps) {
             </p.Warning>
             <p.InputContents
               id='contents'
-              name='contents'
               placeholder='내용을 작성해주세요'
               onChange={props.onChangeInputs}
               defaultValue={props.originData?.data?.fetchBoard.contents}
-            ></p.InputContents>
+            />
           </p.ColumnWrapperItem>
         </p.RowWrapper>
         <p.RowWrapper>
