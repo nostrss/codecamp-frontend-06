@@ -57,10 +57,10 @@ export default function PostingContainer(props: IPostingPathProps) {
   const submitContents = async () => {
     setIsWarning({
       ...isWarning,
-      nameError: inputs.name ? true : false,
-      passwordError: inputs.password ? true : false,
-      titleError: inputs.title ? true : false,
-      contentsError: inputs.contents ? true : false,
+      nameError: !!inputs.name,
+      passwordError: !!inputs.password,
+      titleError: !!inputs.title,
+      contentsError: !!inputs.contents,
     });
 
     if (
