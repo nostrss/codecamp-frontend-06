@@ -72,7 +72,7 @@ export default function CounterPage() {
     return () => {
       console.log('컴포넌트 사라짐!!');
     };
-  }, []);
+  }, [count]);
 
   // 5. useEffect의 잘못된 사용 예(1. 추가렌더링)
   // useEffect에서 setState를 사용하면 불필요한 랜더링이 발생할수 있어서 권장하지는 않음
