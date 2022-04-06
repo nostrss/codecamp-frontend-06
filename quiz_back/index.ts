@@ -1,4 +1,4 @@
-import { DataSource } from 'typeorm';
+import { DataSource, IsNull } from 'typeorm';
 import { Products } from './Products.postgres';
 import { ApolloServer, gql } from 'apollo-server';
 
@@ -8,6 +8,11 @@ const typeDefs = gql`
       seller: String
       createProductInput: CreateProductInput!
     ): Return
+    updateProduct(
+      productId: String
+      updateProductInput: UpdateProductInput!
+    ): Return
+    deleteProduct(productId: ID): Return
   }
 
   input CreateProductInput {
@@ -35,6 +40,11 @@ const typeDefs = gql`
     price: Int
     createdAt: String
   }
+  input UpdateProductInput {
+    name: String
+    detail: String
+    price: Int
+  }
 `;
 
 const resolvers = {
@@ -46,16 +56,30 @@ const resolvers = {
       });
       return '등록했습니다';
     },
+    updateProduct: async (_: any, args: any) => {
+      await Products.update(
+        { _id: args.productId },
+        { ...args.updateProductInput }
+      );
+      return '수정했습니다';
+    },
+    deleteProduct: async (_: any, args: any) => {
+      await Products.update(
+        { _id: args.productId },
+        { deletedAt: new Date(), isDelete: true }
+      );
+      return '삭제했습니다';
+    },
   },
 
   Query: {
     fetchProduct: async (_: any, args: any) => {
       const result = await Products.find({ where: { _id: args.productId } });
-      console.log('fjdslakfjdl');
+
       return result;
     },
     fetchProducts: async () => {
-      const result = await Products.find();
+      const result = await Products.find({ where: { isDelete: false } });
       console.log('fetchproducts');
       return result;
     },
@@ -90,3 +114,7 @@ AppDataSource.initialize()
   .catch(() => {
     console.log('연결실패');
   });
+
+// deleteProduct(
+//   productId: ID
+//   ): Return
