@@ -12,11 +12,9 @@ import {
 import { Modal } from 'antd';
 
 export default function PostingContainer(props: IPostingPathProps) {
-  // state 모음
-  const [warning, setWarning] = useState(false);
-  const [isError, setIsError] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
+  // input state 모음
   const [inputs, setInputs] = useState({
     name: '',
     password: '',
@@ -28,6 +26,7 @@ export default function PostingContainer(props: IPostingPathProps) {
     address2: '',
   });
 
+  // input값 미입력 상태 state
   const [isWarning, setIsWarning] = useState({
     nameError: true,
     passwordError: true,
@@ -35,24 +34,22 @@ export default function PostingContainer(props: IPostingPathProps) {
     contentsError: true,
   });
 
-  const onChangeInputs = (event) => {
+  // input값 변화 감지 함수
+  const onChangeInputs = (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setInputs({
       ...inputs,
       [event.target.id]: event.target.value,
     });
   };
 
-  // mutation
+  // 새글 작성 시작
   const [sendContents] = useMutation<
     Pick<IMutation, 'createBoard'>,
     IMutationCreateBoardArgs
   >(SEND_CONTENTS);
 
-  const [updateContents] = useMutation(UPDATE_CONTENS);
-
-  const router = useRouter(); // router세팅
-
-  // 버튼 영역
   // 새글 작성 완료 버튼
   const submitContents = async () => {
     setIsWarning({
@@ -89,16 +86,17 @@ export default function PostingContainer(props: IPostingPathProps) {
         Modal.success({ content: '게시물 등록에 성공하였습니다!' });
         router.push(`../boards/post/${response.data.createBoard._id}`);
       } catch (error) {
-        Modal.error({ content: error.message });
-        setIsError(error.message);
+        if (error instanceof Error) Modal.error({ content: error.message });
         setWarning(true);
       }
     }
   };
 
-  // 수정하기로 들어왔을때  수정버튼 영역
+  // 수정하기 영역
+  const [updateContents] = useMutation(UPDATE_CONTENS);
+
+  // 수정하기로 진입했을때 수정버튼 영역
   const updateButton = async () => {
-    console.log('수정클릭');
     const updatePostingData: IUpdateBoardInput = {};
 
     if (inputs.title) updatePostingData.title = inputs.title;
@@ -128,11 +126,14 @@ export default function PostingContainer(props: IPostingPathProps) {
       Modal.success({ content: '게시물 수정에 성공하였습니다!' });
       router.push(`/boards/post/${router.query.postid}`);
     } catch (error) {
-      setIsError(error.message);
-      alert(error.message);
+      if (error instanceof Error) Modal.error({ content: error.message });
       setWarning(true);
     }
   };
+
+  // 모달에 필요한 state
+  const [warning, setWarning] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // antd 모달 띄우기
   const showModal = () => {
@@ -171,7 +172,6 @@ export default function PostingContainer(props: IPostingPathProps) {
       handleComplete={handleComplete}
       isOpen={isOpen}
       warning={warning}
-      isError={isError}
       onChangeInputs={onChangeInputs}
       inputs={inputs}
       isWarning={isWarning}
