@@ -10,6 +10,7 @@ import PostUI from './post.presenter';
 import {
   IMutation,
   IMutationDeleteBoardArgs,
+  IMutationDislikeBoardArgs,
   IMutationLikeBoardArgs,
 } from '../../../commons/types/generated/types';
 import PostComment from '../comment/comment.container';

@@ -17,14 +17,15 @@ export interface IPostingUIProps {
   handleComplete: (data: any) => void;
   isOpen: boolean;
   warning: boolean;
-  isError: String;
-  onChangeInputs: (event) => void;
+  onChangeInputs: (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => void;
   inputs: {
-    name: String;
-    password: String;
-    title: String;
-    contents: String;
-    youtube: String;
+    name: string;
+    password: string;
+    title: string;
+    contents: string;
+    youtube: string;
     zipcode: string;
     isAddress: string;
     address2: string;
@@ -34,18 +35,5 @@ export interface IPostingUIProps {
     passwordError: boolean;
     titleError: boolean;
     contentsError: boolean;
-  };
-}
-
-export interface ICreateBoardApi {
-  writer: string;
-  password: string;
-  title: string;
-  contents: string;
-  youtubeUrl: string;
-  boardAddress: {
-    zipcode: String;
-    address: String;
-    addressDetail: String;
   };
 }

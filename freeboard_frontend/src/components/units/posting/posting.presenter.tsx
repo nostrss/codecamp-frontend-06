@@ -151,14 +151,6 @@ export default function PostingUI(props: IPostingUIProps) {
         >
           {props.isEdit ? '수정' : '등록'}하기
         </p.SubmitButton>
-        <Modal
-          title='에러'
-          visible={props.warning}
-          onOk={props.handleOk}
-          onCancel={props.handleCancel}
-        >
-          {props.isError}
-        </Modal>
       </p.WrapperCanvas>
     </p.Wrapper>
   );
