@@ -2,6 +2,7 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,7 +16,7 @@ export class Products extends BaseEntity {
   _id!: string;
 
   @Column({ type: 'text' })
-  seller!: string;
+  seller?: string;
 
   @Column({ type: 'text' })
   name!: string;
@@ -27,8 +28,11 @@ export class Products extends BaseEntity {
   price!: number;
 
   @CreateDateColumn()
-  createdAt?: Date;
+  createdAt!: Date;
 
   @CreateDateColumn()
-  deletedAt?: Date;
+  deletedAt!: Date;
+
+  @Column({ type: 'boolean', default: 'false' })
+  isDelete!: Boolean;
 }
