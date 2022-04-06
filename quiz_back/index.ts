@@ -24,6 +24,7 @@ const typeDefs = gql`
 
   type Query {
     fetchProduct(productId: String): [ProductReturn]
+    fetchProducts: [ProductReturn!]
   }
 
   type ProductReturn {
@@ -51,6 +52,11 @@ const resolvers = {
     fetchProduct: async (_: any, args: any) => {
       const result = await Products.find({ where: { _id: args.productId } });
       console.log('fjdslakfjdl');
+      return result;
+    },
+    fetchProducts: async () => {
+      const result = await Products.find();
+      console.log('fetchproducts');
       return result;
     },
   },
