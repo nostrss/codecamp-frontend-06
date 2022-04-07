@@ -8,6 +8,8 @@ export interface IFetchPost {
       createdAt: String;
       likeCount: Number;
       dislikeCount: Number;
+      images: Array<string>;
+      youtubeUrl: string;
     };
   };
   moveUpdate: () => void;

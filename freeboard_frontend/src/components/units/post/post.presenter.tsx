@@ -37,7 +37,10 @@ export default function PostUI(props: IFetchPost) {
         </P.PostHeader>
         <P.PostBody>
           <P.PostBodyTitle>{props.data?.fetchBoard.title}</P.PostBodyTitle>
-          <P.PostBodyImg src=''></P.PostBodyImg>
+          <P.PostBodyImg
+            src={`https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}`}
+          />
+
           <P.PostBodySection>
             <P.PostBodyText>{props.data?.fetchBoard.contents}</P.PostBodyText>
             <ReactPlayer url={props.data?.fetchBoard.youtubeUrl} />

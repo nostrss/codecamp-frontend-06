@@ -95,6 +95,8 @@ export default function PostContainer() {
     });
   };
 
+  console.log(data);
+
   return (
     <>
       <PostUI
