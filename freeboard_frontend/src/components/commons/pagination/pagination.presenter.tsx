@@ -4,10 +4,7 @@ import { IPagenationToPaginationUI } from './pagination.type';
 export default function PaginationUI(props: IPagenationToPaginationUI) {
   return (
     <P.Wrapper>
-      <button
-        disabled={props.startPage === 1 ? true : false}
-        onClick={props.onClickPrevPage}
-      >
+      <button disabled={props.startPage === 1} onClick={props.onClickPrevPage}>
         이전페이지
       </button>
       {new Array(10).fill(1).map((el, index) =>
@@ -25,7 +22,7 @@ export default function PaginationUI(props: IPagenationToPaginationUI) {
         )
       )}
       <button
-        disabled={props.lastPage - props.startPage < 10 ? true : false}
+        disabled={props.lastPage - props.startPage < 10}
         onClick={props.onClickNextPage}
       >
         다음페이지

@@ -18,7 +18,6 @@ const WrapperLayout = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const Body = styled.div`
@@ -39,6 +38,7 @@ export default function Layout(props: ILayoutProps) {
     '/boards/post/[postid]',
     '/boards/new',
     '/boards/post/[postid]/edit',
+    '/artic',
   ];
   const isHiddenBanner = HIDDEN_BANNER.includes(router.pathname);
 

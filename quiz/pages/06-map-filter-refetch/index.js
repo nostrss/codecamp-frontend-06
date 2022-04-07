@@ -1,7 +1,5 @@
-import ItemListContainer from '../../src/components/units/06-map-filter-refetch/itemlist.container'
+import ItemListContainer from '../../src/components/units/06-map-filter-refetch/itemlist.container';
 
 export default function ItemList() {
-  return (
-    <ItemListContainer/>
-  )
+  return <ItemListContainer />;
 }
