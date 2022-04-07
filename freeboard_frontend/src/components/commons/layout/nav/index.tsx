@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-
+import { useRouter } from 'next/router';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -21,11 +21,21 @@ const NavButton = styled.button`
 `;
 
 export default function LayoutNav() {
+  const router = useRouter();
+  const onClickBoard = () => {
+    router.push('/boards');
+  };
+
+  const onClickArtic = () => {
+    router.push('/artic');
+  };
+
   return (
     <Wrapper>
-      <NavButton>자유게시판</NavButton>
+      <NavButton onClick={onClickBoard}>자유게시판</NavButton>
       <NavButton>중고마켓</NavButton>
       <NavButton>마이페이지</NavButton>
+      <NavButton onClick={onClickArtic}>Artic</NavButton>
     </Wrapper>
   );
 }

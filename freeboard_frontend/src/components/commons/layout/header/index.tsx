@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { MouseEvent } from 'react';
 
 const Wrapper = styled.div`
   width: 100%;
