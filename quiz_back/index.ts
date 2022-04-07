@@ -114,7 +114,3 @@ AppDataSource.initialize()
   .catch(() => {
     console.log('연결실패');
   });
-
-// deleteProduct(
-//   productId: ID
-//   ): Return
