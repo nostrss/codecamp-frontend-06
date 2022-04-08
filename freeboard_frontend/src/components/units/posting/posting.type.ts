@@ -29,6 +29,7 @@ export interface IPostingUIProps {
     zipcode: string;
     isAddress: string;
     address2: string;
+    images: Array<string>;
   };
   isWarning: {
     nameError: boolean;
@@ -36,4 +37,5 @@ export interface IPostingUIProps {
     titleError: boolean;
     contentsError: boolean;
   };
+  setInputs: any;
 }

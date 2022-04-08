@@ -1,9 +1,8 @@
 import * as p from './posting.style';
-
 import { IPostingUIProps } from './posting.type';
 import { Modal } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
-
+import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
 export default function PostingUI(props: IPostingUIProps) {
   return (
     <p.Wrapper>
@@ -124,12 +123,11 @@ export default function PostingUI(props: IPostingUIProps) {
           </p.ColumnWrapperItem>
         </p.RowWrapper>
         <p.UploadImageWrapper>
-          <p.InputLable>사진 첨부</p.InputLable>
+          {/* <p.InputLable>사진 첨부</p.InputLable>
           <p.UploadButtonWrapper>
             <p.UploadButton></p.UploadButton>
-            <p.UploadButton></p.UploadButton>
-            <p.UploadButton></p.UploadButton>
-          </p.UploadButtonWrapper>
+          </p.UploadButtonWrapper> */}
+          <ImageUpload setInputs={props.setInputs} inputs={props.inputs} />
         </p.UploadImageWrapper>
         <p.RowWrapper>
           <p.ColumnWrapperItem>

@@ -24,6 +24,7 @@ export default function PostingContainer(props: IPostingPathProps) {
     zipcode: '',
     isAddress: '',
     address2: '',
+    images: [''],
   });
 
   // input값 미입력 상태 state
@@ -43,6 +44,7 @@ export default function PostingContainer(props: IPostingPathProps) {
       [event.target.id]: event.target.value,
     });
   };
+  console.log(inputs);
 
   // 새글 작성 시작
   const [sendContents] = useMutation<
@@ -75,6 +77,7 @@ export default function PostingContainer(props: IPostingPathProps) {
               contents: String(inputs.contents),
               password: String(inputs.password),
               youtubeUrl: String(inputs.youtube),
+              images: Array(inputs.images),
               boardAddress: {
                 zipcode: String(inputs.zipcode),
                 address: String(inputs.isAddress),
@@ -102,6 +105,7 @@ export default function PostingContainer(props: IPostingPathProps) {
     if (inputs.title) updatePostingData.title = inputs.title;
     if (inputs.contents) updatePostingData.contents = inputs.contents;
     if (inputs.youtube) updatePostingData.youtubeUrl = inputs.youtube;
+    if (inputs.images) updatePostingData.images = inputs.images;
 
     // 주소
     if (inputs.zipcode || inputs.isAddress || inputs.address2) {
@@ -174,6 +178,7 @@ export default function PostingContainer(props: IPostingPathProps) {
       warning={warning}
       onChangeInputs={onChangeInputs}
       inputs={inputs}
+      setInputs={setInputs}
       isWarning={isWarning}
     />
   );
