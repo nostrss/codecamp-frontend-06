@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: flex-end;
   width: 100%;
   height: 7000px;
 `;
@@ -26,7 +26,7 @@ export const WrapperTitle = styled.div`
 export const ArticItem = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 14%;
   height: auto;
   border-radius: 15px;
   margin: 10px;
