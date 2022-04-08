@@ -1,11 +1,12 @@
 import { useMutation, gql } from '@apollo/client';
-import { Modal } from 'antd';
 import { ChangeEvent, useRef, useState } from 'react';
 import { checkFileValidation } from '../../../commons/libraries/validation';
 import {
   IMutation,
   IMutationUploadFileArgs,
 } from '../../../commons/types/generated/types';
+import styled from '@emotion/styled';
+import { Modal } from 'antd';
 
 const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -15,7 +16,30 @@ const UPLOAD_FILE = gql`
   }
 `;
 
-export default function RestGetPage() {
+export const UploadImageWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+export const UploadButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const UploadButton = styled.button`
+  color: white;
+  width: 78px;
+  height: 78px;
+  background: #bdbdbd;
+  margin-right: 24px;
+`;
+
+export const ImageThumbnail = styled.img`
+  width: 100px;
+  height: auto;
+`;
+
+export default function ImageUpload(props) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [imageUrl, setImageUrl] = useState<string | undefined>('');
@@ -35,6 +59,10 @@ export default function RestGetPage() {
       const result = await uploadFile({ variables: { file } });
       console.log(result.data?.uploadFile.url);
       setImageUrl(result.data?.uploadFile.url);
+      props.setInputs({
+        ...props.inputs,
+        images: `https://storage.googleapis.com/${result.data?.uploadFile.url}`,
+      });
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
@@ -45,21 +73,16 @@ export default function RestGetPage() {
   };
 
   return (
-    <div>
-      <div
-        style={{ width: '150px', height: '150px', backgroundColor: 'gray' }}
-        onClick={onClickImage}
-      >
-        이미지선택
-      </div>
+    <UploadImageWrapper>
+      <UploadButton onClick={onClickImage}>+</UploadButton>
       <input
+        id='images'
         style={{ display: 'none' }}
         type='file'
         onChange={onChangeFile}
         ref={fileRef}
       />
-      <button onClick={callGraphqlApi}>GRAPHQL-API 요청하기!!</button>
-      <img src={`https://storage.googleapis.com/${imageUrl}`} />
-    </div>
+      <ImageThumbnail src={`https://storage.googleapis.com/${imageUrl}`} />
+    </UploadImageWrapper>
   );
 }
