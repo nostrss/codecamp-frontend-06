@@ -17,7 +17,6 @@ export default function PostListContainer() {
 
   const onClickTitle = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target instanceof Element) {
-      console.log(event.target.id);
       router.push(`/boards/post/${event.currentTarget.id}`);
     }
   };

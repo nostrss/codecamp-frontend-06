@@ -23,6 +23,7 @@ export const BestContentsImage = styled.img`
   height: 120px;
   background-color: gray;
   border-radius: 20px 20px 0px 0px;
+  object-fit: cover;
 `;
 
 export const WrapperBestContentsSummary = styled.div`

@@ -39,7 +39,10 @@ export const ImageThumbnail = styled.img`
   height: auto;
 `;
 
-export default function ImageUpload(props) {
+export default function ImageUpload(props: {
+  setInputs: (arg0: any) => void;
+  inputs: any;
+}) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [imageUrl, setImageUrl] = useState<string | undefined>('');
@@ -50,14 +53,12 @@ export default function ImageUpload(props) {
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    console.log(file);
 
     const isValid = checkFileValidation(file);
     if (!isValid) return;
 
     try {
       const result = await uploadFile({ variables: { file } });
-      console.log(result.data?.uploadFile.url);
       setImageUrl(result.data?.uploadFile.url);
       props.setInputs({
         ...props.inputs,
@@ -82,7 +83,10 @@ export default function ImageUpload(props) {
         onChange={onChangeFile}
         ref={fileRef}
       />
-      <ImageThumbnail src={`https://storage.googleapis.com/${imageUrl}`} />
+
+      <ImageThumbnail
+        src={imageUrl ? `https://storage.googleapis.com/${imageUrl}` : ''}
+      />
     </UploadImageWrapper>
   );
 }

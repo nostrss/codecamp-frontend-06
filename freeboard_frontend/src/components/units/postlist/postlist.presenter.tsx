@@ -41,7 +41,7 @@ export default function PostListUI(props: IFetchPostList) {
         </P.WrapperTableHeader>
         <P.WrapperTableBody>
           {props.data?.fetchBoards.map((el, index) => (
-            <Fragment key={el.createdAt}>
+            <Fragment key={el._id}>
               <P.BodyBox>{index + 1}</P.BodyBox>
               <P.BodyBox onClick={props.onClickTitle} id={el._id}>
                 {el.title
