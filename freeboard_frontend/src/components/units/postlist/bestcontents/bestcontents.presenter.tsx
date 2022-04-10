@@ -8,7 +8,13 @@ export default function BestContentsUI(props: IBestcontents) {
     <>
       <P.WrapperBestContents id={props.el._id} onClick={props.onClickBest}>
         <P.BestContentsItem>
-          <P.BestContentsImage></P.BestContentsImage>
+          <P.BestContentsImage
+            src={
+              props.el.images[0]?.startsWith('https', 0)
+                ? `${props.el.images[0]}`
+                : `https://storage.googleapis.com/${props.el.images[0]}`
+            }
+          />
           <P.WrapperBestContentsSummary>
             <P.BestContentsTitle>{props.el.title}</P.BestContentsTitle>
             <P.WrapperFlexRow>

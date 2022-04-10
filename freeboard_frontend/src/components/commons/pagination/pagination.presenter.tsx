@@ -1,5 +1,6 @@
 import * as P from './pagination.style';
 import { IPagenationToPaginationUI } from './pagination.type';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function PaginationUI(props: IPagenationToPaginationUI) {
   return (
@@ -11,7 +12,7 @@ export default function PaginationUI(props: IPagenationToPaginationUI) {
         index + props.startPage <= props.lastPage ? (
           <P.ActivePage
             current={props.currentPage === index + props.startPage}
-            key={index + props.startPage}
+            key={uuidv4()}
             onClick={props.onClickPage}
             id={String(index + props.startPage)}
           >

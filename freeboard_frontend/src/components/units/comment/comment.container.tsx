@@ -50,8 +50,6 @@ export default function PostComment(props: IPostToCommnetData) {
         if (!fetchMoreResult.fetchBoardComments) {
           return { fetchBoardComments: [...prev.fetchBoardComments] };
         } else {
-          console.log(fetchMoreResult);
-
           return {
             fetchBoardComments: [
               ...prev.fetchBoardComments,
@@ -129,7 +127,7 @@ export default function PostComment(props: IPostToCommnetData) {
         await deleteComment({
           variables: {
             password: String(confirmPw),
-            boardCommentId: event.target.id,
+            boardCommentId: event.target.className,
           },
           refetchQueries: [
             {
@@ -141,7 +139,6 @@ export default function PostComment(props: IPostToCommnetData) {
           ],
         });
       } catch (error) {
-        console.log('catch');
         alert(error instanceof Error);
       }
     }
@@ -150,7 +147,7 @@ export default function PostComment(props: IPostToCommnetData) {
   // 댓글 수정icon 클릭
   const onClickEditComment = (event: MouseEvent<HTMLButtonElement>) => {
     if (event.target instanceof Element) {
-      setCommentId(event.target.id);
+      setCommentId(event.target.className);
       setIsEdit(true);
     }
   };

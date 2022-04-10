@@ -37,7 +37,15 @@ export default function PostUI(props: IFetchPost) {
         </P.PostHeader>
         <P.PostBody>
           <P.PostBodyTitle>{props.data?.fetchBoard.title}</P.PostBodyTitle>
-          <P.PostBodyImg src={`${props.data?.fetchBoard.images[0]}`} />
+          {/* 이미지가 https~ URL로 오지 않는 경우가 있어서 추가 */}
+          <P.PostBodyImg
+            hidden={!props.data?.fetchBoard.images[0]}
+            src={
+              props.data?.fetchBoard.images[0]?.startsWith('https', 0)
+                ? `${props.data?.fetchBoard.images[0]}`
+                : `https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}`
+            }
+          />
 
           <P.PostBodySection>
             <P.PostBodyText>{props.data?.fetchBoard.contents}</P.PostBodyText>

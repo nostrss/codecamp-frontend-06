@@ -81,7 +81,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                             <P.RowItems>
                               <P.IconBox>
                                 <button
-                                  id={String(item._id)}
+                                  className={String(item._id)}
                                   onClick={props.onClickEditComment}
                                 >
                                   수정하기
@@ -89,7 +89,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                               </P.IconBox>
                               <P.IconBox>
                                 <button
-                                  id={String(item._id)}
+                                  className={String(item._id)}
                                   onClick={props.onClickDeleteComment}
                                 >
                                   삭제버튼

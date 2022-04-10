@@ -24,7 +24,7 @@ export default function PostingContainer(props: IPostingPathProps) {
     zipcode: '',
     isAddress: '',
     address2: '',
-    images: [''],
+    images: [],
   });
 
   // input값 미입력 상태 state
@@ -77,7 +77,7 @@ export default function PostingContainer(props: IPostingPathProps) {
               contents: String(inputs.contents),
               password: String(inputs.password),
               youtubeUrl: String(inputs.youtube),
-              images: Array(inputs.images),
+              images: inputs.images,
               boardAddress: {
                 zipcode: String(inputs.zipcode),
                 address: String(inputs.isAddress),
@@ -90,6 +90,7 @@ export default function PostingContainer(props: IPostingPathProps) {
         router.push(`../boards/post/${response.data?.createBoard._id}`);
       } catch (error) {
         if (error instanceof Error) Modal.error({ content: error.message });
+        console.log(inputs);
         setWarning(true);
       }
     }
