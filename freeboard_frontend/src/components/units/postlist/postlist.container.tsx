@@ -5,6 +5,7 @@ import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from './postlist.queries';
 import { useRouter } from 'next/router';
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import _ from 'lodash';
+
 export default function PostListContainer() {
   const router = useRouter();
   const { data, refetch } = useQuery(FETCH_BOARDS);

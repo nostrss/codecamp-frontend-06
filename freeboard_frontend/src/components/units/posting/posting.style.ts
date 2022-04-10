@@ -120,7 +120,7 @@ export const InputAddress = styled.input`
 export const UploadImageWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 export const UploadButtonWrapper = styled.div`
   display: flex;
@@ -133,6 +133,12 @@ export const UploadButton = styled.button`
   height: 78px;
   background: #bdbdbd;
   margin-right: 24px;
+`;
+
+export const ImageThumbnail = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 `;
 
 export const RadioWrapper = styled.div`

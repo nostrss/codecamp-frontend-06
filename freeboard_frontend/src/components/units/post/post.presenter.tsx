@@ -4,6 +4,7 @@ import { Wrapper, WrapperCanvas } from '../posting/posting.style';
 import * as P from './post.style';
 import { IFetchPost } from './post.type';
 import { getDate } from '../../../commons/libraries/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function PostUI(props: IFetchPost) {
   return (
@@ -38,14 +39,17 @@ export default function PostUI(props: IFetchPost) {
         <P.PostBody>
           <P.PostBodyTitle>{props.data?.fetchBoard.title}</P.PostBodyTitle>
           {/* 이미지가 https~ URL로 오지 않는 경우가 있어서 추가 */}
-          <P.PostBodyImg
-            hidden={!props.data?.fetchBoard.images[0]}
-            src={
-              props.data?.fetchBoard.images[0]?.startsWith('https', 0)
-                ? `${props.data?.fetchBoard.images[0]}`
-                : `https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}`
-            }
-          />
+          {props.data?.fetchBoard.images.map((el, index) => (
+            <P.PostBodyImg
+              key={uuidv4()}
+              hidden={!props.data?.fetchBoard.images[index]}
+              src={
+                el?.startsWith('https', 0)
+                  ? el
+                  : `https://storage.googleapis.com/${el}`
+              }
+            />
+          ))}
 
           <P.PostBodySection>
             <P.PostBodyText>{props.data?.fetchBoard.contents}</P.PostBodyText>

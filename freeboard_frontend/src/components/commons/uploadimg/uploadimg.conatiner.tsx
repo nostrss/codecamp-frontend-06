@@ -42,6 +42,8 @@ export const ImageThumbnail = styled.img`
 export default function ImageUpload(props: {
   setInputs: (arg0: any) => void;
   inputs: any;
+  onChangeFileUrls: (fileUrl: string) => void;
+  fileUrls: Array<string>;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -60,14 +62,16 @@ export default function ImageUpload(props: {
     try {
       const result = await uploadFile({ variables: { file } });
       setImageUrl(result.data?.uploadFile.url);
-      props.setInputs({
-        ...props.inputs,
-        images: `https://storage.googleapis.com/${result.data?.uploadFile.url}`,
-      });
+      props.onChangeFileUrls(String(result.data?.uploadFile.url));
+      // props.setInputs({
+      //   ...props.inputs,
+      //   images: `https://storage.googleapis.com/${result.data?.uploadFile.url}`,
+      // });
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
+  console.log(props.fileUrls);
 
   const onClickImage = () => {
     fileRef.current?.click();
@@ -82,10 +86,6 @@ export default function ImageUpload(props: {
         type='file'
         onChange={onChangeFile}
         ref={fileRef}
-      />
-
-      <ImageThumbnail
-        src={imageUrl ? `https://storage.googleapis.com/${imageUrl}` : ''}
       />
     </UploadImageWrapper>
   );
