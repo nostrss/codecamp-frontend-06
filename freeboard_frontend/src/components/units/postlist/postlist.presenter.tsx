@@ -4,6 +4,7 @@ import { BsSearch } from 'react-icons/bs';
 import { IFetchPostList } from './postlist.type';
 import BestContents from './bestcontents/bestcontents.container';
 import { getDate } from '../../../commons/libraries/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function PostListUI(props: IFetchPostList) {
   return (
@@ -16,11 +17,21 @@ export default function PostListUI(props: IFetchPostList) {
         <P.WrapperSearch>
           <P.WrapperSearchBar>
             <BsSearch size='24'></BsSearch>
-            <P.SearchBar></P.SearchBar>
+            <P.SearchBar onChange={props.onChangeSearch}></P.SearchBar>
           </P.WrapperSearchBar>
-          <P.DatePeeker type='date'></P.DatePeeker>
-          <P.DatePeeker type='date'></P.DatePeeker>
-          <P.SearchButton>검색하기</P.SearchButton>
+          <P.DatePeeker
+            id='start'
+            onChange={props.onChangeStart}
+            type='date'
+          ></P.DatePeeker>
+          <P.DatePeeker
+            id='end'
+            onChange={props.onChangeEnd}
+            type='date'
+          ></P.DatePeeker>
+          <P.SearchButton onClick={props.onClickSearchDate}>
+            검색하기
+          </P.SearchButton>
         </P.WrapperSearch>
         <P.WrapperTableHeader>
           <P.HearderBox>번호</P.HearderBox>
@@ -33,7 +44,14 @@ export default function PostListUI(props: IFetchPostList) {
             <Fragment key={el.createdAt}>
               <P.BodyBox>{index + 1}</P.BodyBox>
               <P.BodyBox onClick={props.onClickTitle} id={el._id}>
-                {el.title}
+                {el.title
+                  .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+                  .split('#$%')
+                  .map((el) => (
+                    <P.Word key={uuidv4()} isMatched={props.keyword === el}>
+                      {el}
+                    </P.Word>
+                  ))}
               </P.BodyBox>
               <P.BodyBox>{el.writer}</P.BodyBox>
               <P.BodyBox>{getDate(el.createdAt)}</P.BodyBox>

@@ -47,7 +47,6 @@ export default function PostComment(props: IPostToCommnetData) {
           Math.ceil(fetchCommentData.data.fetchBoardComments.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        console.log(!fetchMoreResult);
         if (!fetchMoreResult.fetchBoardComments) {
           return { fetchBoardComments: [...prev.fetchBoardComments] };
         } else {
@@ -122,81 +121,87 @@ export default function PostComment(props: IPostToCommnetData) {
   // 댓글 삭제 버튼 클릭
 
   const onClickDeleteComment = async (event: MouseEvent<HTMLButtonElement>) => {
-    const confirmPw = prompt('비밀번호를 입력하세요');
-    alert(confirmPw);
+    if (event.target instanceof Element) {
+      const confirmPw = prompt('비밀번호를 입력하세요');
+      alert(confirmPw);
 
-    try {
-      await deleteComment({
-        variables: {
-          password: String(confirmPw),
-          boardCommentId: event.target.id,
-        },
-        refetchQueries: [
-          {
-            query: FETCH_COMMENTS,
-            variables: {
-              boardId: props?.data?.fetchBoard?._id,
-            },
+      try {
+        await deleteComment({
+          variables: {
+            password: String(confirmPw),
+            boardCommentId: event.target.id,
           },
-        ],
-      });
-    } catch (error) {
-      console.log('catch');
-      alert(error instanceof Error);
+          refetchQueries: [
+            {
+              query: FETCH_COMMENTS,
+              variables: {
+                boardId: props?.data?.fetchBoard?._id,
+              },
+            },
+          ],
+        });
+      } catch (error) {
+        console.log('catch');
+        alert(error instanceof Error);
+      }
     }
   };
 
   // 댓글 수정icon 클릭
   const onClickEditComment = (event: MouseEvent<HTMLButtonElement>) => {
-    setCommentId(event.target.id);
-    setIsEdit(true);
+    if (event.target instanceof Element) {
+      setCommentId(event.target.id);
+      setIsEdit(true);
+    }
   };
 
   // 수정 완료 버튼 클릭
 
   const onClickSubmitEdit = async (event: MouseEvent<HTMLButtonElement>) => {
-    const updateData: IMutationUpdateBoardCommentArgs = {
-      updateBoardCommentInput: {
-        contents: String(comment),
-        rating: Number(rating),
-      },
-      password: String(password),
-      boardCommentId: String(event.target.id),
-    };
-    if (comment) {
-      updateData.updateBoardCommentInput.contents = comment;
-    } else {
-      updateData.updateBoardCommentInput.contents =
-        fetchCommentData.data.fetchBoardComments.contents;
-    }
-    if (rating) {
-      updateData.updateBoardCommentInput.rating = rating;
-    } else {
-      updateData.updateBoardCommentInput.rating =
-        fetchCommentData.data.fetchBoardComments.rating;
-    }
+    if (event.target instanceof Element) {
+      const updateData: IMutationUpdateBoardCommentArgs = {
+        updateBoardCommentInput: {
+          contents: String(comment),
+          rating: Number(rating),
+        },
+        password: String(password),
+        boardCommentId: String(event.target.id),
+      };
+      if (comment) {
+        updateData.updateBoardCommentInput.contents = comment;
+      } else {
+        updateData.updateBoardCommentInput.contents =
+          fetchCommentData.data.fetchBoardComments.contents;
+      }
+      if (rating) {
+        updateData.updateBoardCommentInput.rating = rating;
+      } else {
+        updateData.updateBoardCommentInput.rating =
+          fetchCommentData.data.fetchBoardComments.rating;
+      }
 
-    try {
-      await submitEdit({
-        variables: updateData,
-        refetchQueries: [
-          {
-            query: FETCH_COMMENTS,
-            variables: {
-              boardId: props?.data?.fetchBoard?._id,
+      try {
+        await submitEdit({
+          variables: updateData,
+          refetchQueries: [
+            {
+              query: FETCH_COMMENTS,
+              variables: {
+                boardId: props?.data?.fetchBoard?._id,
+              },
             },
-          },
-        ],
-      });
-      setIsEdit(false);
-      setWriter('');
-      setPassword('');
-      setRating(0);
-      setComment('');
-      setCommentId('');
-      Modal.success({ content: '댓글이 수정되었습니다.' });
-    } catch (error) {
-      Modal.error({ content: `${error.message}` });
+          ],
+        });
+        setIsEdit(false);
+        setWriter('');
+        setPassword('');
+        setRating(0);
+        setComment('');
+        setCommentId('');
+        Modal.success({ content: '댓글이 수정되었습니다.' });
+      } catch (error) {
+        Modal.error({ content: `${error.message}` });
+      }
     }
   };
 
