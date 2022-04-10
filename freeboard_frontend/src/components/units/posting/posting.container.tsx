@@ -27,6 +27,8 @@ export default function PostingContainer(props: IPostingPathProps) {
     images: [],
   });
 
+  const [fileUrls, setFileUrls] = useState([]);
+
   // input값 미입력 상태 state
   const [isWarning, setIsWarning] = useState({
     nameError: true,
@@ -44,7 +46,14 @@ export default function PostingContainer(props: IPostingPathProps) {
       [event.target.id]: event.target.value,
     });
   };
-  console.log(inputs);
+
+  // input중 이미지는 배열이라 따로 함수 생성
+
+  const onChangeFileUrls = (fileUrl: string) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls.push(fileUrl);
+    setFileUrls(newFileUrls);
+  };
 
   // 새글 작성 시작
   const [sendContents] = useMutation<
@@ -77,7 +86,7 @@ export default function PostingContainer(props: IPostingPathProps) {
               contents: String(inputs.contents),
               password: String(inputs.password),
               youtubeUrl: String(inputs.youtube),
-              images: inputs.images,
+              images: fileUrls,
               boardAddress: {
                 zipcode: String(inputs.zipcode),
                 address: String(inputs.isAddress),
@@ -181,6 +190,8 @@ export default function PostingContainer(props: IPostingPathProps) {
       inputs={inputs}
       setInputs={setInputs}
       isWarning={isWarning}
+      onChangeFileUrls={onChangeFileUrls}
+      fileUrls={fileUrls}
     />
   );
 }

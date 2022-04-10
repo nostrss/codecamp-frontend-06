@@ -38,4 +38,6 @@ export interface IPostingUIProps {
     contentsError: boolean;
   };
   setInputs: any;
+  onChangeFileUrls: (fileUrl: string) => void;
+  fileUrls: Array<string>;
 }

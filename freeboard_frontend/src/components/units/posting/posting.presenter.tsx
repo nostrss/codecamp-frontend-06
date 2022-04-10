@@ -3,6 +3,8 @@ import { IPostingUIProps } from './posting.type';
 import { Modal } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
+import { v4 as uuidv4 } from 'uuid';
+
 export default function PostingUI(props: IPostingUIProps) {
   return (
     <p.Wrapper>
@@ -123,11 +125,22 @@ export default function PostingUI(props: IPostingUIProps) {
           </p.ColumnWrapperItem>
         </p.RowWrapper>
         <p.UploadImageWrapper>
-          {/* <p.InputLable>사진 첨부</p.InputLable>
-          <p.UploadButtonWrapper>
-            <p.UploadButton></p.UploadButton>
-          </p.UploadButtonWrapper> */}
-          <ImageUpload setInputs={props.setInputs} inputs={props.inputs} />
+          <ImageUpload
+            setInputs={props.setInputs}
+            inputs={props.inputs}
+            onChangeFileUrls={props.onChangeFileUrls}
+            fileUrls={props.fileUrls}
+          />
+          {props.fileUrls.map((el, index) => (
+            <p.ImageThumbnail
+              key={uuidv4()}
+              src={
+                el[index].startsWith('https', 0)
+                  ? el
+                  : `https://storage.googleapis.com/${el}`
+              }
+            />
+          ))}
         </p.UploadImageWrapper>
         <p.RowWrapper>
           <p.ColumnWrapperItem>
