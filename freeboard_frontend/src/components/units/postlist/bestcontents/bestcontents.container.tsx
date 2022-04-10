@@ -9,7 +9,7 @@ export default function BestContents() {
   const router = useRouter();
   const onClickBest = (event: MouseEvent<HTMLElement>) => {
     if (event.target instanceof Element)
-      router.push(`/boards/post/${event.target.id}`);
+      router.push(`/boards/post/${event.currentTarget.id}`);
   };
   return (
     <>

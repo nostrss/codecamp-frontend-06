@@ -87,7 +87,7 @@ export default function PostingContainer(props: IPostingPathProps) {
           },
         });
         Modal.success({ content: '게시물 등록에 성공하였습니다!' });
-        router.push(`../boards/post/${response.data.createBoard._id}`);
+        router.push(`../boards/post/${response.data?.createBoard._id}`);
       } catch (error) {
         if (error instanceof Error) Modal.error({ content: error.message });
         setWarning(true);
