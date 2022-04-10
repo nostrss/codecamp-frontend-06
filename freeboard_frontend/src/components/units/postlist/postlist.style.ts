@@ -38,6 +38,7 @@ export const WrapperFlexRow = styled.div`
   height: 100%;
 `;
 
+// search 시작
 export const WrapperSearch = styled.div`
   display: flex;
   flex-direction: row;
@@ -66,6 +67,7 @@ export const SearchBar = styled.input`
 `;
 
 export const DatePeeker = styled.input`
+  font-size: small;
   width: 120px;
   height: 100%;
   border: #bdbdbd;
@@ -86,6 +88,8 @@ export const SearchButton = styled.button`
   text-align: center;
   color: #ffffff;
 `;
+
+// search end
 
 export const WrapperTable = styled.div`
   display: grid;
@@ -146,4 +150,12 @@ export const WrapperButton = styled.div`
   flex-direction: row;
   justify-content: right;
   padding: 20px 0px;
+`;
+
+interface IProps {
+  isMatched: boolean;
+}
+
+export const Word = styled.span`
+  color: ${(props: IProps) => (props.isMatched ? 'red' : 'black')};
 `;

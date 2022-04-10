@@ -8,7 +8,8 @@ export default function BestContents() {
   const { data } = useQuery(FETCH_BOARD_BEST);
   const router = useRouter();
   const onClickBest = (event: MouseEvent<HTMLElement>) => {
-    router.push(`/boards/post/${event.target.id}`);
+    if (event.target instanceof Element)
+      router.push(`/boards/post/${event.target.id}`);
   };
   return (
     <>

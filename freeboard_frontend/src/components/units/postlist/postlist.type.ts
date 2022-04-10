@@ -1,4 +1,4 @@
-import { Key, MouseEvent } from 'react';
+import { ChangeEvent, Key, MouseEvent } from 'react';
 
 export interface IFetchPostList {
   data: {
@@ -14,6 +14,12 @@ export interface IFetchPostList {
       }
     ];
   };
-  onClickTitle: (event: MouseEvent<HTMLElement>) => void;
+  onClickTitle: (event: MouseEvent<HTMLDivElement>) => void;
   onClickMoveWrite: (event: MouseEvent<HTMLElement>) => void;
+  keyword: string;
+  setKeyword: Function;
+  onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeStart: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeEnd: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickSearchDate: (event: MouseEvent<HTMLButtonElement>) => void;
 }
