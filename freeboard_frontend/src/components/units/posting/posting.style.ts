@@ -121,24 +121,14 @@ export const UploadImageWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-`;
-export const UploadButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-export const UploadButton = styled.button`
-  color: white;
-  width: 78px;
-  height: 78px;
-  background: #bdbdbd;
-  margin-right: 24px;
+  justify-content: flex-start;
 `;
 
 export const ImageThumbnail = styled.img`
   width: 100px;
   height: 100px;
   object-fit: cover;
+  margin-right: 20px;
 `;
 
 export const RadioWrapper = styled.div`

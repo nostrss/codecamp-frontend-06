@@ -17,26 +17,17 @@ const UPLOAD_FILE = gql`
 `;
 
 export const UploadImageWrapper = styled.div`
-  width: 100%;
+  width: 100px;
   display: flex;
   flex-direction: column;
-`;
-export const UploadButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
+  margin-right: 20px;
 `;
 
 export const UploadButton = styled.button`
   color: white;
-  width: 78px;
-  height: 78px;
-  background: #bdbdbd;
-  margin-right: 24px;
-`;
-
-export const ImageThumbnail = styled.img`
   width: 100px;
-  height: auto;
+  height: 100px;
+  background: #bdbdbd;
 `;
 
 export default function ImageUpload(props: {
@@ -63,10 +54,6 @@ export default function ImageUpload(props: {
       const result = await uploadFile({ variables: { file } });
       setImageUrl(result.data?.uploadFile.url);
       props.onChangeFileUrls(String(result.data?.uploadFile.url));
-      // props.setInputs({
-      //   ...props.inputs,
-      //   images: `https://storage.googleapis.com/${result.data?.uploadFile.url}`,
-      // });
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }

@@ -191,3 +191,26 @@ export const ColumnItems = styled.div`
   justify-content: flex-start;
   padding-left: 20px;
 `;
+
+export const SliderWrapper = styled.div`
+  width: 100%;
+  height: 600px;
+  padding: 20px 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SliderItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 500px;
+  background-color: #fff;
+`;
+
+export const SliderImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;

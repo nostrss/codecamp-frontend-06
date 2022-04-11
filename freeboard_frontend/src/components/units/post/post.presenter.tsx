@@ -5,8 +5,18 @@ import * as P from './post.style';
 import { IFetchPost } from './post.type';
 import { getDate } from '../../../commons/libraries/utils';
 import { v4 as uuidv4 } from 'uuid';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function PostUI(props: IFetchPost) {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <Wrapper>
       <WrapperCanvas>
@@ -38,19 +48,26 @@ export default function PostUI(props: IFetchPost) {
         </P.PostHeader>
         <P.PostBody>
           <P.PostBodyTitle>{props.data?.fetchBoard.title}</P.PostBodyTitle>
-          {/* 이미지가 https~ URL로 오지 않는 경우가 있어서 추가 */}
-          {props.data?.fetchBoard.images.map((el, index) => (
-            <P.PostBodyImg
-              key={uuidv4()}
-              hidden={!props.data?.fetchBoard.images[index]}
-              src={
-                el?.startsWith('https', 0)
-                  ? el
-                  : `https://storage.googleapis.com/${el}`
-              }
-            />
-          ))}
-
+          {props.data?.fetchBoard.images[0] ? (
+            <P.SliderWrapper>
+              <Slider {...settings}>
+                {props.data?.fetchBoard.images.map((el, index) => (
+                  <P.SliderItem key={uuidv4()}>
+                    <P.SliderImg
+                      hidden={!props.data?.fetchBoard.images[index]}
+                      src={
+                        el?.startsWith('https', 0)
+                          ? el
+                          : `https://storage.googleapis.com/${el}`
+                      }
+                    />
+                  </P.SliderItem>
+                ))}
+              </Slider>
+            </P.SliderWrapper>
+          ) : (
+            ''
+          )}
           <P.PostBodySection>
             <P.PostBodyText>{props.data?.fetchBoard.contents}</P.PostBodyText>
             <ReactPlayer url={props.data?.fetchBoard.youtubeUrl} />
