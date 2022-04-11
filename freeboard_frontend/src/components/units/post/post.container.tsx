@@ -23,13 +23,6 @@ export default function PostContainer() {
     variables: { boardId: router?.query.postid },
   });
 
-  // if (data?.fetchBoard?.images[0]) {
-  //   if (!data.fetchBoard.images[0].startsWith('https', 0)) {
-  //     const tmpStirng = `https://storage.googleapis.com/${data.fetchBoard.images[0]}`;
-  //     data.fetchBoard.images[0] = tmpStirng;
-  //   }
-  // }
-
   const [isBoardLike] = useMutation<
     Pick<IMutation, 'likeBoard'>,
     IMutationLikeBoardArgs
