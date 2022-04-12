@@ -1,5 +1,17 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { accessTokenState } from '../../../../commons/store';
+import { gql, useQuery } from '@apollo/client';
+
+const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      email
+      name
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -48,9 +60,16 @@ const SignUpButton = styled.button`
 `;
 
 export default function LayoutHeader() {
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const router = useRouter();
+  const [isToken] = useRecoilState(accessTokenState);
+
   const onClickLogo = () => {
     router.push('/boards');
+  };
+
+  const onClickSignIn = () => {
+    router.push('/signin');
   };
 
   return (
@@ -58,8 +77,14 @@ export default function LayoutHeader() {
       <WrapperHeader>
         <WrapperLogo onClick={onClickLogo}>NoStrss</WrapperLogo>
         <WrapperHeaderMenu>
-          <SignUpButton>로그인</SignUpButton>
-          <SignUpButton>회원가입</SignUpButton>
+          {isToken ? (
+            <div>{data?.fetchUserLoggedIn.name}님 환영합니다</div>
+          ) : (
+            <>
+              <SignUpButton onClick={onClickSignIn}>로그인</SignUpButton>
+              <SignUpButton>회원가입</SignUpButton>
+            </>
+          )}
         </WrapperHeaderMenu>
       </WrapperHeader>
     </Wrapper>

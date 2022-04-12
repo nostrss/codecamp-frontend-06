@@ -99,7 +99,6 @@ export default function PostingContainer(props: IPostingPathProps) {
         router.push(`../boards/post/${response.data?.createBoard._id}`);
       } catch (error) {
         if (error instanceof Error) Modal.error({ content: error.message });
-        console.log(inputs);
         setWarning(true);
       }
     }
