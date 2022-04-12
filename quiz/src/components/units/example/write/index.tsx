@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { isEditState } from '../../../../components/commons/ store/index';
+import { isEditState } from '../../../commons/store/index';
 
 export default function WriteComponenet() {
   const [isEdit, setIsEdit] = useRecoilState(isEditState);
