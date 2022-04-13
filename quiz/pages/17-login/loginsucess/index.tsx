@@ -20,7 +20,6 @@ export default function LoginSuccessPage() {
 
   const [load, setLoad] = useState(false);
 
-  console.log(data);
   console.log(isToken);
 
   useEffect(() => {
