@@ -7,7 +7,7 @@ import Button01 from '../../src/components/commons/buttons/01';
 
 const Error = styled.div`
   color: red;
-  font-size: 9px;
+  font-size: 12px;
 `;
 
 interface IFormvalues {
