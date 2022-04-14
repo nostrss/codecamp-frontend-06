@@ -28,27 +28,25 @@ const SliderTitle = styled.h3`
   line-height: 400px;
 `;
 
-function NextArrow(props: { className: any; style: any }) {
-  const { className, style } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block', background: 'red' }}
-    />
-  );
-}
+const StyledSlider = styled(Slider)`
+  .slick-prev {
+    left: 0px;
+    z-index: 10;
+  }
+  .slick-next {
+    right: 15px;
+    z-index: 10;
+  }
+  .slick-next:before {
+    color: black;
+    font-size: 40px;
+  }
 
-// function PrevArrow(props) {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div
-//       className={className}
-//       style={{ ...style, display: 'block', background: 'green' }}
-//       onClick={onClick}
-//     />
-//   );
-// }
-
+  .slick-prev:before {
+    color: black;
+    font-size: 40px;
+  }
+`;
 export default function LayoutBanner() {
   const settings = {
     dots: true,
@@ -56,13 +54,12 @@ export default function LayoutBanner() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    NextArrow: <NextArrow className={undefined} style={undefined} />,
   };
 
   return (
     <>
       <Wrapper>
-        <Slider {...settings}>
+        <StyledSlider {...settings}>
           <SliderItem>
             <SliderTitle>1</SliderTitle>
           </SliderItem>
@@ -81,7 +78,7 @@ export default function LayoutBanner() {
           <SliderItem>
             <SliderTitle>6</SliderTitle>
           </SliderItem>
-        </Slider>
+        </StyledSlider>
       </Wrapper>
     </>
   );

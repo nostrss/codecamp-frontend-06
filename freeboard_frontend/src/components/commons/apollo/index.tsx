@@ -14,7 +14,8 @@ interface IApolloProps {
 }
 
 export default function ApolloConfig(props: IApolloProps) {
-  const [accessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
   const uploadLink = createUploadLink({
     uri: 'http://backend06.codebootcamp.co.kr/graphql',
     headers: { Authorization: `Bearer ${accessToken}` },
