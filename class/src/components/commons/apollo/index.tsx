@@ -7,7 +7,7 @@ import {
 import { createUploadLink } from 'apollo-upload-client';
 import { ReactNode, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { accessTokenState } from '../../../commons/store';
+import { accessTokenState, userInfoState } from '../../../commons/store';
 
 interface IApolloProps {
   children: ReactNode;
@@ -15,6 +15,7 @@ interface IApolloProps {
 
 export default function ApolloConfig(props: IApolloProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setUserInfo] = useRecoilState(userInfoState);
 
   // 브라우저에서 실행되야 하는 부분이 서버에서 실행이 되어 문제가 발생할때!!
   // 1번 방법 : 더이상 지원되지 않음
@@ -27,18 +28,21 @@ export default function ApolloConfig(props: IApolloProps) {
   // window = 브라우저
 
   // 2번 방법 :
-  if (typeof window !== 'undefined') {
-    console.log('여기는 브라우저이다');
-    // const mylocalToken = localStorage.getItem('accessToken');
-    // setAccessToken(mylocalToken || '');
-  } else {
-    console.log('여기는 프론트 엔드 서버다');
-  }
+  // if (typeof window !== 'undefined') {
+  //   console.log('여기는 브라우저이다');
+  // const mylocalToken = localStorage.getItem('accessToken');
+  // setAccessToken(mylocalToken || '');
+  // } else {
+  //   console.log('여기는 프론트 엔드 서버다');
+  // }
 
   // 3번 방법 : useEffect로 실행, useEffect는 pre렌더링때 실행이 되지 않기 때문에 괜찮음
   useEffect(() => {
     const mylocalToken = localStorage.getItem('accessToken');
+    // 문자열로 저장되어
+    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
     setAccessToken(mylocalToken || '');
+    setUserInfo(userInfo);
   }, []);
 
   const uploadLink = createUploadLink({
