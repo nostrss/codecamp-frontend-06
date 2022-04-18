@@ -30,10 +30,14 @@ export default function LayoutNav() {
     router.push('/artic');
   };
 
+  const onClickUsedMarket = () => {
+    router.push('/usedmarket');
+  };
+
   return (
     <Wrapper>
       <NavButton onClick={onClickBoard}>자유게시판</NavButton>
-      <NavButton>중고마켓</NavButton>
+      <NavButton onClick={onClickUsedMarket}>중고마켓</NavButton>
       <NavButton>마이페이지</NavButton>
       <NavButton onClick={onClickArtic}>Artic</NavButton>
     </Wrapper>
