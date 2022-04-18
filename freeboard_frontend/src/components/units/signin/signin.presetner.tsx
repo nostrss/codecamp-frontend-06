@@ -5,34 +5,31 @@ export default function SignInUI(props: ISingninPresenter) {
   return (
     <U.WrapperDiv>
       <U.SignUpWrapperDiv>
-        <U.SignUpForm id='signup'>
+        <U.SignUpForm onSubmit={props.handleSubmit(props.onClickSignin)}>
           <U.SignUpTitleH1>회원가입</U.SignUpTitleH1>
 
           <U.SignUpItemDiv>
             <U.SignUpItemLabel htmlFor='email'>이메일</U.SignUpItemLabel>
             <U.SignUpItemInput
-              onChange={props.onChangeEmail}
+              {...props.register('email')}
               type='email'
-              pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+$'
               placeholder='이메일을 입력해주세요'
-              id='email'
-              required
             />
+            <U.Warning>{props.formState.errors.email?.message}</U.Warning>
           </U.SignUpItemDiv>
 
           <U.SignUpItemDiv>
             <U.SignUpItemLabel htmlFor='password'>비밀번호</U.SignUpItemLabel>
             <U.SignUpItemInput
-              onChange={props.onChangePassword}
+              {...props.register('password')}
               type='password'
               placeholder='비밀번호를 입력해주세요'
-              id='password'
-              required
             />
+            <U.Warning>{props.formState.errors?.password?.message}</U.Warning>
           </U.SignUpItemDiv>
 
           <U.SignUpItemDiv>
-            <U.SignUpItemBtn type='button' onClick={props.onClickSignin}>
+            <U.SignUpItemBtn type='submit' isActive={props.formState?.isValid}>
               로그인
             </U.SignUpItemBtn>
           </U.SignUpItemDiv>
