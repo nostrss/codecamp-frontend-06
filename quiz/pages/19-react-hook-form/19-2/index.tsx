@@ -63,6 +63,7 @@ export default function ReactHookForm() {
 
   const onClickSubmit = (data: IFormvalues) => {
     alert('정상적으로 입력하셨습니다');
+    console.log(data);
   };
 
   return (
