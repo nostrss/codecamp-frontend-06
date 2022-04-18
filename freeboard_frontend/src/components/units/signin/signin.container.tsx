@@ -30,6 +30,8 @@ export default function SignInContainer() {
 
     const accessToken = result.data.loginUser.accessToken;
     setAccessToken(accessToken);
+    localStorage.setItem('accessToken', accessToken);
+    console.log(accessToken);
     router.push('/boards');
   };
 

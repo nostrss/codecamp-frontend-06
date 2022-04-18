@@ -114,7 +114,7 @@ export default function PostingContainer(props: IPostingPathProps) {
     if (inputs.title) updatePostingData.title = inputs.title;
     if (inputs.contents) updatePostingData.contents = inputs.contents;
     if (inputs.youtube) updatePostingData.youtubeUrl = inputs.youtube;
-    if (inputs.images) updatePostingData.images = inputs.images;
+    if (inputs.images) updatePostingData.images = fileUrls;
 
     // 주소
     if (inputs.zipcode || inputs.isAddress || inputs.address2) {
