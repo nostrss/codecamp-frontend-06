@@ -81,3 +81,8 @@ export const SignUpItemBtn = styled.button`
   padding: 20px 16px;
   border-radius: 16px;
 `;
+
+export const Warning = styled.p`
+  color: red;
+  font-size: 12px;
+`;
