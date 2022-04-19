@@ -1,35 +1,36 @@
-import LayoutBanner from './banner'
-import LayoutHeader from './header'
-import LayoutNav from './nav'
-import styled from '@emotion/styled'
-import LayoutFooter from './footer'
-import { ReactNode } from 'react'
-import { useRouter } from 'next/router'
+import LayoutBanner from './banner';
+import LayoutHeader from './header';
+import LayoutNav from './nav';
+import styled from '@emotion/styled';
+import LayoutFooter from './footer';
+import { ReactNode } from 'react';
+import { useRouter } from 'next/router';
 
 const LayoutSidebar = styled.div`
   width: 200px;
   height: auto;
   background-color: lightblue;
-`
+`;
 
 const Body = styled.div`
+  width: 100%;
   height: auto;
-`
+`;
 
 const BodyWrapper = styled.div`
   display: flex;
-`
+`;
 
 interface ILayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
-const HIDDEN_HEADERS = ['/07-01-map-fruits']
+const HIDDEN_HEADERS = ['/07-01-map-fruits'];
 
 export default function Layout(props: ILayoutProps) {
-  const router = useRouter()
+  const router = useRouter();
 
-  const isHidden = HIDDEN_HEADERS.includes(router.asPath)
+  const isHidden = HIDDEN_HEADERS.includes(router.asPath);
   return (
     <>
       {!isHidden && <LayoutHeader />}
@@ -41,5 +42,5 @@ export default function Layout(props: ILayoutProps) {
       </BodyWrapper>
       <LayoutFooter />
     </>
-  )
+  );
 }
