@@ -6,8 +6,8 @@ export const CREAT_ITEM = gql`
       _id
       name
       remarks
-      remarks
       contents
+      price
     }
   }
 `;
