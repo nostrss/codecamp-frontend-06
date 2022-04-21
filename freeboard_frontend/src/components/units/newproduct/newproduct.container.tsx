@@ -1,7 +1,7 @@
-// import { ChangeEvent, useState } from 'react';
-// import { useRouter } from 'next/router';
-// import { useMutation } from '@apollo/client';
-// import { SEND_CONTENTS, UPDATE_CONTENS } from './newproduct.queries';
+import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useMutation } from '@apollo/client';
+import { CREAT_ITEM } from './newproduct.queries';
 import NewProductUI from './newproduct.presenter';
 // import { IPostingPathProps } from './newproduct.type';
 // import {
@@ -9,26 +9,18 @@ import NewProductUI from './newproduct.presenter';
 //   IMutationCreateBoardArgs,
 //   IUpdateBoardInput,
 // } from '../../../commons/types/generated/types';
-// import { Modal } from 'antd';
-import { userInfoState } from '../../../commons/store';
+import { Modal } from 'antd';
 
 export default function NewProductContainer(props) {
-  const localUserInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
-  console.log(localUserInfo);
-  // const router = useRouter();
+  const router = useRouter();
 
-  // // input state 모음
-  // const [inputs, setInputs] = useState({
-  //   name: '',
-  //   password: '',
-  //   title: '',
-  //   contents: '',
-  //   youtube: '',
-  //   zipcode: '',
-  //   isAddress: '',
-  //   address2: '',
-  //   images: [],
-  // });
+  // input state 모음
+  const [inputs, setInputs] = useState({
+    name: '',
+    remarks: '',
+    contents: '',
+    price: 0,
+  });
 
   // const [fileUrls, setFileUrls] = useState([]);
 
@@ -41,14 +33,14 @@ export default function NewProductContainer(props) {
   // });
 
   // // input값 변화 감지 함수
-  // const onChangeInputs = (
-  //   event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  // ) => {
-  //   setInputs({
-  //     ...inputs,
-  //     [event.target.id]: event.target.value,
-  //   });
-  // };
+  const onChangeInputs = (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setInputs({
+      ...inputs,
+      [event.target.id]: event.target.value,
+    });
+  };
 
   // // input중 이미지는 배열이라 따로 함수 생성
 
@@ -58,11 +50,28 @@ export default function NewProductContainer(props) {
   //   setFileUrls(newFileUrls);
   // };
 
-  // // 새글 작성 시작
-  // const [sendContents] = useMutation<
-  //   Pick<IMutation, 'createBoard'>,
-  //   IMutationCreateBoardArgs
-  // >(SEND_CONTENTS);
+  // 상품등록
+  const [createItem] = useMutation(CREAT_ITEM);
+
+  const onClickCreateItem = async () => {
+    try {
+      const result = await createItem({
+        variables: {
+          createUseditemInput: {
+            name: inputs.name,
+            remarks: inputs.remarks,
+            contents: inputs.contents,
+            price: Number(inputs.price),
+          },
+        },
+      });
+      console.log('등록완료');
+      console.log(result);
+      router.push(`../usedmarket/product/${result.data?.createUseditem._id}`);
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: error.message });
+    }
+  };
 
   // // 새글 작성 완료 버튼
   // const submitContents = async () => {
@@ -178,22 +187,24 @@ export default function NewProductContainer(props) {
 
   return (
     <NewProductUI
-    // isEdit={props.isEdit}
-    // submitContents={submitContents}
-    // updateButton={updateButton}
-    // originData={props.originData}
-    // showModal={showModal}
-    // handleOk={handleOk}
-    // handleCancel={handleCancel}
-    // handleComplete={handleComplete}
-    // isOpen={isOpen}
-    // warning={warning}
-    // onChangeInputs={onChangeInputs}
-    // inputs={inputs}
-    // setInputs={setInputs}
-    // isWarning={isWarning}
-    // onChangeFileUrls={onChangeFileUrls}
-    // fileUrls={fileUrls}
+      onClickCreateItem={onClickCreateItem}
+      onChangeInputs={onChangeInputs}
+      // isEdit={props.isEdit}
+      // submitContents={submitContents}
+      // updateButton={updateButton}
+      // originData={props.originData}
+      // showModal={showModal}
+      // handleOk={handleOk}
+      // handleCancel={handleCancel}
+      // handleComplete={handleComplete}
+      // isOpen={isOpen}
+      // warning={warning}
+      // onChangeInputs={onChangeInputs}
+      // inputs={inputs}
+      // setInputs={setInputs}
+      // isWarning={isWarning}
+      // onChangeFileUrls={onChangeFileUrls}
+      // fileUrls={fileUrls}
     />
   );
 }

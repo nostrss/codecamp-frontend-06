@@ -20,18 +20,31 @@ export default function NewProductUI(props) {
               제목을 입력해주세요.
             </p.Warning> */}
           <p.IntputText
-          // id='title'
-          // name='title'
-          // placeholder='제목을 작성해주세요'
-          // onChange={props.onChangeInputs}
-          // defaultValue={props.originData?.data?.fetchBoard.title}
+            id='name'
+            onChange={props.onChangeInputs}
+            // id='title'
+            // name='title'
+            // placeholder='제목을 작성해주세요'
+            // onChange={props.onChangeInputs}
+            // defaultValue={props.originData?.data?.fetchBoard.title}
           ></p.IntputText>
-          <p.InputLable>한줄요약</p.InputLable>
-          <p.IntputText></p.IntputText>
+          <p.InputLable id='remarks' onChange={props.onChangeInputs}>
+            한줄요약
+          </p.InputLable>
+          <p.IntputText
+            id='remarks'
+            onChange={props.onChangeInputs}
+          ></p.IntputText>
           <p.InputLable>상품설명</p.InputLable>
-          <p.InputContents></p.InputContents>
+          <p.InputContents
+            id='contents'
+            onChange={props.onChangeInputs}
+          ></p.InputContents>
           <p.InputLable>판매가격</p.InputLable>
-          <p.IntputText></p.IntputText>
+          <p.IntputText
+            id='price'
+            onChange={props.onChangeInputs}
+          ></p.IntputText>
           <p.InputLable>태그입력</p.InputLable>
           <p.IntputText></p.IntputText>
         </p.ColumnWrapper>
@@ -102,9 +115,7 @@ export default function NewProductUI(props) {
             </p.RadioWrapper>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
-        <p.SubmitButton
-        // onClick={props.isEdit ? props.updateButton : props.submitContents}
-        >
+        <p.SubmitButton onClick={props.onClickCreateItem}>
           {/* {props.isEdit ? '수정' : '등록'}하기 */} 등록
         </p.SubmitButton>
       </p.WrapperCanvas>
