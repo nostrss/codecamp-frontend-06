@@ -1,9 +1,9 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import { accessTokenState } from '../../../commons/store';
+import { accessTokenState, userInfoState } from '../../../commons/store';
 import SignInUI from './signin.presetner';
-import { LOGIN_USER } from './signin.query';
+import { LOGIN_USER, FETCH_USER_LOGGED_IN } from './signin.query';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -25,6 +25,7 @@ const schema = yup
 
 export default function SignInContainer() {
   const [, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setUserInfo] = useRecoilState(userInfoState);
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -32,6 +33,7 @@ export default function SignInContainer() {
 
   const [loginUser] = useMutation(LOGIN_USER);
   const router = useRouter();
+  const client = useApolloClient();
 
   const onClickSignin = async (data: any) => {
     const result = await loginUser({
@@ -39,9 +41,23 @@ export default function SignInContainer() {
     });
 
     const accessToken = result.data.loginUser.accessToken;
+
+    const resultUserInfo = await client.query({
+      query: FETCH_USER_LOGGED_IN,
+      context: {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    });
+
+    const userInfo = resultUserInfo.data.fetchUserLoggedIn;
+
     setAccessToken(accessToken);
     localStorage.setItem('accessToken', accessToken);
-    console.log(accessToken);
+    setUserInfo(userInfo);
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
     router.push('/boards');
   };
 
