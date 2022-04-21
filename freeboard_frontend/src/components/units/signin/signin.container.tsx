@@ -1,6 +1,5 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-// import { ChangeEvent, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { accessTokenState } from '../../../commons/store';
 import SignInUI from './signin.presetner';
@@ -34,8 +33,7 @@ export default function SignInContainer() {
   const [loginUser] = useMutation(LOGIN_USER);
   const router = useRouter();
 
-  const onClickSignin = async (data) => {
-    console.log(data);
+  const onClickSignin = async (data: any) => {
     const result = await loginUser({
       variables: data,
     });
