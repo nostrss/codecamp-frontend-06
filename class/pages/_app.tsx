@@ -10,6 +10,7 @@ import { globalStyles } from '../src/commons/styles/globalStyles';
 import { initializeApp } from 'firebase/app';
 import { RecoilRoot } from 'recoil';
 import ApolloConfig from '../src/components/commons/apollo';
+import Head from 'next/head';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,14 +29,23 @@ export const firebaseApp = initializeApp(firebaseConfig);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <RecoilRoot>
-      <ApolloConfig>
-        <Global styles={globalStyles} />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ApolloConfig>
-    </RecoilRoot>
+    <div>
+      {/* <Head> 모든페이지에서 가능하나 효율적이지 않음
+        <script
+          type='text/javascript'
+          src='//dapi.kakao.com/v2/maps/sdk.js?appkey=a1cb74cba8d371837386c87f252c714a'
+        ></script>
+      </Head> */}
+
+      <RecoilRoot>
+        <ApolloConfig>
+          <Global styles={globalStyles} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ApolloConfig>
+      </RecoilRoot>
+    </div>
   );
 }
 

@@ -11,7 +11,7 @@ import NewProductUI from './newproduct.presenter';
 // } from '../../../commons/types/generated/types';
 import { Modal } from 'antd';
 
-export default function NewProductContainer(props) {
+export default function NewProductContainer() {
   const router = useRouter();
 
   // input state 모음
@@ -65,7 +65,6 @@ export default function NewProductContainer(props) {
           },
         },
       });
-      console.log('등록완료');
       console.log(result);
       router.push(`../usedmarket/product/${result.data?.createUseditem._id}`);
     } catch (error) {
