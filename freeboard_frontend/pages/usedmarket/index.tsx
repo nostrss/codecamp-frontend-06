@@ -1,6 +1,7 @@
 import { useAuth } from '../../src/components/commons/hooks/useAuth';
+import ProductListContainer from '../../src/components/units/productlist/productlist.container';
 
 export default function UsedMarket() {
   useAuth();
-  return <div> 중고 마켓 메인 페이지 입니다</div>;
+  return <ProductListContainer />;
 }
