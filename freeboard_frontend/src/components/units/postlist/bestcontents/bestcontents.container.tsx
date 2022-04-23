@@ -3,18 +3,21 @@ import { useRouter } from 'next/router';
 import { Fragment, MouseEvent } from 'react';
 import BestContentsUI from './bestcontents.presenter';
 import { FETCH_BOARD_BEST } from './bestcontents.queries';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function BestContents() {
   const { data } = useQuery(FETCH_BOARD_BEST);
   const router = useRouter();
-  const onClickBest = (event: MouseEvent<HTMLElement>) => {
-    if (event.target instanceof Element)
-      router.push(`/boards/post/${event.currentTarget.id}`);
+
+  const onClickBest = (data) => {
+    console.log(data);
+    router.push(`/boards/post/${data}`);
   };
+
   return (
     <>
       {data?.fetchBoardsOfTheBest.map((el: any, index: number) => (
-        <Fragment key={el._id}>
+        <Fragment key={uuidv4()}>
           <BestContentsUI
             onClickBest={onClickBest}
             data={data}

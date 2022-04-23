@@ -14,6 +14,8 @@ import {
   IMutationLikeBoardArgs,
 } from '../../../commons/types/generated/types';
 import PostComment from '../comment/comment.container';
+import BoardCommentWrite from '../comment2/write/BoardCommentWrite.container';
+import BoardCommentList from '../comment2/list/BoardCommentList.container';
 
 export default function PostContainer() {
   const router = useRouter();
@@ -105,7 +107,7 @@ export default function PostContainer() {
         onClickLike={onClickLike}
         onClickDislike={onClickDislike}
       />
-      <PostComment data={data} />
+      {/* <PostComment data={data} />  comment1 */}
     </>
   );
 }

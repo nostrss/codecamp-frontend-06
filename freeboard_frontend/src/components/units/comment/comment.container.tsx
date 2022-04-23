@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { ChangeEvent, useState, MouseEvent } from 'react';
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
 import {
   IMutationCreateBoardCommentArgs,
   IMutationUpdateBoardCommentArgs,
@@ -21,6 +21,7 @@ export default function PostComment(props: IPostToCommnetData) {
   const [password, setPassword] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+
   const [sendComment] = useMutation(CREATE_COMMENT);
   const [deleteComment] = useMutation(DELETE_COMMENT);
   const [submitEdit] = useMutation(UPDATE_COMMENT);
@@ -30,8 +31,10 @@ export default function PostComment(props: IPostToCommnetData) {
 
   // 수정 클릭한 댓글의 id정보 담는 스테이트
   const [commentId, setCommentId] = useState(String(''));
+  // const postComment = useApolloClient();
 
   // 댓글 정보 불러오기
+
   const fetchCommentData = useQuery(FETCH_COMMENTS, {
     variables: {
       boardId: props?.data?.fetchBoard?._id,
@@ -67,6 +70,7 @@ export default function PostComment(props: IPostToCommnetData) {
   };
 
   const onChangePw = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
     setPassword(event.target.value);
   };
 
@@ -75,6 +79,7 @@ export default function PostComment(props: IPostToCommnetData) {
   };
 
   const onChangeComment = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(event.target.value);
     setComment(event.target.value);
   };
 
@@ -118,90 +123,86 @@ export default function PostComment(props: IPostToCommnetData) {
 
   // 댓글 삭제 버튼 클릭
 
-  const onClickDeleteComment = async (event: MouseEvent<HTMLButtonElement>) => {
-    if (event.target instanceof Element) {
-      const confirmPw = prompt('비밀번호를 입력하세요');
-      alert(confirmPw);
+  const onClickDeleteComment = async (data) => {
+    const confirmPw = prompt('비밀번호를 입력하세요');
 
-      try {
-        await deleteComment({
-          variables: {
-            password: String(confirmPw),
-            boardCommentId: event.target.className,
-          },
-          refetchQueries: [
-            {
-              query: FETCH_COMMENTS,
-              variables: {
-                boardId: props?.data?.fetchBoard?._id,
-              },
+    try {
+      await deleteComment({
+        variables: {
+          password: String(confirmPw),
+          boardCommentId: data,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_COMMENTS,
+            variables: {
+              boardId: props?.data?.fetchBoard?._id,
             },
-          ],
-        });
-      } catch (error) {
-        alert(error instanceof Error);
-      }
+          },
+        ],
+      });
+    } catch (error) {
+      alert(error instanceof Error);
     }
   };
 
   // 댓글 수정icon 클릭
-  const onClickEditComment = (event: MouseEvent<HTMLButtonElement>) => {
-    if (event.target instanceof Element) {
-      setCommentId(event.target.className);
-      setIsEdit(true);
-    }
+  const onClickEditComment = (data) => {
+    console.log(data);
+    setCommentId(data);
+    setIsEdit(true);
   };
 
   // 수정 완료 버튼 클릭
 
-  const onClickSubmitEdit = async (event: MouseEvent<HTMLButtonElement>) => {
-    if (event.target instanceof Element) {
-      const updateData: IMutationUpdateBoardCommentArgs = {
-        updateBoardCommentInput: {
-          contents: String(comment),
-          rating: Number(rating),
-        },
-        password: String(password),
-        boardCommentId: String(event.target.id),
-      };
-      if (comment) {
-        updateData.updateBoardCommentInput.contents = comment;
-      } else {
-        updateData.updateBoardCommentInput.contents =
-          fetchCommentData.data.fetchBoardComments.contents;
-      }
-      if (rating) {
-        updateData.updateBoardCommentInput.rating = rating;
-      } else {
-        updateData.updateBoardCommentInput.rating =
-          fetchCommentData.data.fetchBoardComments.rating;
-      }
+  const onClickSubmitEdit = async (data) => {
+    console.log(data);
+    const updateData: IMutationUpdateBoardCommentArgs = {
+      updateBoardCommentInput: {
+        contents: String(comment),
+        rating: Number(rating),
+      },
+      password: String(password),
+      boardCommentId: String(data),
+    };
+    if (comment) {
+      updateData.updateBoardCommentInput.contents = comment;
+    } else {
+      updateData.updateBoardCommentInput.contents =
+        fetchCommentData.data.fetchBoardComments.contents;
+    }
+    if (rating) {
+      updateData.updateBoardCommentInput.rating = rating;
+    } else {
+      updateData.updateBoardCommentInput.rating =
+        fetchCommentData.data.fetchBoardComments.rating;
+    }
 
-      try {
-        await submitEdit({
-          variables: updateData,
-          refetchQueries: [
-            {
-              query: FETCH_COMMENTS,
-              variables: {
-                boardId: props?.data?.fetchBoard?._id,
-              },
+    try {
+      await submitEdit({
+        variables: updateData,
+        refetchQueries: [
+          {
+            query: FETCH_COMMENTS,
+            variables: {
+              boardId: props?.data?.fetchBoard?._id,
             },
-          ],
-        });
-        setIsEdit(false);
-        setWriter('');
-        setPassword('');
-        setRating(0);
-        setComment('');
-        setCommentId('');
-        Modal.success({ content: '댓글이 수정되었습니다.' });
-      } catch (error) {
-        Modal.error({ content: `${error.message}` });
-      }
+          },
+        ],
+      });
+      setIsEdit(false);
+      setWriter('');
+      setPassword('');
+      setRating(0);
+      setComment('');
+      setCommentId('');
+      Modal.success({ content: '댓글이 수정되었습니다.' });
+    } catch (error) {
+      Modal.error({ content: `${error.message}` });
     }
   };
 
+  console.log(isEdit);
   return (
     <PostCommentUI
       fetchCommentData={fetchCommentData}

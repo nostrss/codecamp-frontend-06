@@ -7,9 +7,10 @@ export default function Pagination(props: IPostListToPagination) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const onClickPage = (event: MouseEvent<HTMLElement>) => {
+    console.log(event.target.innerText);
     if (event.target instanceof Element) {
-      props.refetch({ page: Number(event.target.id) });
-      setCurrentPage(Number(event.target.id));
+      props.refetch({ page: Number(event.target.innerText) });
+      setCurrentPage(Number(event.target.innerText));
     }
   };
 

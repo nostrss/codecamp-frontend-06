@@ -6,14 +6,17 @@ import { IBestcontents } from './bestcontents.type';
 export default function BestContentsUI(props: IBestcontents) {
   return (
     <>
-      <P.WrapperBestContents id={props.el._id} onClick={props.onClickBest}>
+      <P.WrapperBestContents onClick={() => props.onClickBest(props.el._id)}>
         <P.BestContentsItem>
           <P.BestContentsImage
             src={
-              props.el.images[0]?.startsWith('https', 0)
+              props.el?.images[0] === '' || props.el?.images.length === 0
+                ? '/image/undraw_profile_pic_ic-5-t.svg/'
+                : props.el.images[0]?.startsWith('https', 0)
                 ? `${props.el.images[0]}`
                 : `https://storage.googleapis.com/${props.el.images[0]}`
             }
+            // onError="this.src='/images/user.png/'"
           />
           <P.WrapperBestContentsSummary>
             <P.BestContentsTitle>{props.el.title}</P.BestContentsTitle>
