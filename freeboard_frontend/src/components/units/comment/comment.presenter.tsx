@@ -6,6 +6,7 @@ import { Fragment } from 'react';
 import { Rate } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import { getDate } from '../../../commons/libraries/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function PostCommentUI(props: IFetchCommentData) {
   return (
@@ -53,99 +54,97 @@ export default function PostCommentUI(props: IFetchCommentData) {
         <ColumnWrapper>
           <P.CommentList>
             <P.CommentItem>
-              <InfiniteScroll
-                pageStart={0}
-                loadMore={props.onLoadMore}
-                hasMore={true}
-              >
-                {props.fetchCommentData?.data?.fetchBoardComments.map(
-                  (item) => (
-                    <P.RowItems key={item._id}>
-                      {/* 읽기 모드 댓글 렌더링 */}
-                      {props?.commentId === item._id || (
-                        <Fragment>
-                          <P.Profileimage src='/image/user.png'></P.Profileimage>
-                          <P.RowSpaceBetween>
-                            <P.ColumnItems>
-                              <P.RowAlignCenter>
-                                <P.CommentName>{item.writer}</P.CommentName>
-                                <P.RowItems>
-                                  <Rate disabled defaultValue={item.rating} />
-                                </P.RowItems>
-                              </P.RowAlignCenter>
-                              <P.UserComments>{item.contents}</P.UserComments>
-                              <P.UserCommentsDate>
-                                {getDate(String(item.createdAt))}
-                              </P.UserCommentsDate>
-                            </P.ColumnItems>
-                            <P.RowItems>
-                              <P.IconBox>
-                                <button
-                                  className={String(item._id)}
-                                  onClick={props.onClickEditComment}
-                                >
-                                  수정하기
-                                </button>
-                              </P.IconBox>
-                              <P.IconBox>
-                                <button
-                                  className={String(item._id)}
-                                  onClick={props.onClickDeleteComment}
-                                >
-                                  삭제버튼
-                                </button>
-                              </P.IconBox>
-                            </P.RowItems>
-                          </P.RowSpaceBetween>
-                        </Fragment>
-                      )}
-                      {/* 수정모드 댓글 렌더링 */}
-                      {props.commentId === item._id && (
-                        <ColumnWrapper>
-                          <P.CommentInfo>
-                            <P.CommentInfoInput
-                              type='text'
-                              placeholder='작성자'
-                              onChange={props.onChangeWriter}
-                              defaultValue={String(item.writer)}
-                              readOnly={!!item.writer}
-                            ></P.CommentInfoInput>
-                            <P.CommentInfoInput
-                              type='password'
-                              placeholder='비밀번호'
-                              onChange={props.onChangePw}
-                            ></P.CommentInfoInput>
-
-                            <Rate
-                              onChange={props.onChangeRating}
-                              defaultValue={item.rating}
-                            />
-                          </P.CommentInfo>
-                          <P.TextareaWrap>
-                            <P.CommentContents
-                              onChange={props.onChangeComment}
-                              maxLength={props.textLimit}
-                              placeholder='개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.'
-                              defaultValue={String(item.contents)}
-                            ></P.CommentContents>
-                            <P.RowSpaceBetween>
-                              <P.CountTextLength>
-                                {props.comment.length}/100
-                              </P.CountTextLength>
-                              <P.SubmitComment
-                                id={item._id}
-                                onClick={props.onClickSubmitEdit}
+              {props.fetchCommentData?.data?.fetchBoardComments?.map((item) => (
+                <P.RowItems key={String(uuidv4())}>
+                  <InfiniteScroll
+                    pageStart={0}
+                    loadMore={props.onLoadMore}
+                    hasMore={true}
+                  >
+                    {/* 읽기 모드 댓글 렌더링 */}
+                    {props?.commentId === item._id || (
+                      <Fragment>
+                        <P.Profileimage src='/image/user.png'></P.Profileimage>
+                        <P.RowSpaceBetween>
+                          <P.ColumnItems>
+                            <P.RowAlignCenter>
+                              <P.CommentName>{item?.writer}</P.CommentName>
+                              <P.RowItems>
+                                <Rate disabled defaultValue={item?.rating} />
+                              </P.RowItems>
+                            </P.RowAlignCenter>
+                            <P.UserComments>{item?.contents}</P.UserComments>
+                            <P.UserCommentsDate>
+                              {getDate(String(item?.createdAt))}
+                            </P.UserCommentsDate>
+                          </P.ColumnItems>
+                          <P.RowItems>
+                            <P.IconBox>
+                              <button
+                                onClick={() =>
+                                  props.onClickEditComment(item._id)
+                                }
                               >
-                                수정완료
-                              </P.SubmitComment>
-                            </P.RowSpaceBetween>
-                          </P.TextareaWrap>
-                        </ColumnWrapper>
-                      )}
-                    </P.RowItems>
-                  )
-                )}
-              </InfiniteScroll>
+                                수정하기
+                              </button>
+                            </P.IconBox>
+                            <P.IconBox>
+                              <button
+                                onClick={() =>
+                                  props.onClickDeleteComment(item._id)
+                                }
+                              >
+                                삭제버튼
+                              </button>
+                            </P.IconBox>
+                          </P.RowItems>
+                        </P.RowSpaceBetween>
+                      </Fragment>
+                    )}
+                    {/* 수정모드 댓글 렌더링 */}
+                    {props.commentId === item._id && (
+                      <ColumnWrapper key={String(uuidv4())}>
+                        <P.CommentInfo>
+                          <P.CommentInfoInput
+                            type='text'
+                            placeholder='작성자'
+                            onChange={props.onChangeWriter}
+                            defaultValue={String(item.writer)}
+                            readOnly={!!item.writer}
+                          ></P.CommentInfoInput>
+                          <P.CommentInfoInput
+                            type='password'
+                            placeholder='비밀번호'
+                            onChange={props.onChangePw}
+                          ></P.CommentInfoInput>
+                          <Rate
+                            onChange={props.onChangeRating}
+                            defaultValue={item.rating}
+                          />
+                        </P.CommentInfo>
+                        <P.TextareaWrap>
+                          <P.CommentContents
+                            onChange={props.onChangeComment}
+                            maxLength={props.textLimit}
+                            placeholder='개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.'
+                            defaultValue={String(item.contents)}
+                          ></P.CommentContents>
+                          <P.RowSpaceBetween>
+                            <P.CountTextLength>
+                              {props.comment.length}/100
+                            </P.CountTextLength>
+                            <P.SubmitComment
+                              onClick={() => props.onClickSubmitEdit(item._id)}
+                            >
+                              수정완료
+                            </P.SubmitComment>
+                          </P.RowSpaceBetween>
+                        </P.TextareaWrap>
+                      </ColumnWrapper>
+                    )}
+                  </InfiniteScroll>
+                </P.RowItems>
+              ))}
             </P.CommentItem>
           </P.CommentList>
         </ColumnWrapper>

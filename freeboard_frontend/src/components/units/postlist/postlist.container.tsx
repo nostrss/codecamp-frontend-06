@@ -16,10 +16,11 @@ export default function PostListContainer() {
   const [startDate, setStartDate] = useState(0);
   const [endDate, setEndDate] = useState(0);
 
-  const onClickTitle = (event: MouseEvent<HTMLDivElement>) => {
-    if (event.target instanceof Element) {
-      router.push(`/boards/post/${event.currentTarget.id}`);
-    }
+  const onClickTitle = (data) => {
+    console.log(data);
+    // if (event.target instanceof Element) {
+    router.push(`/boards/post/${data}`);
+    // }
   };
 
   const onClickMoveWrite = () => {

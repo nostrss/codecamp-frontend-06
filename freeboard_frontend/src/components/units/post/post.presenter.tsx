@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import BoardCommentWrite from '../comment2/write/BoardCommentWrite.container';
+import BoardCommentList from '../comment2/list/BoardCommentList.container';
 
 export default function PostUI(props: IFetchPost) {
   const settings = {
@@ -101,6 +103,8 @@ export default function PostUI(props: IFetchPost) {
         <P.PostBtnItem onClick={props.moveUpdate}>수정하기</P.PostBtnItem>
         <P.PostBtnItem onClick={props.deleteButton}>삭제하기</P.PostBtnItem>
       </P.PostBtns>
+      <BoardCommentWrite />
+      <BoardCommentList />
     </Wrapper>
   );
 }

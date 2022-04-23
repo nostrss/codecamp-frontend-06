@@ -41,14 +41,17 @@ export default function PostListUI(props: IFetchPostList) {
         </P.WrapperTableHeader>
         <P.WrapperTableBody>
           {props.data?.fetchBoards.map((el, index) => (
-            <Fragment key={el._id}>
+            <Fragment key={String(uuidv4())}>
               <P.BodyBox>{index + 1}</P.BodyBox>
-              <P.BodyBox onClick={props.onClickTitle} id={el._id}>
+              <P.BodyBox onClick={() => props.onClickTitle(el._id)}>
                 {el.title
                   .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
                   .split('#$%')
                   .map((el) => (
-                    <P.Word key={uuidv4()} isMatched={props.keyword === el}>
+                    <P.Word
+                      key={String(uuidv4())}
+                      isMatched={props.keyword === el}
+                    >
                       {el}
                     </P.Word>
                   ))}

@@ -12,14 +12,15 @@ export default function PaginationUI(props: IPagenationToPaginationUI) {
         index + props.startPage <= props.lastPage ? (
           <P.ActivePage
             current={props.currentPage === index + props.startPage}
-            key={uuidv4()}
+            key={String(uuidv4())}
             onClick={props.onClickPage}
-            id={String(index + props.startPage)}
+            // className={String(index + props.startPage)}
+            // id={String(index + props.startPage)}
           >
             {index + props.startPage}
           </P.ActivePage>
         ) : (
-          <span></span>
+          <span key={String(uuidv4())}></span>
         )
       )}
       <button
