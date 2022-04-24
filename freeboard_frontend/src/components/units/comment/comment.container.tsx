@@ -1,5 +1,5 @@
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
-import { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
+import { ChangeEvent, useState } from 'react';
 import {
   IMutationCreateBoardCommentArgs,
   IMutationUpdateBoardCommentArgs,

@@ -16,7 +16,6 @@ export default function BestContentsUI(props: IBestcontents) {
                 ? `${props.el.images[0]}`
                 : `https://storage.googleapis.com/${props.el.images[0]}`
             }
-            // onError="this.src='/images/user.png/'"
           />
           <P.WrapperBestContentsSummary>
             <P.BestContentsTitle>{props.el.title}</P.BestContentsTitle>

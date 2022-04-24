@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { SEND_CONTENTS, UPDATE_CONTENS } from './posting.queries';
@@ -10,9 +10,12 @@ import {
   IUpdateBoardInput,
 } from '../../../../src/commons/types/generated/types';
 import { Modal } from 'antd';
+import { useRecoilState } from 'recoil';
+import { postDataState } from '../../../commons/store';
 
 export default function PostingContainer(props: IPostingPathProps) {
   const router = useRouter();
+  const [postData, setPostData] = useRecoilState(postDataState);
 
   // input state 모음
   const [inputs, setInputs] = useState({
@@ -28,6 +31,12 @@ export default function PostingContainer(props: IPostingPathProps) {
   });
 
   const [fileUrls, setFileUrls] = useState([]);
+  console.log(postData.fetchBoard.images);
+
+  useEffect(() => {
+    console.log('useEffect 실행');
+    if (props.isEdit === true) setFileUrls(postData.fetchBoard.images);
+  }, []);
 
   // input값 미입력 상태 state
   const [isWarning, setIsWarning] = useState({
@@ -104,10 +113,11 @@ export default function PostingContainer(props: IPostingPathProps) {
     }
   };
 
+  console.log(fileUrls);
   // 수정하기 영역
   const [updateContents] = useMutation(UPDATE_CONTENS);
 
-  // 수정하기로 진입했을때 수정버튼 영역
+  // 수정하기로 진입했을때 수정완료버튼 영역
   const updateButton = async () => {
     const updatePostingData: IUpdateBoardInput = {};
 
