@@ -13,17 +13,18 @@ import {
   IMutationDislikeBoardArgs,
   IMutationLikeBoardArgs,
 } from '../../../commons/types/generated/types';
-import PostComment from '../comment/comment.container';
-import BoardCommentWrite from '../comment2/write/BoardCommentWrite.container';
-import BoardCommentList from '../comment2/list/BoardCommentList.container';
+import { useRecoilState } from 'recoil';
+import { postDataState } from '../../../commons/store';
 
 export default function PostContainer() {
   const router = useRouter();
+  const [postData, setPostData] = useRecoilState(postDataState);
 
   // 작성된 컨텐츠 정보 불러오기
   const { data } = useQuery(FETCH_POST, {
     variables: { boardId: router?.query.postid },
   });
+  console.log(data);
 
   const [isBoardLike] = useMutation<
     Pick<IMutation, 'likeBoard'>,
@@ -42,6 +43,7 @@ export default function PostContainer() {
 
   // 수정하기(edit)페이지로 이동하기 버튼
   const moveUpdate = () => {
+    setPostData(data);
     router.push(`/boards/post/${router.query.postid}/edit`);
   };
 

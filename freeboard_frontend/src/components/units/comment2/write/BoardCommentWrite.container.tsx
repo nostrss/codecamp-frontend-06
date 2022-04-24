@@ -67,6 +67,11 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
           },
         ],
       });
+      setWriter('');
+      setPassword('');
+      setContents('');
+      setStar(0);
+      console.log('댓글등록');
     } catch (error) {
       alert(error instanceof Error);
     }
@@ -119,6 +124,9 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
       isEdit={props.isEdit}
       el={props.el}
       contents={contents}
+      writer={writer}
+      password={password}
+      star={star}
     />
   );
 }

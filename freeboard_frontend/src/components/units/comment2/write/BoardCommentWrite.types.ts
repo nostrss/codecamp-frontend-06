@@ -1,5 +1,5 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { IBoardComment } from "../../../../commons/types/generated/types";
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { IBoardComment } from '../../../../commons/types/generated/types';
 
 export interface IBoardCommentWriteProps {
   isEdit?: boolean;
@@ -17,6 +17,9 @@ export interface IBoardCommentWriteUIProps {
   isEdit?: boolean;
   el?: IBoardComment;
   contents: string;
+  writer: string;
+  password: string;
+  star: number;
 }
 
 export interface IUpdateBoardCommentInput {

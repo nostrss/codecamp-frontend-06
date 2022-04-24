@@ -103,7 +103,7 @@ export default function PostUI(props: IFetchPost) {
         <P.PostBtnItem onClick={props.moveUpdate}>수정하기</P.PostBtnItem>
         <P.PostBtnItem onClick={props.deleteButton}>삭제하기</P.PostBtnItem>
       </P.PostBtns>
-      <BoardCommentWrite />
+      <BoardCommentWrite isEdit={false} />
       <BoardCommentList />
     </Wrapper>
   );

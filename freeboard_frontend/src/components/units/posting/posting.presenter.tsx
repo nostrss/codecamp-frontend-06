@@ -131,11 +131,11 @@ export default function PostingUI(props: IPostingUIProps) {
             onChangeFileUrls={props.onChangeFileUrls}
             fileUrls={props.fileUrls}
           />
-          {props.fileUrls.map((el, index) => (
+          {props.fileUrls?.map((el, index) => (
             <p.ImageThumbnail
               key={uuidv4()}
               src={
-                el[index].startsWith('https', 0)
+                el[index]?.startsWith('https', 0)
                   ? el
                   : `https://storage.googleapis.com/${el}`
               }
