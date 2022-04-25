@@ -1,9 +1,14 @@
 import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 import ProductListUI from './productlist.presenter';
 import { FETCH_PRODUCTS } from './productlist.queries';
 
 export default function ProductListContainer() {
   const { data, fetchMore } = useQuery(FETCH_PRODUCTS);
+  const router = useRouter();
+  const onClickMoveNew = () => {
+    router.push('/usedmarket/new');
+  };
 
   const onLoadMore = () => {
     if (!data) return;
@@ -25,7 +30,11 @@ export default function ProductListContainer() {
 
   return (
     <>
-      <ProductListUI data={data} onLoadMore={onLoadMore} />
+      <ProductListUI
+        data={data}
+        onLoadMore={onLoadMore}
+        onClickMoveNew={onClickMoveNew}
+      />
     </>
   );
 }

@@ -20,6 +20,7 @@ export default function ProductListUI(props: IFetchProductListUI) {
           <P.SearchButton>검색하기</P.SearchButton>
         </P.WrapperSearch>
         <InfiniteScroll
+          style={{ width: '100%' }}
           pageStart={0}
           loadMore={props.onLoadMore}
           hasMore={true}
@@ -28,6 +29,7 @@ export default function ProductListUI(props: IFetchProductListUI) {
             <ProductListItemContainer key={String(uuidv4())} el={el} />
           )) || <div></div>}
         </InfiniteScroll>
+        <P.ButtonFix onClick={props.onClickMoveNew}>상품등록하기</P.ButtonFix>
       </P.WrapperCanvas>
     </P.Wrapper>
   );

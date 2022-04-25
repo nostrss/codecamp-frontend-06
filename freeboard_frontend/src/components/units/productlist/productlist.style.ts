@@ -89,4 +89,11 @@ export const SearchButton = styled.button`
   color: #ffffff;
 `;
 
-// search end
+export const ButtonFix = styled.button`
+  width: 100px;
+  height: 50px;
+  position: fixed;
+  bottom: 200px;
+  right: 400px;
+  z-index: 100;
+`;
