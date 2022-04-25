@@ -8,6 +8,8 @@ import { createUploadLink } from 'apollo-upload-client';
 import { ReactNode, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { accessTokenState, userInfoState } from '../../../commons/store';
+import { onError } from '@apollo/client/link/error';
+import { getAccessToken } from '../../../commons/libraries/getAccessToken';
 
 interface IApolloProps {
   children: ReactNode;
@@ -18,20 +20,44 @@ export default function ApolloConfig(props: IApolloProps) {
   const [, setUserInfo] = useRecoilState(userInfoState);
 
   useEffect(() => {
-    const mylocalToken = localStorage.getItem('accessToken');
-    // 문자열로 저장되어
-    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
-    setAccessToken(mylocalToken || '');
-    setUserInfo(userInfo);
+    getAccessToken().then((newAccessToken) => {
+      setAccessToken(newAccessToken);
+    });
   }, []);
 
+  const errorLink = onError(({ graphQLErrors, operation, forward }) => {
+    // 1-1. 에러를 캐치
+    if (graphQLErrors) {
+      for (const err of graphQLErrors) {
+        // 1-2 해당 에러가 토큰만료 에러인가 체크
+        if (err.extensions.code === 'UNAUTHENTICATED') {
+          // 2-1. 리프레시 토큰으로 엑세스 토큰을 재발급 받기
+          getAccessToken().then((newAccessToken) => {
+            setAccessToken(newAccessToken);
+
+            operation.setContext({
+              headers: {
+                ...operation.getContext().headers,
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            });
+
+            // 3-2 변경된 operation 재요청하기
+            return forward(operation);
+          });
+        }
+      }
+    }
+  });
+
   const uploadLink = createUploadLink({
-    uri: 'http://backend06.codebootcamp.co.kr/graphql',
+    uri: 'https://backend06.codebootcamp.co.kr/graphql',
     headers: { Authorization: `Bearer ${accessToken}` },
+    credentials: 'include',
   });
 
   const client = new ApolloClient({
-    link: ApolloLink.from([uploadLink]),
+    link: ApolloLink.from([errorLink, uploadLink]),
     // uri: 'http://backend06.codebootcamp.co.kr/graphql',
     cache: new InMemoryCache(),
   });

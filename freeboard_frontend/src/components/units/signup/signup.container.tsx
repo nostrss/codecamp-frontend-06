@@ -1,11 +1,9 @@
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Modal } from 'antd';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
 import SignUpUI from './signup.presetner';
-import { SIGNUP_USER, FETCH_USER_LOGGED_IN } from './signup.query';
-import { useRecoilState } from 'recoil';
-import { accessTokenState, userInfoState } from '../../../commons/store';
+import { SIGNUP_USER } from './signup.query';
 
 export default function SignUpContainer() {
   const router = useRouter();
@@ -14,9 +12,6 @@ export default function SignUpContainer() {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [signupUser] = useMutation(SIGNUP_USER);
-  const [, setAccessToken] = useRecoilState(accessTokenState);
-  const [, setUserInfo] = useRecoilState(userInfoState);
-  const client = useApolloClient();
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);

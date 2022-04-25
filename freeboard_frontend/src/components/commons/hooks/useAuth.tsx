@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { accessTokenState } from '../../../commons/store';
 
 // 함수명을 use ***, 그래야 나중에 예측이 된다.
 
@@ -7,10 +9,11 @@ export function useAuth() {
   // 권한 분기 로직 추가
 
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
+  const [accessToken] = useRecoilState(accessTokenState);
+  const [isLoading] = useState(true);
 
   useEffect(() => {
-    if (!localStorage.getItem('accessToken')) {
+    if (!accessToken) {
       alert('로그인 후 이용 가능합니다');
       router.push('/signin');
     }
