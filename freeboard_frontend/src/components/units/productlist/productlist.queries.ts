@@ -31,6 +31,9 @@ export const FETCH_PRODUCTS = gql`
         _id
         name
       }
+      buyer {
+        name
+      }
     }
   }
 `;

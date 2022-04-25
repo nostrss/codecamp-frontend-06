@@ -7,6 +7,8 @@ import { getDate } from '../../../commons/libraries/utils';
 // import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import QuestionWrite from '../question/write/QuestionWrite.container';
+import QuestionListContainer from '../question/list/Question.List.container';
 
 export default function ProductUI(props) {
   const settings = {
@@ -129,6 +131,8 @@ export default function ProductUI(props) {
           수정하기
         </P.PostBtnItem>
       </P.PostBtns>
+      <QuestionWrite></QuestionWrite>
+      <QuestionListContainer></QuestionListContainer>
     </Wrapper>
   );
 }
