@@ -3,7 +3,7 @@ import * as U from './bestproductitem.style';
 export default function BestProductItemUI(props) {
   return (
     <>
-      <U.WrappDivFlexCol>
+      <U.WrappDivFlexCol onClick={() => props.onClickBestProduct(props.el._id)}>
         <U.ItemImage
           src={
             props.el.images[0] === '' || props.el?.images.length === 0
