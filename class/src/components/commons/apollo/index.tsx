@@ -54,7 +54,6 @@ export default function ApolloConfig(props: IApolloProps) {
       setAccessToken(newAccessToken);
     });
   }, []);
-  console.log(userInfo);
 
   // 0425 추가
 
