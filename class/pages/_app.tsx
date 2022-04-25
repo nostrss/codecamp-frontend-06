@@ -10,7 +10,7 @@ import { globalStyles } from '../src/commons/styles/globalStyles';
 import { initializeApp } from 'firebase/app';
 import { RecoilRoot } from 'recoil';
 import ApolloConfig from '../src/components/commons/apollo';
-import Head from 'next/head';
+// import Head from 'next/head'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
