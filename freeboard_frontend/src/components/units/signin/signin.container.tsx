@@ -60,11 +60,8 @@ export default function SignInContainer() {
       },
     });
 
-    // const userInfo = resultUserInfo.data.fetchUserLoggedIn;
-
-    // localStorage.setItem('accessToken', accessToken);
-    // setUserInfo(userInfo);
-    // localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    const userInfo = resultUserInfo.data.fetchUserLoggedIn;
+    setUserInfo(userInfo);
 
     router.push('/usedmarket');
   };
