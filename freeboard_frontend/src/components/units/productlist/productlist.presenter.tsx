@@ -1,9 +1,9 @@
 import * as P from './productlist.style';
 import { BsSearch } from 'react-icons/bs';
 import { IFetchProductListUI } from './productlist.type';
-import { Fragment } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ProductListItemContainer from './productlistitem/productlistitem.container';
+import InfiniteScroll from 'react-infinite-scroller';
 
 export default function ProductListUI(props: IFetchProductListUI) {
   return (
@@ -19,11 +19,15 @@ export default function ProductListUI(props: IFetchProductListUI) {
           <P.DatePeeker id='end' type='date'></P.DatePeeker>
           <P.SearchButton>검색하기</P.SearchButton>
         </P.WrapperSearch>
-        {props.data?.fetchUseditems.map((el) => (
-          <Fragment key={String(uuidv4())}>
-            <ProductListItemContainer el={el} />
-          </Fragment>
-        ))}
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={props.onLoadMore}
+          hasMore={true}
+        >
+          {props.data?.fetchUseditems.map((el) => (
+            <ProductListItemContainer key={String(uuidv4())} el={el} />
+          )) || <div></div>}
+        </InfiniteScroll>
       </P.WrapperCanvas>
     </P.Wrapper>
   );
