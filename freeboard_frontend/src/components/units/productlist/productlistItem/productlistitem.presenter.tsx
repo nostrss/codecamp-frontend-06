@@ -1,7 +1,7 @@
 import * as U from './productlistitem.style';
 export default function ProductListItemUI(props) {
   return (
-    <U.WrappDivFlexRow>
+    <U.WrappDivFlexRow onClick={() => props.onClickProductList(props.el._id)}>
       <U.ItemImage
         src={
           props.el.images === '' || !props.el.images

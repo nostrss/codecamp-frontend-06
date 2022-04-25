@@ -1,9 +1,9 @@
 import * as P from './productlist.style';
 import { BsSearch } from 'react-icons/bs';
-import ProductListItemUI from './productlistitem/productlistitem.presenter';
 import { IFetchProductListUI } from './productlist.type';
 import { Fragment } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import ProductListItemContainer from './productlistitem/productlistitem.container';
 
 export default function ProductListUI(props: IFetchProductListUI) {
   return (
@@ -21,7 +21,7 @@ export default function ProductListUI(props: IFetchProductListUI) {
         </P.WrapperSearch>
         {props.data?.fetchUseditems.map((el) => (
           <Fragment key={String(uuidv4())}>
-            <ProductListItemUI el={el} />
+            <ProductListItemContainer el={el} />
           </Fragment>
         ))}
       </P.WrapperCanvas>
