@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import { accessTokenState } from '../../../../commons/store';
+import { accessTokenState, userInfoState } from '../../../../commons/store';
 import { gql, useQuery } from '@apollo/client';
 
 const FETCH_USER_LOGGED_IN = gql`
@@ -63,6 +63,7 @@ export default function LayoutHeader() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const router = useRouter();
   const [isToken] = useRecoilState(accessTokenState);
+  // const [userInfo] = useRecoilState(userInfoState);
 
   const onClickLogo = () => {
     router.push('/boards');
@@ -72,17 +73,26 @@ export default function LayoutHeader() {
     router.push('/signin');
   };
 
+  const onClickSignUp = () => {
+    router.push('/signup');
+  };
+
+  // console.log(data?.fetchUserLoggedIn.name);
+
   return (
     <Wrapper>
       <WrapperHeader>
         <WrapperLogo onClick={onClickLogo}>NoStrss</WrapperLogo>
         <WrapperHeaderMenu>
           {isToken ? (
-            <div>{data?.fetchUserLoggedIn.name}님 환영합니다</div>
+            <>
+              <div>{data?.fetchUserLoggedIn.name}님 환영합니다</div>
+              <SignUpButton>로그아웃</SignUpButton>
+            </>
           ) : (
             <>
               <SignUpButton onClick={onClickSignIn}>로그인</SignUpButton>
-              <SignUpButton>회원가입</SignUpButton>
+              <SignUpButton onClick={onClickSignUp}>회원가입</SignUpButton>
             </>
           )}
         </WrapperHeaderMenu>

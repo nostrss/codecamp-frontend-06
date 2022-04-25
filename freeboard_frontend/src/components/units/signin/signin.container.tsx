@@ -1,4 +1,4 @@
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation, useApolloClient, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { accessTokenState, userInfoState } from '../../../commons/store';
@@ -23,6 +23,14 @@ const schema = yup
   })
   .required();
 
+const LOGIN_EXAM = gql`
+  mutation loginUserExample($email: String!, $password: String!) {
+    loginUserExample(email: $email, password: $password) {
+      accessToken
+    }
+  }
+`;
+
 export default function SignInContainer() {
   const [, setAccessToken] = useRecoilState(accessTokenState);
   const [, setUserInfo] = useRecoilState(userInfoState);
@@ -31,7 +39,7 @@ export default function SignInContainer() {
     mode: 'onChange',
   });
 
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUser] = useMutation(LOGIN_EXAM);
   const router = useRouter();
   const client = useApolloClient();
 
@@ -40,7 +48,8 @@ export default function SignInContainer() {
       variables: data,
     });
 
-    const accessToken = result.data.loginUser.accessToken;
+    const accessToken = result.data.loginUserExample.accessToken;
+    setAccessToken(accessToken);
 
     const resultUserInfo = await client.query({
       query: FETCH_USER_LOGGED_IN,
@@ -52,13 +61,9 @@ export default function SignInContainer() {
     });
 
     const userInfo = resultUserInfo.data.fetchUserLoggedIn;
-
-    setAccessToken(accessToken);
-    localStorage.setItem('accessToken', accessToken);
     setUserInfo(userInfo);
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
-    router.push('/boards');
+    router.push('/usedmarket');
   };
 
   return (
