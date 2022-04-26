@@ -5,69 +5,89 @@ declare const window: typeof globalThis & {
 };
 
 export default function KakaoMapPage(props) {
-  console.log(props);
   useEffect(() => {
     const script = document.createElement('script'); // <script></script> 태그 만들기
+    const libray = document.createElement('script'); // <script></script> 태그 만들기
+
     script.src =
       '//dapi.kakao.com/v2/maps/sdk.js?appkey=a1cb74cba8d371837386c87f252c714a&autoload=false';
+    libray.src =
+      '//dapi.kakao.com/v2/maps/sdk.js?appkey=a1cb74cba8d371837386c87f252c714a&libraries=services&autoload=false';
     document.head.appendChild(script); // head의 자식으로 추가해줘
+    document.head.appendChild(libray); // head의 자식으로 추가해줘
 
     script.onload = () => {
       window.kakao.maps.load(function () {
-        const container = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
+        const container = document.getElementById('map');
         const options = {
-          // 지도를 생성할 때 필요한 기본 옵션
-          center: new window.kakao.maps.LatLng(
-            props.address?.lat,
-            props.address?.lng
-          ), // 지도의 중심좌표.
+          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
           level: 3, // 지도의 레벨(확대, 축소 정도)
         };
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        const map = new window.kakao.maps.Map(container, options);
 
-        const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
+        function searchDetailAddrFromCoords(coords, callback) {
+          // 좌표로 법정동 상세 주소 정보를 요청합니다
+          geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+        }
 
-        // const imageSrc = '/image/soori.png', // 마커이미지의 주소입니다
-        //   imageSize = new window.kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-        //   imageOption = { offset: new window.kakao.maps.Point(27, 69) };
+        let address1 = '';
 
-        // const markerImage = new window.kakao.maps.MarkerImage(
-        //   imageSrc,
-        //   imageSize,
-        //   imageOption
-        // );
-
-        // 마커가 표시될 위치입니다
-        const markerPosition = new window.kakao.maps.LatLng(
-          props.address?.lat,
-          props.address?.lng
-        );
-
-        // 마커를 생성합니다
-        const marker = new window.kakao.maps.Marker({
-          position: markerPosition,
-        });
-
-        // 마커가 지도 위에 표시되도록 설정합니다
-        marker.setMap(map);
-
-        window.kakao.maps.event.addListener(
-          map,
-          'click',
-          function (mouseEvent: { latLng: any }) {
-            // 클릭한 위도, 경도 정보를 가져옵니다
-            const latlng = mouseEvent.latLng;
-
-            //     // 마커 위치를 클릭한 위치로 옮깁니다
-            //     marker.setPosition(latlng);
+        function getAddress(result, status) {
+          if (status === window.kakao.maps.services.Status.OK) {
+            address1 = result[0].road_address;
           }
-        );
+        }
+
+        // props가 있을때, 상품 상세일 경우
+        if (props.address) {
+          // 마커가 표시될 위치입니다
+          const markerPosition = new window.kakao.maps.LatLng(
+            props.address?.lat,
+            props.address?.lng
+          );
+
+          // 마커를 생성합니다
+          const marker = new window.kakao.maps.Marker({
+            position: markerPosition,
+          });
+          marker.setMap(map);
+
+          function setCenter() {
+            // 이동할 위도 경도 위치를 생성합니다
+            const moveLatLon = new window.kakao.maps.LatLng(
+              props.address?.lat,
+              props.address?.lng
+            );
+            // 지도 중심을 이동 시킵니다
+            map.setCenter(moveLatLon);
+          }
+        } else {
+          // 마커가 지도 위에 표시되도록 설정합니다
+          const marker = new window.kakao.maps.Marker();
+
+          window.kakao.maps.event.addListener(
+            map,
+            'click',
+            function (mouseEvent: { latLng: any }) {
+              const latlng = mouseEvent.latLng;
+              console.log(latlng);
+
+              marker.setPosition(latlng);
+              marker.setMap(map);
+
+              searchDetailAddrFromCoords(latlng, getAddress);
+              console.log(address1);
+            }
+          );
+        }
       });
     };
   }, []);
 
   return (
     <div>
-      <div id='map' style={{ width: 800, height: 600 }}></div>
+      <div id='map' style={{ width: 380, height: 252 }}></div>
     </div>
   );
 }

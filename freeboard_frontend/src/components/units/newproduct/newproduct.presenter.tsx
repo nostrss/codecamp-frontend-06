@@ -1,9 +1,11 @@
+import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
 import * as p from './newproduct.style';
 // import { IPostingUIProps } from './newproduct.type';
 // import { Modal } from 'antd';
 // import DaumPostcode from 'react-daum-postcode';
 // import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
-// import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
+import KakaoMapPage from '../../commons/map';
 
 export default function NewProductUI(props) {
   return (
@@ -15,18 +17,14 @@ export default function NewProductUI(props) {
         </p.Title>
 
         <p.ColumnWrapper>
-          <p.InputLable>제목</p.InputLable>
+          <p.InputLable>상품명</p.InputLable>
           {/* <p.Warning hidden={props.isWarning.titleError}>
               제목을 입력해주세요.
             </p.Warning> */}
           <p.IntputText
             id='name'
             onChange={props.onChangeInputs}
-            // id='title'
-            // name='title'
-            // placeholder='제목을 작성해주세요'
-            // onChange={props.onChangeInputs}
-            // defaultValue={props.originData?.data?.fetchBoard.title}
+            placeholder='상품명을 입력해주세요'
           ></p.IntputText>
           <p.InputLable id='remarks' onChange={props.onChangeInputs}>
             한줄요약
@@ -34,16 +32,19 @@ export default function NewProductUI(props) {
           <p.IntputText
             id='remarks'
             onChange={props.onChangeInputs}
+            placeholder='한줄 설명을 입력해주세요'
           ></p.IntputText>
           <p.InputLable>상품설명</p.InputLable>
           <p.InputContents
             id='contents'
             onChange={props.onChangeInputs}
+            placeholder='상품을 설명해주세요'
           ></p.InputContents>
           <p.InputLable>판매가격</p.InputLable>
           <p.IntputText
             id='price'
             onChange={props.onChangeInputs}
+            placeholder='판매가격을 입력해주세요'
           ></p.IntputText>
           <p.InputLable>태그입력</p.InputLable>
           <p.IntputText></p.IntputText>
@@ -52,38 +53,40 @@ export default function NewProductUI(props) {
         <p.RowWrapper>
           <p.ColumnWrapper>
             <p.InputLable>거래위치</p.InputLable>
-            <p.Map></p.Map>
+            <p.Map>
+              <KakaoMapPage></KakaoMapPage>
+            </p.Map>
           </p.ColumnWrapper>
           <p.ColumnWrapper>
             <p.InputLable>GPS</p.InputLable>
             <p.RowWrapper>
-              <p.IntputText></p.IntputText>
+              <p.IntputText id='lng' onChange={props.onChangeAddress} />
               <p.LocationIcon src='/image/location.png' alt='' />
-
-              <p.IntputText></p.IntputText>
+              <p.IntputText id='lat' onChange={props.onChangeAddress} />
             </p.RowWrapper>
 
             <p.InputLable>주소</p.InputLable>
             <p.InputAddress
-            // id='isAddress'
-            // readOnly
-            // value={
-            //   props.inputs.isAddress ||
-            //   props.originData?.data?.fetchBoard.boardAddress?.address ||
-            //   ''
-            // }
-            ></p.InputAddress>
+              id='address'
+              onChange={props.onChangeAddress}
+              // readOnly
+              // value={
+              //   props.inputs.isAddress ||
+              //   props.originData?.data?.fetchBoard.boardAddress?.address ||
+              //   ''
+              // }
+            />
             <p.IntputText
-            // id='address2'
-            // onChange={props.onChangeInputs}
-            // defaultValue={
-            //   props.originData?.data?.fetchBoard.boardAddress?.addressDetail
-            // }
+              id='addressDetail'
+              onChange={props.onChangeAddress}
+              // defaultValue={
+              //   props.originData?.data?.fetchBoard.boardAddress?.addressDetail
+              // }
             ></p.IntputText>
           </p.ColumnWrapper>
         </p.RowWrapper>
         <p.UploadImageWrapper>
-          {/* <ImageUpload
+          <ImageUpload
             setInputs={props.setInputs}
             inputs={props.inputs}
             onChangeFileUrls={props.onChangeFileUrls}
@@ -98,7 +101,7 @@ export default function NewProductUI(props) {
                   : `https://storage.googleapis.com/${el}`
               }
             />
-          ))} */}
+          ))}
         </p.UploadImageWrapper>
         <p.RowWrapper>
           <p.ColumnWrapperItem>

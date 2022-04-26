@@ -10,6 +10,7 @@ import NewProductUI from './newproduct.presenter';
 //   IUpdateBoardInput,
 // } from '../../../commons/types/generated/types';
 import { Modal } from 'antd';
+import { number } from 'yup/lib/locale';
 
 export default function NewProductContainer() {
   const router = useRouter();
@@ -20,9 +21,18 @@ export default function NewProductContainer() {
     remarks: '',
     contents: '',
     price: 0,
+    images: [],
   });
 
-  // const [fileUrls, setFileUrls] = useState([]);
+  const [isAddress, setIsAddress] = useState({
+    zipcode: '',
+    address: '',
+    addressDetail: '',
+    lat: 0,
+    lng: 0,
+  });
+
+  const [fileUrls, setFileUrls] = useState([]);
 
   // // input값 미입력 상태 state
   // const [isWarning, setIsWarning] = useState({
@@ -42,13 +52,22 @@ export default function NewProductContainer() {
     });
   };
 
+  const onChangeAddress = (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setIsAddress({
+      ...isAddress,
+      [event.target.id]: event.target.value,
+    });
+  };
+
   // // input중 이미지는 배열이라 따로 함수 생성
 
-  // const onChangeFileUrls = (fileUrl: string) => {
-  //   const newFileUrls = [...fileUrls];
-  //   newFileUrls.push(fileUrl);
-  //   setFileUrls(newFileUrls);
-  // };
+  const onChangeFileUrls = (fileUrl: string) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls.push(fileUrl);
+    setFileUrls(newFileUrls);
+  };
 
   // 상품등록
   const [createItem] = useMutation(CREAT_ITEM);
@@ -62,6 +81,7 @@ export default function NewProductContainer() {
             remarks: inputs.remarks,
             contents: inputs.contents,
             price: Number(inputs.price),
+            images: fileUrls,
           },
         },
       });
@@ -71,49 +91,6 @@ export default function NewProductContainer() {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
-
-  // // 새글 작성 완료 버튼
-  // const submitContents = async () => {
-  //   setIsWarning({
-  //     ...isWarning,
-  //     nameError: !!inputs.name,
-  //     passwordError: !!inputs.password,
-  //     titleError: !!inputs.title,
-  //     contentsError: !!inputs.contents,
-  //   });
-
-  //   if (
-  //     inputs.name !== '' &&
-  //     inputs.password !== '' &&
-  //     inputs.title !== '' &&
-  //     inputs.contents !== ''
-  //   ) {
-  //     try {
-  //       const response = await sendContents({
-  //         variables: {
-  //           createBoardInput: {
-  //             writer: String(inputs.name),
-  //             title: String(inputs.title),
-  //             contents: String(inputs.contents),
-  //             password: String(inputs.password),
-  //             youtubeUrl: String(inputs.youtube),
-  //             images: fileUrls,
-  //             boardAddress: {
-  //               zipcode: String(inputs.zipcode),
-  //               address: String(inputs.isAddress),
-  //               addressDetail: String(inputs.address2),
-  //             },
-  //           },
-  //         },
-  //       });
-  //       Modal.success({ content: '게시물 등록에 성공하였습니다!' });
-  //       router.push(`../boards/post/${response.data?.createBoard._id}`);
-  //     } catch (error) {
-  //       if (error instanceof Error) Modal.error({ content: error.message });
-  //       setWarning(true);
-  //     }
-  //   }
-  // };
 
   // // 수정하기 영역
   // const [updateContents] = useMutation(UPDATE_CONTENS);
@@ -188,6 +165,7 @@ export default function NewProductContainer() {
     <NewProductUI
       onClickCreateItem={onClickCreateItem}
       onChangeInputs={onChangeInputs}
+      onChangeAddress={onChangeAddress}
       // isEdit={props.isEdit}
       // submitContents={submitContents}
       // updateButton={updateButton}
@@ -202,8 +180,8 @@ export default function NewProductContainer() {
       // inputs={inputs}
       // setInputs={setInputs}
       // isWarning={isWarning}
-      // onChangeFileUrls={onChangeFileUrls}
-      // fileUrls={fileUrls}
+      onChangeFileUrls={onChangeFileUrls}
+      fileUrls={fileUrls}
     />
   );
 }
