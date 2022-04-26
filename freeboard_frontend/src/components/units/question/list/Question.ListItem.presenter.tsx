@@ -37,8 +37,8 @@ export default function QuestionListUIItem(props) {
           </S.OptionWrapper>
         </S.FlexWrapper>
         <S.DateString>{props.el?.createdAt}</S.DateString>
-        <AnswerContainer Qid={props.el._id} />
       </S.ItemWrapper>
+      <AnswerContainer Qid={props.el._id} />
       {/* )}
       {isEdit && (
         <BoardCommentWrite isEdit={true} setIsEdit={setIsEdit} el={props.el} />

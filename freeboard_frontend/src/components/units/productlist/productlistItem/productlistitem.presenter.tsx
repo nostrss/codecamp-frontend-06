@@ -4,11 +4,11 @@ export default function ProductListItemUI(props) {
     <U.WrappDivFlexRow onClick={() => props.onClickProductList(props.el._id)}>
       <U.ItemImage
         src={
-          props.el.images === '' || !props.el.images
+          props.el.images[0] === '' || props.el?.images.length === 0
             ? '/image/undraw_profile_pic_ic-5-t.svg/'
-            : props.el.images?.startsWith('https', 0)
-            ? `${props.el.images}`
-            : `https://storage.googleapis.com/${props.el.images}`
+            : props.el.images[0]?.startsWith('https', 0)
+            ? `${props.el.images[0]}`
+            : `https://storage.googleapis.com/${props.el.images[0]}`
         }
       />
       <U.DivFlexCol>

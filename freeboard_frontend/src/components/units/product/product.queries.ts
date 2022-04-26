@@ -9,9 +9,18 @@ export const FETCH_PRODUCT = gql`
       contents
       price
       createdAt
+      images
+      tags
       seller {
         _id
         name
+      }
+      useditemAddress {
+        lat
+        lng
+        zipcode
+        address
+        addressDetail
       }
     }
   }

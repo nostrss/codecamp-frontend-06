@@ -27,6 +27,7 @@ export const FETCH_PRODUCTS = gql`
       price
       tags
       pickedCount
+      images
       seller {
         _id
         name
