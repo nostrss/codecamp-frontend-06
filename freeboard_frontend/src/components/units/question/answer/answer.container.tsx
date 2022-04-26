@@ -7,7 +7,6 @@ export default function AnswerContainer(props) {
   const { data } = useQuery(FETCH_ANSWER, {
     variables: { useditemQuestionId: String(props.Qid) },
   });
-  console.log(data);
 
   return (
     <div>
