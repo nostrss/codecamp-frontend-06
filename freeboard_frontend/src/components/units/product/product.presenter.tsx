@@ -9,6 +9,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import QuestionWrite from '../question/write/QuestionWrite.container';
 import QuestionListContainer from '../question/list/Question.List.container';
+import Slider from 'react-slick';
+import { v4 as uuidv4 } from 'uuid';
+import KakaoMapPage from '../../commons/map';
 
 export default function ProductUI(props) {
   const settings = {
@@ -56,26 +59,26 @@ export default function ProductUI(props) {
               <P.PostBodyTitle>
                 {props.data?.fetchUseditem.name}
               </P.PostBodyTitle>
-              {/* {props.data?.fetchBoard.images[0] ? (
-            <P.SliderWrapper>
-              <Slider {...settings}>
-                {props.data?.fetchBoard.images.map((el, index) => (
-                  <P.SliderItem key={uuidv4()}>
-                    <P.SliderImg
-                      hidden={!props.data?.fetchBoard.images[index]}
-                      src={
-                        el?.startsWith('https', 0)
-                          ? el
-                          : `https://storage.googleapis.com/${el}`
-                      }
-                    />
-                  </P.SliderItem>
-                ))}
-              </Slider>
-            </P.SliderWrapper>
-          ) : (
-            ''
-          )} */}
+              {props.data?.fetchUseditem?.images[0] ? (
+                <P.SliderWrapper>
+                  <Slider {...settings}>
+                    {props.data?.fetchUseditem.images.map((el, index) => (
+                      <P.SliderItem key={uuidv4()}>
+                        <P.SliderImg
+                          hidden={!props.data?.fetchUseditem.images[index]}
+                          src={
+                            el?.startsWith('https', 0)
+                              ? el
+                              : `https://storage.googleapis.com/${el}`
+                          }
+                        />
+                      </P.SliderItem>
+                    ))}
+                  </Slider>
+                </P.SliderWrapper>
+              ) : (
+                ''
+              )}
             </P.FlexColDiv>
             <P.FlexColDiv>
               <P.PostLikeItem>
@@ -90,34 +93,18 @@ export default function ProductUI(props) {
             </P.FlexColDiv>
           </P.FlexRowDiv>
 
-          {/* {props.data?.fetchBoard.images[0] ? (
-            <P.SliderWrapper>
-              <Slider {...settings}>
-                {props.data?.fetchBoard.images.map((el, index) => (
-                  <P.SliderItem key={uuidv4()}>
-                    <P.SliderImg
-                      hidden={!props.data?.fetchBoard.images[index]}
-                      src={
-                        el?.startsWith('https', 0)
-                          ? el
-                          : `https://storage.googleapis.com/${el}`
-                      }
-                    />
-                  </P.SliderItem>
-                ))}
-              </Slider>
-            </P.SliderWrapper>
-          ) : (
-            ''
-          )} */}
           <P.FlexColDiv>
             <P.PostBodyText>
               {props.data?.fetchUseditem.contents}
             </P.PostBodyText>
-            <P.H3>#fjdsakl</P.H3>
+            {props.data?.fetchUseditem.tags
+              ? props.data?.fetchUseditem.tags.map((el) => (
+                  <P.H3 key={uuidv4()}>{el}</P.H3>
+                ))
+              : ''}
           </P.FlexColDiv>
+          <KakaoMapPage address={props.data?.fetchUseditem.useditemAddress} />
         </P.ProductBody>
-        <P.PostFooter></P.PostFooter>
       </WrapperCanvas>
       <P.PostBtns>
         <P.PostBtnItem
