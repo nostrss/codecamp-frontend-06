@@ -1,14 +1,21 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import { accessTokenState, userInfoState } from '../../../../commons/store';
+import { accessTokenState } from '../../../../commons/store';
 import { gql, useQuery } from '@apollo/client';
+import { useState } from 'react';
+import { Modal } from 'antd';
+import RechargeModal from '../../rechargeModal/rechargeModal';
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
       email
       name
+      picture
+      userPoint {
+        amount
+      }
     }
   }
 `;
@@ -63,6 +70,8 @@ export default function LayoutHeader() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const router = useRouter();
   const [isToken] = useRecoilState(accessTokenState);
+  const [isOpen, setIsOpen] = useState(false);
+
   // const [userInfo] = useRecoilState(userInfoState);
 
   const onClickLogo = () => {
@@ -77,13 +86,37 @@ export default function LayoutHeader() {
     router.push('/signup');
   };
 
-  // console.log(data?.fetchUserLoggedIn.name);
+  const onClickReCharge = () => {
+    setIsOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+
+  console.log(data?.fetchUserLoggedIn.userPoint);
 
   return (
     <Wrapper>
       <WrapperHeader>
         <WrapperLogo onClick={onClickLogo}>NoStrss</WrapperLogo>
         <WrapperHeaderMenu>
+          <div>{data?.fetchUserLoggedIn.userPoint.amount}포인트</div>
+          <SignUpButton onClick={onClickReCharge}>충전하기</SignUpButton>
+          <Modal
+            title='충전하기'
+            visible={isOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={null}
+          >
+            <RechargeModal setIsOpen={setIsOpen}></RechargeModal>
+          </Modal>
+
           {isToken ? (
             <>
               <div>{data?.fetchUserLoggedIn.name}님 환영합니다</div>

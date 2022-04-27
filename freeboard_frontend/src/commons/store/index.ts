@@ -2,10 +2,10 @@
 
 import { atom } from 'recoil';
 
-// export const isEditState = atom({
-//   key: 'isEditState',
-//   default: false,
-// });
+export const isEditState = atom({
+  key: 'isEditState',
+  default: false,
+});
 
 export const accessTokenState = atom({
   key: 'accessTokenState',
@@ -17,5 +17,29 @@ export const userInfoState = atom({
   default: {
     email: '',
     name: '',
+  },
+});
+
+export const postDataState = atom({
+  key: 'postData',
+  default: {
+    fetchBoard: {
+      boardAddress: {
+        __typename: '',
+        zipcode: '',
+        address: '',
+        addressDetail: '',
+      },
+      contents: '',
+      createdAt: '',
+      dislikeCount: 0,
+      images: [],
+      likeCount: 0,
+      title: '',
+      writer: '',
+      youtubeUrl: '',
+      __typename: '',
+      _id: '',
+    },
   },
 });

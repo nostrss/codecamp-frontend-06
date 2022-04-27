@@ -122,15 +122,16 @@ export default function ProductUI(props) {
         </P.ProductBody>
       </WrapperCanvas>
       <P.PostBtns>
-        <P.PostBtnItem
-        // onClick={props.movetoBoards}
-        >
+        <P.PostBtnItem onClick={props.onClickMoveToList}>
           목록으로
         </P.PostBtnItem>
         <P.PostBtnItem
         // onClick={props.moveUpdate}
         >
           수정하기
+        </P.PostBtnItem>
+        <P.PostBtnItem onClick={props.onClickByeProduct}>
+          구매하기
         </P.PostBtnItem>
       </P.PostBtns>
       <QuestionWrite></QuestionWrite>
