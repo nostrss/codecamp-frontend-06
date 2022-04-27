@@ -5,15 +5,23 @@ import ProductListUI from './productlist.presenter';
 import { FETCH_PRODUCTS } from './productlist.queries';
 
 export default function ProductListContainer() {
-  const { data, fetchMore } = useQuery(FETCH_PRODUCTS);
-  const [isSold, setIsSold] = useState(false);
+  const [isSoldout, setIsSoldout] = useState(false);
+  const { data, fetchMore } = useQuery(FETCH_PRODUCTS, {
+    variables: {
+      isSoldout,
+    },
+  });
   const router = useRouter();
   const onClickMoveNew = () => {
     router.push('/usedmarket/new');
   };
 
   const onClickSold = () => {
-    setIsSold(true);
+    setIsSoldout(true);
+  };
+
+  const onClickSell = () => {
+    setIsSoldout(false);
   };
 
   const onLoadMore = () => {
@@ -34,7 +42,8 @@ export default function ProductListContainer() {
     });
   };
 
-  console.log(isSold);
+  console.log(isSoldout);
+  console.log(data);
 
   return (
     <>
@@ -43,7 +52,8 @@ export default function ProductListContainer() {
         onLoadMore={onLoadMore}
         onClickMoveNew={onClickMoveNew}
         onClickSold={onClickSold}
-        isSold={isSold}
+        isSoldout={isSoldout}
+        onClickSell={onClickSell}
       />
     </>
   );

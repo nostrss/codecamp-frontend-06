@@ -10,7 +10,7 @@ export default function ProductListUI(props: IFetchProductListUI) {
     <P.Wrapper>
       <P.WrapperCanvas>
         <P.WrapperFlexRow>
-          <button>판매중상품</button>
+          <button onClick={props.onClickSell}>판매중상품</button>
           <button onClick={props.onClickSold}>판매된상품</button>
         </P.WrapperFlexRow>
         <P.WrapperSearch>
@@ -29,11 +29,7 @@ export default function ProductListUI(props: IFetchProductListUI) {
           hasMore={true}
         >
           {props.data?.fetchUseditems.map((el) => (
-            <ProductListItemContainer
-              key={String(uuidv4())}
-              el={el}
-              isSold={props.isSold}
-            />
+            <ProductListItemContainer key={String(uuidv4())} el={el} />
           )) || <div></div>}
         </InfiniteScroll>
         <P.ButtonFix onClick={props.onClickMoveNew}>상품등록하기</P.ButtonFix>

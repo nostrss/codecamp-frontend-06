@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import Head from 'next/head';
+import { useEffect, useState } from 'react';
+// import Head from 'next/head';
 import router from 'next/router';
 import { gql, useMutation } from '@apollo/client';
 
@@ -21,6 +21,16 @@ export const CREATE_RECHARGE = gql`
 export default function RechargeModal(props) {
   const [createRecharge] = useMutation(CREATE_RECHARGE);
   const [amount, setAmount] = useState(100);
+
+  useEffect(() => {
+    const jqueryScript = document.createElement('script');
+    jqueryScript.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
+    document.head.appendChild(jqueryScript);
+
+    const iamportScript = document.createElement('script');
+    iamportScript.src = 'https://cdn.iamport.kr/js/iamport.payment-1.2.0.js';
+    document.head.appendChild(iamportScript);
+  }, []);
 
   const requestPay = () => {
     // IMP.request_pay(param, callback) 결제창 호출
@@ -50,10 +60,11 @@ export default function RechargeModal(props) {
               impUid: rsp.imp_uid,
             },
           });
+          props.setIsOpen(false);
+          alert('결제가 완료되었습니다');
           router.push('/usedmarket');
           console.log(rsp);
           console.log(response);
-          props.setIsOpen(false);
         } else {
           // 결제 실패 시 로직,
           alert('결제에 실패했습니다. 다시 시도해 주세요');
@@ -67,7 +78,7 @@ export default function RechargeModal(props) {
   };
   return (
     <div>
-      <Head>
+      {/* <Head>
         <script
           type='text/javascript'
           src='https://code.jquery.com/jquery-1.12.4.min.js'
@@ -76,7 +87,7 @@ export default function RechargeModal(props) {
           type='text/javascript'
           src='https://cdn.iamport.kr/js/iamport.payment-1.2.0.js'
         ></script>
-      </Head>
+      </Head> */}
       <select name='recharge' onChange={onChangeRecharge}>
         <option disabled selected>
           충전금액을 선택하세요
