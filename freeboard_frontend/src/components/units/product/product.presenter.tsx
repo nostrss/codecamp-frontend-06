@@ -12,6 +12,7 @@ import QuestionListContainer from '../question/list/Question.List.container';
 import Slider from 'react-slick';
 import { v4 as uuidv4 } from 'uuid';
 import KakaoMapPage from '../../commons/map';
+import DOMPurify from 'dompurify';
 
 export default function ProductUI(props) {
   const settings = {
@@ -93,9 +94,17 @@ export default function ProductUI(props) {
             </P.FlexColDiv>
           </P.FlexRowDiv>
           <P.FlexColDiv>
-            <P.PostBodyText>
-              {props.data?.fetchUseditem.contents}
-            </P.PostBodyText>
+            {typeof window !== 'undefined' ? (
+              <P.PostBodyText
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    props.data?.fetchUseditem.contents
+                  ),
+                }}
+              ></P.PostBodyText>
+            ) : (
+              ''
+            )}
             {props.data?.fetchUseditem.tags
               ? props.data?.fetchUseditem.tags.map((el) => (
                   <P.H3 key={uuidv4()}>{el}</P.H3>
