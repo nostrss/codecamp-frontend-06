@@ -92,7 +92,6 @@ export default function ProductUI(props) {
               </P.PostLikeItem>
             </P.FlexColDiv>
           </P.FlexRowDiv>
-
           <P.FlexColDiv>
             <P.PostBodyText>
               {props.data?.fetchUseditem.contents}
@@ -103,7 +102,14 @@ export default function ProductUI(props) {
                 ))
               : ''}
           </P.FlexColDiv>
-          <KakaoMapPage address={props.data?.fetchUseditem.useditemAddress} />
+          {props.data?.fetchUseditem?.useditemAddress ? (
+            <KakaoMapPage
+              address={props.data?.fetchUseditem.useditemAddress}
+              mapfixed={true}
+            />
+          ) : (
+            ''
+          )}
         </P.ProductBody>
       </WrapperCanvas>
       <P.PostBtns>

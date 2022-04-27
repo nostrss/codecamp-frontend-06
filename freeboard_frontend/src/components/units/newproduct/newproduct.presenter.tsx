@@ -47,38 +47,54 @@ export default function NewProductUI(props) {
             placeholder='판매가격을 입력해주세요'
           ></p.IntputText>
           <p.InputLable>태그입력</p.InputLable>
-          <p.IntputText></p.IntputText>
+          {/* <span>{ hash}</span> */}
+          <p.IntputText
+            id='tags'
+            onKeyUp={props.onHashtag}
+            onChange={props.onChangeInputs}
+            placeholder='#태그 #태그 #태그'
+          />
         </p.ColumnWrapper>
 
         <p.RowWrapper>
           <p.ColumnWrapper>
             <p.InputLable>거래위치</p.InputLable>
             <p.Map>
-              <KakaoMapPage></KakaoMapPage>
+              <KakaoMapPage
+                setIsAddress={props.setIsAddress}
+                mapfixed={false}
+              ></KakaoMapPage>
             </p.Map>
           </p.ColumnWrapper>
           <p.ColumnWrapper>
             <p.InputLable>GPS</p.InputLable>
             <p.RowWrapper>
-              <p.IntputText id='lng' onChange={props.onChangeAddress} />
+              <p.IntputText
+                id='lng'
+                onChange={props.onChangeAddress}
+                readOnly
+                value={props.isAddress?.lng}
+              />
               <p.LocationIcon src='/image/location.png' alt='' />
-              <p.IntputText id='lat' onChange={props.onChangeAddress} />
+              <p.IntputText
+                id='lat'
+                onChange={props.onChangeAddress}
+                readOnly
+                value={props.isAddress?.lat}
+              />
             </p.RowWrapper>
 
             <p.InputLable>주소</p.InputLable>
             <p.InputAddress
               id='address'
               onChange={props.onChangeAddress}
-              // readOnly
-              // value={
-              //   props.inputs.isAddress ||
-              //   props.originData?.data?.fetchBoard.boardAddress?.address ||
-              //   ''
-              // }
+              readOnly
+              value={props.isAddress?.address}
             />
             <p.IntputText
               id='addressDetail'
               onChange={props.onChangeAddress}
+
               // defaultValue={
               //   props.originData?.data?.fetchBoard.boardAddress?.addressDetail
               // }

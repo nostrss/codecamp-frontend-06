@@ -21,7 +21,7 @@ export default function KakaoMapPage(props) {
         const container = document.getElementById('map');
         const options = {
           center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-          level: 3, // 지도의 레벨(확대, 축소 정도)
+          level: 2, // 지도의 레벨(확대, 축소 정도)
         };
         const geocoder = new window.kakao.maps.services.Geocoder();
         const map = new window.kakao.maps.Map(container, options);
@@ -38,10 +38,12 @@ export default function KakaoMapPage(props) {
             address1 = result[0].road_address;
           }
         }
+        console.log(props.mapfixed);
 
         // props가 있을때, 상품 상세일 경우
-        if (props.address) {
+        if (props.mapfixed === true) {
           // 마커가 표시될 위치입니다
+          console.log(props.address?.lat);
           const markerPosition = new window.kakao.maps.LatLng(
             props.address?.lat,
             props.address?.lng
@@ -62,6 +64,7 @@ export default function KakaoMapPage(props) {
             // 지도 중심을 이동 시킵니다
             map.setCenter(moveLatLon);
           }
+          // 새글 작성일 경우
         } else {
           // 마커가 지도 위에 표시되도록 설정합니다
           const marker = new window.kakao.maps.Marker();
@@ -77,7 +80,13 @@ export default function KakaoMapPage(props) {
               marker.setMap(map);
 
               searchDetailAddrFromCoords(latlng, getAddress);
-              console.log(address1);
+              console.log(address1?.address_name);
+              props.setIsAddress({
+                lat: latlng.Ma,
+                lng: latlng.La,
+                address: address1?.address_name,
+                zipcode: address1?.zone_no,
+              });
             }
           );
         }

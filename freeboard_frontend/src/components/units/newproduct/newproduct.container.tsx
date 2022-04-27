@@ -10,7 +10,6 @@ import NewProductUI from './newproduct.presenter';
 //   IUpdateBoardInput,
 // } from '../../../commons/types/generated/types';
 import { Modal } from 'antd';
-import { number } from 'yup/lib/locale';
 
 export default function NewProductContainer() {
   const router = useRouter();
@@ -33,6 +32,8 @@ export default function NewProductContainer() {
   });
 
   const [fileUrls, setFileUrls] = useState([]);
+  const [hashtag, setHashtag] = useState('');
+  const [hashArr, setHashArr] = useState([]);
 
   // // input값 미입력 상태 state
   // const [isWarning, setIsWarning] = useState({
@@ -69,6 +70,13 @@ export default function NewProductContainer() {
     setFileUrls(newFileUrls);
   };
 
+  const onHashtag = (event) => {
+    if (event.keyCode === 32 && event.target.value !== '') {
+      setHashArr([...hashArr, '#' + event.target.value]);
+      event.target.value = '';
+    }
+  };
+
   // 상품등록
   const [createItem] = useMutation(CREAT_ITEM);
 
@@ -82,6 +90,7 @@ export default function NewProductContainer() {
             contents: inputs.contents,
             price: Number(inputs.price),
             images: fileUrls,
+            useditemAddress: isAddress,
           },
         },
       });
@@ -161,6 +170,8 @@ export default function NewProductContainer() {
   //   setIsOpen(false);
   // };
 
+  console.log(isAddress.lat);
+
   return (
     <NewProductUI
       onClickCreateItem={onClickCreateItem}
@@ -180,6 +191,10 @@ export default function NewProductContainer() {
       // inputs={inputs}
       // setInputs={setInputs}
       // isWarning={isWarning}
+      hashArr={hashArr}
+      onHashtag={onHashtag}
+      isAddress={isAddress}
+      setIsAddress={setIsAddress}
       onChangeFileUrls={onChangeFileUrls}
       fileUrls={fileUrls}
     />
