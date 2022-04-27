@@ -19,27 +19,3 @@ export const userInfoState = atom({
     name: '',
   },
 });
-
-export const postDataState = atom({
-  key: 'postData',
-  default: {
-    fetchBoard: {
-      boardAddress: {
-        __typename: '',
-        zipcode: '',
-        address: '',
-        addressDetail: '',
-      },
-      contents: '',
-      createdAt: '',
-      dislikeCount: 0,
-      images: [],
-      likeCount: 0,
-      title: '',
-      writer: '',
-      youtubeUrl: '',
-      __typename: '',
-      _id: '',
-    },
-  },
-});
