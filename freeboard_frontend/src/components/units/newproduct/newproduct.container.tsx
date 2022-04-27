@@ -32,8 +32,8 @@ export default function NewProductContainer() {
   });
 
   const [fileUrls, setFileUrls] = useState([]);
-  const [hashtag, setHashtag] = useState('');
   const [hashArr, setHashArr] = useState([]);
+  const [isContents, setIsContents] = useState('');
 
   // // input값 미입력 상태 state
   // const [isWarning, setIsWarning] = useState({
@@ -70,11 +70,18 @@ export default function NewProductContainer() {
     setFileUrls(newFileUrls);
   };
 
-  const onHashtag = (event) => {
-    if (event.keyCode === 32 && event.target.value !== '') {
-      setHashArr([...hashArr, '#' + event.target.value]);
-      event.target.value = '';
-    }
+  const onChangeContents = (value: string) => {
+    console.log(value);
+    setIsContents(value);
+
+    // 리액트 훅 폼 : register에 등록하지 않고 강제로 값을 넣어주는 기능
+    // 전부 지웠을 때 <p><br></p> 태그가 남아있어서 삭제를 해야함
+    // setValue('contents', value === '<p><br></p>' ? '' : value);
+  };
+
+  const onChangeTags = (event) => {
+    const tagArr = event.target.value.split(' ');
+    setHashArr(tagArr);
   };
 
   // 상품등록
@@ -87,10 +94,11 @@ export default function NewProductContainer() {
           createUseditemInput: {
             name: inputs.name,
             remarks: inputs.remarks,
-            contents: inputs.contents,
+            contents: isContents,
             price: Number(inputs.price),
             images: fileUrls,
             useditemAddress: isAddress,
+            tags: hashArr,
           },
         },
       });
@@ -170,13 +178,18 @@ export default function NewProductContainer() {
   //   setIsOpen(false);
   // };
 
-  console.log(isAddress.lat);
-
   return (
     <NewProductUI
       onClickCreateItem={onClickCreateItem}
       onChangeInputs={onChangeInputs}
       onChangeAddress={onChangeAddress}
+      onChangeContents={onChangeContents}
+      onChangeTags={onChangeTags}
+      hashArr={hashArr}
+      isAddress={isAddress}
+      setIsAddress={setIsAddress}
+      onChangeFileUrls={onChangeFileUrls}
+      fileUrls={fileUrls}
       // isEdit={props.isEdit}
       // submitContents={submitContents}
       // updateButton={updateButton}
@@ -191,12 +204,6 @@ export default function NewProductContainer() {
       // inputs={inputs}
       // setInputs={setInputs}
       // isWarning={isWarning}
-      hashArr={hashArr}
-      onHashtag={onHashtag}
-      isAddress={isAddress}
-      setIsAddress={setIsAddress}
-      onChangeFileUrls={onChangeFileUrls}
-      fileUrls={fileUrls}
     />
   );
 }

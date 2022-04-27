@@ -6,6 +6,9 @@ import * as p from './newproduct.style';
 // import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
 import { v4 as uuidv4 } from 'uuid';
 import KakaoMapPage from '../../commons/map';
+import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export default function NewProductUI(props) {
   return (
@@ -35,11 +38,18 @@ export default function NewProductUI(props) {
             placeholder='한줄 설명을 입력해주세요'
           ></p.IntputText>
           <p.InputLable>상품설명</p.InputLable>
-          <p.InputContents
+          <ReactQuill
+            style={{ height: '200px' }}
+            // id='contents'
+            onChange={props.onChangeContents}
+            placeholder='상품을 설명해주세요'
+          />
+          {/* <p.InputContents
             id='contents'
             onChange={props.onChangeInputs}
             placeholder='상품을 설명해주세요'
-          ></p.InputContents>
+          ></p.InputContents> */}
+
           <p.InputLable>판매가격</p.InputLable>
           <p.IntputText
             id='price'
@@ -47,11 +57,9 @@ export default function NewProductUI(props) {
             placeholder='판매가격을 입력해주세요'
           ></p.IntputText>
           <p.InputLable>태그입력</p.InputLable>
-          {/* <span>{ hash}</span> */}
           <p.IntputText
             id='tags'
-            onKeyUp={props.onHashtag}
-            onChange={props.onChangeInputs}
+            onChange={props.onChangeTags}
             placeholder='#태그 #태그 #태그'
           />
         </p.ColumnWrapper>
@@ -94,10 +102,6 @@ export default function NewProductUI(props) {
             <p.IntputText
               id='addressDetail'
               onChange={props.onChangeAddress}
-
-              // defaultValue={
-              //   props.originData?.data?.fetchBoard.boardAddress?.addressDetail
-              // }
             ></p.IntputText>
           </p.ColumnWrapper>
         </p.RowWrapper>

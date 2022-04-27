@@ -24,7 +24,7 @@ const schema = yup
   .required();
 
 const LOGIN_EXAM = gql`
-  mutation loginUserExample($email: String!, $password: String!) {
+  mutation loginUser($email: String!, $password: String!) {
     loginUserExample(email: $email, password: $password) {
       accessToken
     }
@@ -39,7 +39,7 @@ export default function SignInContainer() {
     mode: 'onChange',
   });
 
-  const [loginUser] = useMutation(LOGIN_EXAM);
+  const [loginUser] = useMutation(LOGIN_USER);
   const router = useRouter();
   const client = useApolloClient();
 
@@ -48,8 +48,10 @@ export default function SignInContainer() {
       variables: data,
     });
 
-    const accessToken = result.data.loginUserExample.accessToken;
+    const accessToken = result.data.loginUser.accessToken;
     setAccessToken(accessToken);
+    localStorage.setItem('accessToken', accessToken);
+    console.log(accessToken);
 
     const resultUserInfo = await client.query({
       query: FETCH_USER_LOGGED_IN,

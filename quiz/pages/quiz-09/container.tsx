@@ -24,6 +24,14 @@ export default function MemoizationContainer() {
     countLet += 1;
   }, []);
 
+  // 6.부모 컴포넌트에 선언되어 있는 let count가 다시 생성되지 않도록 useMemo를 적용해 주세요.
+  // const onClickCountLet = useMemo(() => {
+  //   return () => {
+  //     countLet += 1;
+  //     console.log(countLet);
+  //   };
+  // }, []);
+
   const onClickCountState = useCallback(() => {
     console.log('STATE버튼클릭');
     console.log(countState);

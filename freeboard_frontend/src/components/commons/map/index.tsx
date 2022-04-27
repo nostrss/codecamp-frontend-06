@@ -20,7 +20,7 @@ export default function KakaoMapPage(props) {
       window.kakao.maps.load(function () {
         const container = document.getElementById('map');
         const options = {
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+          center: new window.kakao.maps.LatLng(37.4847961, 126.8966297),
           level: 2, // 지도의 레벨(확대, 축소 정도)
         };
         const geocoder = new window.kakao.maps.services.Geocoder();

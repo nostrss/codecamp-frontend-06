@@ -26,19 +26,22 @@ export const FETCH_PRODUCT = gql`
   }
 `;
 
-// query{
-//   fetchUseditem(
-//     useditemId : "62615d33a8255b002988bbd4"
+export const BUY_PRODUCT = gql`
+  mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
+    createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
+      _id
+      name
+      price
+    }
+  }
+`;
+
+// mutation{
+//   createPointTransactionOfBuyingAndSelling(
+//     useritemId:"62695264a8255b002988d48a"
 //   ){
 //     _id
 //     name
-//     remarks
-//     contents
+//     price
 //   }
 // }
-
-// export const BOARD_LIKE = gql`
-//   mutation likeBoard($boardId: ID!) {
-//     likeBoard(boardId: $boardId)
-//   }
-// `;
