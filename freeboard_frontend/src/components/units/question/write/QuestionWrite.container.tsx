@@ -1,133 +1,74 @@
-// import { useMutation } from '@apollo/client';
-// import { useRouter } from 'next/router';
-// import { ChangeEvent, useState } from 'react';
-// import {
-//   IMutation,
-//   IMutationCreateBoardCommentArgs,
-//   IMutationUpdateBoardCommentArgs,
-//   IUpdateBoardCommentInput,
-// } from '../../../../commons/types/generated/types';
-// import BoardCommentWriteUI from './BoardCommentWrite.presenter';
-// import { FETCH_BOARD_COMMENTS } from '../list/BoardCommentList.queries';
-// import {
-//   CREATE_BOARD_COMMENT,
-//   UPDATE_BOARD_COMMENT,
-// } from './BoardCommentWrite.queries';
-// import { IBoardCommentWriteProps } from './BoardCommentWrite.types';
+import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { ChangeEvent, useState } from 'react';
+import { FETCH_QUESTION } from '../list/Question.List.queries';
 import QuestionWriteUI from './QuestionWrite.presenter';
+import {
+  CREATE_PRODUCT_COMMENT,
+  UPDATE_PRODUCT_COMMENT,
+} from './QuestionWrite.queries';
 
 export default function QuestionWrite(props) {
-  // const router = useRouter();
-  // const [writer, setWriter] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [contents, setContents] = useState('');
-  // const [star, setStar] = useState(0);
+  const router = useRouter();
+  const [contents, setContents] = useState('');
+  const [createProductComment] = useMutation(CREATE_PRODUCT_COMMENT);
+  const [updateProductComment] = useMutation(UPDATE_PRODUCT_COMMENT);
 
-  // const [createBoardComment] = useMutation<
-  //   Pick<IMutation, 'createBoardComment'>,
-  //   IMutationCreateBoardCommentArgs
-  // >(CREATE_BOARD_COMMENT);
+  const onChangeContents = (event: ChangeEvent<HTMLInputElement>) => {
+    setContents(event.target.value);
+  };
 
-  // const [updateBoardComment] = useMutation<
-  //   Pick<IMutation, 'updateBoardComment'>,
-  //   IMutationUpdateBoardCommentArgs
-  // >(UPDATE_BOARD_COMMENT);
+  const onClickQuestion = async () => {
+    try {
+      const result = await createProductComment({
+        variables: {
+          createUseditemQuestionInput: {
+            contents: contents,
+          },
+          useditemId: router.query.id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_QUESTION,
+            variables: { useditemId: router.query.id },
+          },
+        ],
+      });
+      console.log(result);
+    } catch (error) {
+      alert(error instanceof Error);
+    }
+  };
 
-  // const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setWriter(event.target.value);
-  // };
-
-  // const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setPassword(event.target.value);
-  // };
-
-  // const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
-  //   setContents(event.target.value);
-  // };
-
-  // const onChangeStar = (value: number) => {
-  //   setStar(value);
-  // };
-
-  // const onClickWrite = async () => {
-  //   try {
-  //     await createBoardComment({
-  //       variables: {
-  //         createBoardCommentInput: {
-  //           writer,
-  //           password,
-  //           contents,
-  //           rating: star,
-  //         },
-  //         boardId: String(router.query.postid),
-  //       },
-  //       refetchQueries: [
-  //         {
-  //           query: FETCH_BOARD_COMMENTS,
-  //           variables: { boardId: router.query.postid },
-  //         },
-  //       ],
-  //     });
-  //     setWriter('');
-  //     setPassword('');
-  //     setContents('');
-  //     setStar(0);
-  //     console.log('댓글등록');
-  //   } catch (error) {
-  //     alert(error instanceof Error);
-  //   }
-  // };
-
-  // const onClickUpdate = async () => {
-  //   if (!contents) {
-  //     alert('내용이 수정되지 않았습니다.');
-  //     return;
-  //   }
-  //   if (!password) {
-  //     alert('비밀번호가 입력되지 않았습니다.');
-  //     return;
-  //   }
-
-  //   try {
-  //     if (!props.el?._id) return;
-
-  //     const updateBoardCommentInput: IUpdateBoardCommentInput = {};
-  //     if (contents) updateBoardCommentInput.contents = contents;
-  //     if (star) updateBoardCommentInput.rating = star;
-
-  //     await updateBoardComment({
-  //       variables: {
-  //         updateBoardCommentInput,
-  //         password: password,
-  //         boardCommentId: props.el?._id,
-  //       },
-  //       refetchQueries: [
-  //         {
-  //           query: FETCH_BOARD_COMMENTS,
-  //           variables: { boardId: router.query.postid },
-  //         },
-  //       ],
-  //     });
-  //     props.setIsEdit?.(false);
-  //   } catch (error) {
-  //     alert(error instanceof Error);
-  //   }
-  // };
+  const onClickQuestionUpdate = async () => {
+    try {
+      const result = await updateProductComment({
+        variables: {
+          updateUseditemQuestionInput: {
+            contents: contents,
+          },
+          useditemQuestionId: props.el?._id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_QUESTION,
+            variables: { useditemId: router.query.id },
+          },
+        ],
+      });
+      console.log(result);
+    } catch (error) {
+      alert(error instanceof Error);
+    }
+  };
 
   return (
     <QuestionWriteUI
-    // onChangeWriter={onChangeWriter}
-    // onChangePassword={onChangePassword}
-    // onChangeContents={onChangeContents}
-    // onChangeStar={onChangeStar}
-    // onClickWrite={onClickWrite}
-    // onClickUpdate={onClickUpdate}
-    // isEdit={props.isEdit}
-    // el={props.el}
-    // contents={contents}
-    // writer={writer}
-    // password={password}
-    // star={star}
+      onClickQuestion={onClickQuestion}
+      onChangeContents={onChangeContents}
+      onClickQuestionUpdate={onClickQuestionUpdate}
+      isEdit={props.isEdit}
+      el={props.el}
     />
   );
 }

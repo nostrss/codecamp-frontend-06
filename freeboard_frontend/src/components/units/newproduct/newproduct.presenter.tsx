@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import KakaoMapPage from '../../commons/map';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export default function NewProductUI(props) {
@@ -35,21 +36,13 @@ export default function NewProductUI(props) {
             defaultValue={props.data?.fetchUseditem.remarks}
           ></p.IntputText>
           <p.InputLable>상품설명</p.InputLable>
+
           <ReactQuill
-            style={{ height: '200px' }}
             // id='contents'
             onChange={props.onChangeContents}
             placeholder='상품을 설명해주세요'
-            defaultValue={props.data?.fetchUseditem.contents.replace(
-              /(<([^>]+)>)/gi,
-              ''
-            )}
+            defaultValue={props.isContents}
           />
-          {/* <p.InputContents
-            id='contents'
-            onChange={props.onChangeInputs}
-            placeholder='상품을 설명해주세요'
-          ></p.InputContents> */}
 
           <p.InputLable>판매가격</p.InputLable>
           <p.IntputText
@@ -113,32 +106,18 @@ export default function NewProductUI(props) {
             onChangeFileUrls={props.onChangeFileUrls}
             fileUrls={props.fileUrls}
           />
-          {props.fileUrls.map((el, index) => (
+          {props.fileUrls?.map((el, index) => (
             <p.ImageThumbnail
               key={uuidv4()}
               src={
-                el[index].startsWith('https', 0)
+                el.startsWith('https', 0)
                   ? el
                   : `https://storage.googleapis.com/${el}`
               }
             />
           ))}
         </p.UploadImageWrapper>
-        <p.RowWrapper>
-          <p.ColumnWrapperItem>
-            <p.InputLable>메인 사진 설정</p.InputLable>
-            <p.RadioWrapper>
-              <p.RadioItem>
-                <input type='radio' name='mainset' />
-                사진1
-              </p.RadioItem>
-              <p.RadioItem>
-                <input type='radio' name='mainset' />
-                사진2
-              </p.RadioItem>
-            </p.RadioWrapper>
-          </p.ColumnWrapperItem>
-        </p.RowWrapper>
+
         <p.SubmitButton
           onClick={
             props.isEdit ? props.onClickUpdateComplete : props.onClickCreateItem

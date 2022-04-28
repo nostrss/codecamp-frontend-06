@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { CREAT_ITEM, UPDATE_ITEM } from './newproduct.queries';
@@ -10,9 +10,12 @@ import NewProductUI from './newproduct.presenter';
 //   IUpdateBoardInput,
 // } from '../../../commons/types/generated/types';
 import { Modal } from 'antd';
+import { productDataState } from '../../../commons/store';
+import { useRecoilState } from 'recoil';
 
 export default function NewProductContainer(props) {
   const router = useRouter();
+  const [productData, setProductData] = useRecoilState(productDataState);
 
   // input state 모음
   const [inputs, setInputs] = useState({
@@ -34,14 +37,6 @@ export default function NewProductContainer(props) {
   const [fileUrls, setFileUrls] = useState([]);
   const [hashArr, setHashArr] = useState([]);
   const [isContents, setIsContents] = useState('');
-
-  // // input값 미입력 상태 state
-  // const [isWarning, setIsWarning] = useState({
-  //   nameError: true,
-  //   passwordError: true,
-  //   titleError: true,
-  //   contentsError: true,
-  // });
 
   // // input값 변화 감지 함수
   const onChangeInputs = (
@@ -70,13 +65,21 @@ export default function NewProductContainer(props) {
     setFileUrls(newFileUrls);
   };
 
+  useEffect(() => {
+    console.log('useEffect 실행');
+
+    if (props.isEdit === true) {
+      setFileUrls(productData.fetchUseditem.images);
+      setIsContents(productData.fetchUseditem.contents);
+    }
+  }, []);
+
   const onChangeContents = (value: string) => {
     console.log(value);
+    if (value === '<p><br></p>') setIsContents('');
     setIsContents(value);
-
     // 리액트 훅 폼 : register에 등록하지 않고 강제로 값을 넣어주는 기능
     // 전부 지웠을 때 <p><br></p> 태그가 남아있어서 삭제를 해야함
-    // setValue('contents', value === '<p><br></p>' ? '' : value);
   };
 
   const onChangeTags = (event) => {
@@ -134,74 +137,6 @@ export default function NewProductContainer(props) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
-  // // 수정하기 영역
-  // const [updateContents] = useMutation(UPDATE_CONTENS);
-
-  // // 수정하기로 진입했을때 수정버튼 영역
-  // const updateButton = async () => {
-  //   const updatePostingData: IUpdateBoardInput = {};
-
-  //   if (inputs.title) updatePostingData.title = inputs.title;
-  //   if (inputs.contents) updatePostingData.contents = inputs.contents;
-  //   if (inputs.youtube) updatePostingData.youtubeUrl = inputs.youtube;
-  //   if (inputs.images) updatePostingData.images = fileUrls;
-
-  //   // 주소
-  //   if (inputs.zipcode || inputs.isAddress || inputs.address2) {
-  //     updatePostingData.boardAddress = {};
-  //     if (inputs.zipcode)
-  //       updatePostingData.boardAddress.zipcode = inputs.zipcode;
-  //     if (inputs.isAddress)
-  //       updatePostingData.boardAddress.address = inputs.isAddress;
-  //     if (inputs.address2)
-  //       updatePostingData.boardAddress.addressDetail = inputs.address2;
-  //   }
-
-  //   try {
-  //     await updateContents({
-  //       variables: {
-  //         boardId: router.query.postid,
-  //         password: inputs.password,
-  //         updateBoardInput: updatePostingData,
-  //       },
-  //     });
-
-  //     Modal.success({ content: '게시물 수정에 성공하였습니다!' });
-  //     router.push(`/boards/post/${router.query.postid}`);
-  //   } catch (error) {
-  //     if (error instanceof Error) Modal.error({ content: error.message });
-  //     setWarning(true);
-  //   }
-  // };
-
-  // // 모달에 필요한 state
-  // const [warning, setWarning] = useState(false);
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // // antd 모달 띄우기
-  // const showModal = () => {
-  //   setIsOpen(true);
-  // };
-
-  // const handleOk = () => {
-  //   setIsOpen(false);
-  //   setWarning(false);
-  // };
-
-  // const handleCancel = () => {
-  //   setIsOpen(false);
-  //   setWarning(false);
-  // };
-
-  // const handleComplete = (data: any) => {
-  //   setInputs({
-  //     ...inputs,
-  //     isAddress: data.address,
-  //     zipcode: data.zonecode,
-  //   });
-
-  //   setIsOpen(false);
-  // };
 
   return (
     <NewProductUI
@@ -218,6 +153,7 @@ export default function NewProductContainer(props) {
       isEdit={props.isEdit}
       onClickUpdateComplete={onClickUpdateComplete}
       data={props.data}
+      isContents={isContents}
     />
   );
 }
