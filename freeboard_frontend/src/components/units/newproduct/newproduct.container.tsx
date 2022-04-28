@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
-import { CREAT_ITEM } from './newproduct.queries';
+import { CREAT_ITEM, UPDATE_ITEM } from './newproduct.queries';
 import NewProductUI from './newproduct.presenter';
 // import { IPostingPathProps } from './newproduct.type';
 // import {
@@ -11,7 +11,7 @@ import NewProductUI from './newproduct.presenter';
 // } from '../../../commons/types/generated/types';
 import { Modal } from 'antd';
 
-export default function NewProductContainer() {
+export default function NewProductContainer(props) {
   const router = useRouter();
 
   // input state 모음
@@ -103,12 +103,37 @@ export default function NewProductContainer() {
         },
       });
       console.log(result);
-      router.push(`../usedmarket/product/${result.data?.createUseditem._id}`);
+      router.push(`/usedmarket/product/${result.data?.createUseditem._id}`);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
 
+  const [updateItem] = useMutation(UPDATE_ITEM);
+
+  const onClickUpdateComplete = async () => {
+    try {
+      const result = await updateItem({
+        variables: {
+          updateUseditemInput: {
+            name: inputs.name,
+            remarks: inputs.remarks,
+            contents: isContents,
+            price: Number(inputs.price),
+            images: fileUrls,
+            useditemAddress: isAddress,
+            tags: hashArr,
+          },
+          useditemId: router.query.id,
+        },
+      });
+      Modal.success({ content: '게시물 수정에 성공하였습니다!' });
+      console.log(result);
+      router.push(`/usedmarket/product/${result.data?.updateUseditem._id}`);
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: error.message });
+    }
+  };
   // // 수정하기 영역
   // const [updateContents] = useMutation(UPDATE_CONTENS);
 
@@ -190,20 +215,9 @@ export default function NewProductContainer() {
       setIsAddress={setIsAddress}
       onChangeFileUrls={onChangeFileUrls}
       fileUrls={fileUrls}
-      // isEdit={props.isEdit}
-      // submitContents={submitContents}
-      // updateButton={updateButton}
-      // originData={props.originData}
-      // showModal={showModal}
-      // handleOk={handleOk}
-      // handleCancel={handleCancel}
-      // handleComplete={handleComplete}
-      // isOpen={isOpen}
-      // warning={warning}
-      // onChangeInputs={onChangeInputs}
-      // inputs={inputs}
-      // setInputs={setInputs}
-      // isWarning={isWarning}
+      isEdit={props.isEdit}
+      onClickUpdateComplete={onClickUpdateComplete}
+      data={props.data}
     />
   );
 }

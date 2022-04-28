@@ -125,9 +125,7 @@ export default function ProductUI(props) {
         <P.PostBtnItem onClick={props.onClickMoveToList}>
           목록으로
         </P.PostBtnItem>
-        <P.PostBtnItem
-        // onClick={props.moveUpdate}
-        >
+        <P.PostBtnItem onClick={props.onClickMoveUpdate}>
           수정하기
         </P.PostBtnItem>
         <P.PostBtnItem onClick={props.onClickByeProduct}>

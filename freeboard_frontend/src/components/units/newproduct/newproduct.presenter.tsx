@@ -2,8 +2,6 @@ import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
 import * as p from './newproduct.style';
 // import { IPostingUIProps } from './newproduct.type';
 // import { Modal } from 'antd';
-// import DaumPostcode from 'react-daum-postcode';
-// import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
 import { v4 as uuidv4 } from 'uuid';
 import KakaoMapPage from '../../commons/map';
 import 'react-quill/dist/quill.snow.css';
@@ -14,10 +12,7 @@ export default function NewProductUI(props) {
   return (
     <p.Wrapper>
       <p.WrapperCanvas>
-        <p.Title>
-          상품 등록하기
-          {/* {props.isEdit ? '수정' : '등록'} */}
-        </p.Title>
+        <p.Title>{props.isEdit ? '상품 수정 하기' : '상품 등록 하기'}</p.Title>
 
         <p.ColumnWrapper>
           <p.InputLable>상품명</p.InputLable>
@@ -28,6 +23,7 @@ export default function NewProductUI(props) {
             id='name'
             onChange={props.onChangeInputs}
             placeholder='상품명을 입력해주세요'
+            defaultValue={props.data?.fetchUseditem.name}
           ></p.IntputText>
           <p.InputLable id='remarks' onChange={props.onChangeInputs}>
             한줄요약
@@ -36,6 +32,7 @@ export default function NewProductUI(props) {
             id='remarks'
             onChange={props.onChangeInputs}
             placeholder='한줄 설명을 입력해주세요'
+            defaultValue={props.data?.fetchUseditem.remarks}
           ></p.IntputText>
           <p.InputLable>상품설명</p.InputLable>
           <ReactQuill
@@ -43,6 +40,10 @@ export default function NewProductUI(props) {
             // id='contents'
             onChange={props.onChangeContents}
             placeholder='상품을 설명해주세요'
+            defaultValue={props.data?.fetchUseditem.contents.replace(
+              /(<([^>]+)>)/gi,
+              ''
+            )}
           />
           {/* <p.InputContents
             id='contents'
@@ -55,22 +56,23 @@ export default function NewProductUI(props) {
             id='price'
             onChange={props.onChangeInputs}
             placeholder='판매가격을 입력해주세요'
+            defaultValue={props.data?.fetchUseditem.price}
           ></p.IntputText>
           <p.InputLable>태그입력</p.InputLable>
           <p.IntputText
             id='tags'
             onChange={props.onChangeTags}
             placeholder='#태그 #태그 #태그'
+            defaultValue={props.data?.fetchUseditem.tags.join(' ')}
           />
         </p.ColumnWrapper>
-
         <p.RowWrapper>
           <p.ColumnWrapper>
             <p.InputLable>거래위치</p.InputLable>
             <p.Map>
               <KakaoMapPage
-                setIsAddress={props.setIsAddress}
                 mapfixed={false}
+                setIsAddress={props.setIsAddress}
               ></KakaoMapPage>
             </p.Map>
           </p.ColumnWrapper>
@@ -91,7 +93,6 @@ export default function NewProductUI(props) {
                 value={props.isAddress?.lat}
               />
             </p.RowWrapper>
-
             <p.InputLable>주소</p.InputLable>
             <p.InputAddress
               id='address'
@@ -138,8 +139,12 @@ export default function NewProductUI(props) {
             </p.RadioWrapper>
           </p.ColumnWrapperItem>
         </p.RowWrapper>
-        <p.SubmitButton onClick={props.onClickCreateItem}>
-          {/* {props.isEdit ? '수정' : '등록'}하기 */} 등록
+        <p.SubmitButton
+          onClick={
+            props.isEdit ? props.onClickUpdateComplete : props.onClickCreateItem
+          }
+        >
+          {props.isEdit ? '수정하기' : '등록하기'}
         </p.SubmitButton>
       </p.WrapperCanvas>
     </p.Wrapper>

@@ -43,3 +43,21 @@ export const postDataState = atom({
     },
   },
 });
+
+export const productDataState = atom({
+  key: 'productData',
+  default: {
+    fetchUseditem: {
+      contents: '',
+      createdAt: '',
+      images: [],
+      name: '',
+      pickedCount: 0,
+      price: 0,
+      remarks: '',
+      seller: {},
+      tags: [],
+      useditemAddress: {},
+    },
+  },
+});
