@@ -84,11 +84,11 @@ export default function ProductUI(props) {
             <P.FlexColDiv>
               <P.PostLikeItem>
                 <P.PostLikeBtn
-                  // onClick={props.onClickLike}
+                  onClick={props.onClickPickTogle}
                   src='/image/like.png'
                 ></P.PostLikeBtn>
                 <P.PostLikeCounts>
-                  {/* {props.data?.fetchBoard.likeCount} */}000
+                  {props.data?.fetchUseditem.pickedCount}
                 </P.PostLikeCounts>
               </P.PostLikeItem>
             </P.FlexColDiv>

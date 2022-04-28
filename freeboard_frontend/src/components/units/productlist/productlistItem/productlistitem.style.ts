@@ -22,14 +22,18 @@ export const DivFlexCol = styled.div`
   height: auto;
 `;
 
-export const ItemH3 = styled.h2`
-  width: 100%;
+interface IKeywordProps {
+  isMatched: boolean;
+}
+export const ItemSpan = styled.span`
+  width: auto;
   height: 36px;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
   line-height: 36px;
   margin: 0px;
+  color: ${(props: IKeywordProps) => (props.isMatched ? 'red' : 'black')};
 `;
 
 export const ItemH4 = styled.h3`
