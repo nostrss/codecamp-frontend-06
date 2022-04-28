@@ -33,8 +33,6 @@ export default function ProductContainer() {
           },
         ],
       });
-      console.log(result);
-      console.log('togle');
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }

@@ -1,23 +1,3 @@
-// fetchUseditemQuestions(
-//   page: Int
-//   useditemId: ID!
-//   ): [UseditemQuestion!]!
-
-// query{
-//   fetchUseditemQuestions(
-//     useditemId :"62669025a8255b002988c895"
-//   ){
-// _id
-// contents
-// user{
-//   _id
-//   name
-// }
-// createdAt
-
-//   }
-// }
-
 import { gql } from '@apollo/client';
 
 export const FETCH_QUESTION = gql`
@@ -31,5 +11,11 @@ export const FETCH_QUESTION = gql`
       }
       createdAt
     }
+  }
+`;
+
+export const DELETE_PRODUCT_COMMENT = gql`
+  mutation deleteUseditemQuestion($useditemQuestionId: ID!) {
+    deleteUseditemQuestion(useditemQuestionId: $useditemQuestionId)
   }
 `;
