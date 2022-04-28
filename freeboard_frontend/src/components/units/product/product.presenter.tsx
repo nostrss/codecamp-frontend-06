@@ -84,11 +84,11 @@ export default function ProductUI(props) {
             <P.FlexColDiv>
               <P.PostLikeItem>
                 <P.PostLikeBtn
-                  // onClick={props.onClickLike}
+                  onClick={props.onClickPickTogle}
                   src='/image/like.png'
                 ></P.PostLikeBtn>
                 <P.PostLikeCounts>
-                  {/* {props.data?.fetchBoard.likeCount} */}000
+                  {props.data?.fetchUseditem.pickedCount}
                 </P.PostLikeCounts>
               </P.PostLikeItem>
             </P.FlexColDiv>
@@ -125,9 +125,7 @@ export default function ProductUI(props) {
         <P.PostBtnItem onClick={props.onClickMoveToList}>
           목록으로
         </P.PostBtnItem>
-        <P.PostBtnItem
-        // onClick={props.moveUpdate}
-        >
+        <P.PostBtnItem onClick={props.onClickMoveUpdate}>
           수정하기
         </P.PostBtnItem>
         <P.PostBtnItem onClick={props.onClickByeProduct}>

@@ -1,4 +1,5 @@
 import * as U from './productlistitem.style';
+import { v4 as uuidv4 } from 'uuid';
 export default function ProductListItemUI(props) {
   return (
     <U.WrappDivFlexRow onClick={() => props.onClickProductList(props.el._id)}>
@@ -12,7 +13,20 @@ export default function ProductListItemUI(props) {
         }
       />
       <U.DivFlexCol>
-        <U.ItemH3>{props.el?.name}</U.ItemH3>
+        <U.DivFlexRow>
+          {props.el.name
+            .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+            .split('#$%')
+            .map((el) => (
+              <U.ItemSpan
+                key={String(uuidv4())}
+                isMatched={props.keyword === el}
+              >
+                {el}
+              </U.ItemSpan>
+            ))}
+        </U.DivFlexRow>
+
         <U.ItemH4>{props.el?.remarks}</U.ItemH4>
         <U.ItemH4Gray>{props.el.tags[0]}</U.ItemH4Gray>
         <U.DivFlexRow>
