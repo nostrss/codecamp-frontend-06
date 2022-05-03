@@ -1,12 +1,11 @@
 import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
 import * as p from './newproduct.style';
-// import { IPostingUIProps } from './newproduct.type';
-// import { Modal } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import KakaoMapPage from '../../commons/map';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
+import NewMap from '../../commons/map/newmap';
+import EditMap from '../../commons/map/editmap';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export default function NewProductUI(props) {
@@ -37,12 +36,11 @@ export default function NewProductUI(props) {
           ></p.IntputText>
           <p.InputLable>상품설명</p.InputLable>
 
-          <ReactQuill
-            // id='contents'
+          {/* <ReactQuill
             onChange={props.onChangeContents}
             placeholder='상품을 설명해주세요'
-            defaultValue={props.isContents}
-          />
+            defaultValue={props.data?.fetchUseditem.contents}
+          /> */}
 
           <p.InputLable>판매가격</p.InputLable>
           <p.IntputText
@@ -63,10 +61,14 @@ export default function NewProductUI(props) {
           <p.ColumnWrapper>
             <p.InputLable>거래위치</p.InputLable>
             <p.Map>
-              <KakaoMapPage
-                mapfixed={false}
-                setIsAddress={props.setIsAddress}
-              ></KakaoMapPage>
+              {props.isEdit ? (
+                <EditMap
+                  setIsAddress={props.setIsAddress}
+                  prevAddress={props.data?.fetchUseditem?.useditemAddress}
+                />
+              ) : (
+                <NewMap setIsAddress={props.setIsAddress} />
+              )}
             </p.Map>
           </p.ColumnWrapper>
           <p.ColumnWrapper>
@@ -107,14 +109,17 @@ export default function NewProductUI(props) {
             fileUrls={props.fileUrls}
           />
           {props.fileUrls?.map((el, index) => (
-            <p.ImageThumbnail
-              key={uuidv4()}
-              src={
-                el.startsWith('https', 0)
-                  ? el
-                  : `https://storage.googleapis.com/${el}`
-              }
-            />
+            <>
+              <p.ImageThumbnail
+                key={uuidv4()}
+                src={
+                  el.startsWith('https', 0)
+                    ? el
+                    : `https://storage.googleapis.com/${el}`
+                }
+              />
+              <button onClick={props.onClickImageDelete(index)}>삭제</button>
+            </>
           ))}
         </p.UploadImageWrapper>
 

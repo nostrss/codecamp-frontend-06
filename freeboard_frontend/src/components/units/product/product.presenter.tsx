@@ -13,6 +13,7 @@ import Slider from 'react-slick';
 import { v4 as uuidv4 } from 'uuid';
 import KakaoMapPage from '../../commons/map';
 import DOMPurify from 'dompurify';
+import MapDetail from '../../commons/map/detailmap';
 
 export default function ProductUI(props) {
   const settings = {
@@ -112,10 +113,7 @@ export default function ProductUI(props) {
               : ''}
           </P.FlexColDiv>
           {props.data?.fetchUseditem?.useditemAddress ? (
-            <KakaoMapPage
-              address={props.data?.fetchUseditem.useditemAddress}
-              mapfixed={true}
-            />
+            <MapDetail address={props.data?.fetchUseditem.useditemAddress} />
           ) : (
             ''
           )}
