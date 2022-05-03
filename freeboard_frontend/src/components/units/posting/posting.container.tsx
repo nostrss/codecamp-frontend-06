@@ -156,6 +156,7 @@ export default function PostingContainer(props: IPostingPathProps) {
 
   // 모달에 필요한 state
   const [warning, setWarning] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
 
   // antd 모달 띄우기

@@ -38,11 +38,11 @@ export default function TodayUI(props) {
   return (
     <U.WrappFIXDivFlexCol>
       오늘 본 상품
-      <StyledSlider {...settings}>
+      {/* <TodayItemUI key={uuidv4()} el={el} /> */}
+      {/* <StyledSlider {...settings}>
         {props.isToday.map((el, index) => (
-          <TodayItemUI key={uuidv4()} el={el} />
         ))}
-      </StyledSlider>
+      </StyledSlider> */}
     </U.WrappFIXDivFlexCol>
   );
 }

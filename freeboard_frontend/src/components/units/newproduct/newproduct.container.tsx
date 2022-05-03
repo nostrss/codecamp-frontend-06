@@ -1,17 +1,11 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { CREAT_ITEM, UPDATE_ITEM } from './newproduct.queries';
 import NewProductUI from './newproduct.presenter';
-// import { IPostingPathProps } from './newproduct.type';
-// import {
-//   IMutation,
-//   IMutationCreateBoardArgs,
-//   IUpdateBoardInput,
-// } from '../../../commons/types/generated/types';
-import { Modal } from 'antd';
 import { productDataState } from '../../../commons/store';
 import { useRecoilState } from 'recoil';
+import ReactQuill from 'react-quill';
 
 export default function NewProductContainer(props) {
   const router = useRouter();
@@ -65,6 +59,12 @@ export default function NewProductContainer(props) {
     setFileUrls(newFileUrls);
   };
 
+  const onClickImageDelete = (index) => () => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls.splice(index, 1);
+    setFileUrls(newFileUrls);
+  };
+
   useEffect(() => {
     console.log('useEffect 실행');
 
@@ -76,10 +76,10 @@ export default function NewProductContainer(props) {
 
   const onChangeContents = (value: string) => {
     console.log(value);
-    if (value === '<p><br></p>') setIsContents('');
-    setIsContents(value);
     // 리액트 훅 폼 : register에 등록하지 않고 강제로 값을 넣어주는 기능
     // 전부 지웠을 때 <p><br></p> 태그가 남아있어서 삭제를 해야함
+    // if (value === '<p><br></p>') setIsContents('');
+    setIsContents(value);
   };
 
   const onChangeTags = (event) => {
@@ -105,10 +105,10 @@ export default function NewProductContainer(props) {
           },
         },
       });
-      console.log(result);
+      alert('상품등록에 성공했습니다.');
       router.push(`/usedmarket/product/${result.data?.createUseditem._id}`);
     } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error.message });
+      if (error instanceof Error) alert(error.message);
     }
   };
 
@@ -130,11 +130,10 @@ export default function NewProductContainer(props) {
           useditemId: router.query.id,
         },
       });
-      Modal.success({ content: '게시물 수정에 성공하였습니다!' });
-      console.log(result);
+      alert('상품 수정에 성공했습니다');
       router.push(`/usedmarket/product/${result.data?.updateUseditem._id}`);
     } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error.message });
+      if (error instanceof Error) alert(error.message);
     }
   };
 
@@ -154,6 +153,8 @@ export default function NewProductContainer(props) {
       onClickUpdateComplete={onClickUpdateComplete}
       data={props.data}
       isContents={isContents}
+      onClickImageDelete={onClickImageDelete}
+      // QuillRef={QuillRef}
     />
   );
 }

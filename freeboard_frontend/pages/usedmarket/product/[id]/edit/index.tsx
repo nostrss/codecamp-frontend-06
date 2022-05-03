@@ -8,7 +8,7 @@ import NewProductContainer from '../../../../../src/components/units/newproduct/
 export default function EditProduct() {
   const router = useRouter();
   const { data } = useQuery(FETCH_PRODUCT, {
-    variables: { useditemId: router?.query.id },
+    variables: { useditemId: router.query.id },
   });
   return <NewProductContainer isEdit={true} data={data} />;
 }

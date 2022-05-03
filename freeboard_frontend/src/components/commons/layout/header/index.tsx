@@ -98,8 +98,6 @@ export default function LayoutHeader() {
     setIsOpen(false);
   };
 
-  console.log(data?.fetchUserLoggedIn.userPoint);
-
   return (
     <Wrapper>
       <WrapperHeader>

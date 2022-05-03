@@ -58,7 +58,6 @@ export default function ImageUpload(props: {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
-  console.log(props.fileUrls);
 
   const onClickImage = () => {
     fileRef.current?.click();
