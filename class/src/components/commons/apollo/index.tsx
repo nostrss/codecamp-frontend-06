@@ -99,6 +99,7 @@ export default function ApolloConfig(props: IApolloProps) {
             // operation.getContext().headers
 
             // context 만들기
+            // 서버에서 받은 정보들이 들어있다
             // 기존 헤더 정보 + 바뀐 access토큰만 정보 덮어씌우기
             operation.setContext({
               headers: {
