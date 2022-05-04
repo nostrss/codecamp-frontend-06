@@ -31,7 +31,7 @@ const FETCH_BOARD = gql`
 `;
 
 // 이 페이지는 서버사이드 렌더링 할래!!
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context) => {
   // 데이터를 요청할 것!!!
   // const {data} = use
   const result = await request(
