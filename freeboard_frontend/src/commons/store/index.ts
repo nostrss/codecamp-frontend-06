@@ -1,6 +1,7 @@
 // 글로벌 스테이트 만들기
 
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
+import { getAccessToken } from '../libraries/getAccessToken';
 
 export const isEditState = atom({
   key: 'isEditState',
@@ -59,5 +60,23 @@ export const productDataState = atom({
       tags: [],
       useditemAddress: {},
     },
+  },
+});
+
+export const visitedPageState = atom({
+  key: 'visitedPageState',
+  default: '/',
+});
+
+export const cartCount = atom({
+  key: 'localCart',
+  default: 0,
+});
+
+export const restoreAccessTokenLoadable = selector({
+  key: 'restoreAccessTokenLoadable',
+  get: async () => {
+    const newAccessToken = await getAccessToken();
+    return newAccessToken;
   },
 });

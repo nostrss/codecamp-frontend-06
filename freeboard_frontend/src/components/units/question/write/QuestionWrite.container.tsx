@@ -9,6 +9,7 @@ import {
 } from './QuestionWrite.queries';
 
 export default function QuestionWrite(props) {
+  console.log(props.Qid);
   const router = useRouter();
   const [contents, setContents] = useState('');
   const [createProductComment] = useMutation(CREATE_PRODUCT_COMMENT);

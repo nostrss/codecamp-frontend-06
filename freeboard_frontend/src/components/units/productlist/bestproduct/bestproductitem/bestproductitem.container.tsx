@@ -9,7 +9,7 @@ export default function BestProductItemContainer(props) {
   const [isToday, setIsToday] = useState([]);
   const DATE = new Date().toISOString().slice(0, 10);
   useEffect(() => {
-    const already = JSON.parse(localStorage.getItem(DATE) || '[]');
+    const already = JSON.parse(sessionStorage.getItem(DATE) || '[]');
     setIsToday(already);
   }, []);
 
@@ -17,14 +17,14 @@ export default function BestProductItemContainer(props) {
     router.push(`/usedmarket/product/${productid}`);
     // 클릭한 상품을 위에서 불러온 이미 오늘 본 상품에 더하기
     // 중복 상품은 제거
-    const today = JSON.parse(localStorage.getItem(DATE) || '[]');
+    const today = JSON.parse(sessionStorage.getItem(DATE) || '[]');
     const tmp = isToday.filter((item: IBoard) => item._id === props.el._id);
     if (tmp.length === 1) {
       return;
     }
     const { __typename, ...rest } = props.el;
     today.push(rest);
-    localStorage.setItem(DATE, JSON.stringify(today));
+    sessionStorage.setItem(DATE, JSON.stringify(today));
     setIsToday(today);
   };
 

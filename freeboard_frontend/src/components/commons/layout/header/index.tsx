@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { accessTokenState } from '../../../../commons/store';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
 import { Modal } from 'antd';
 import RechargeModal from '../../rechargeModal/rechargeModal';
@@ -17,6 +17,12 @@ const FETCH_USER_LOGGED_IN = gql`
         amount
       }
     }
+  }
+`;
+
+export const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
   }
 `;
 
@@ -67,10 +73,11 @@ const SignUpButton = styled.button`
 `;
 
 export default function LayoutHeader() {
-  const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const router = useRouter();
-  const [isToken] = useRecoilState(accessTokenState);
+  const [isToken, setIsToken] = useRecoilState(accessTokenState);
   const [isOpen, setIsOpen] = useState(false);
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
+  const [logout] = useMutation(LOGOUT_USER);
 
   // const [userInfo] = useRecoilState(userInfoState);
 
@@ -98,6 +105,19 @@ export default function LayoutHeader() {
     setIsOpen(false);
   };
 
+  const onClickLogOut = async () => {
+    try {
+      const result = await logout({
+        variables: {
+          logoutUser: true,
+        },
+      });
+      setIsToken('');
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
   return (
     <Wrapper>
       <WrapperHeader>
@@ -118,7 +138,7 @@ export default function LayoutHeader() {
           {isToken ? (
             <>
               <div>{data?.fetchUserLoggedIn.name}님 환영합니다</div>
-              <SignUpButton>로그아웃</SignUpButton>
+              <SignUpButton onClick={onClickLogOut}>로그아웃</SignUpButton>
             </>
           ) : (
             <>
