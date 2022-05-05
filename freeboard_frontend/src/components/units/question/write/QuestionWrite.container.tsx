@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { FETCH_QUESTION } from '../list/Question.List.queries';
 import QuestionWriteUI from './QuestionWrite.presenter';
 import {
@@ -14,6 +14,10 @@ export default function QuestionWrite(props) {
   const [contents, setContents] = useState('');
   const [createProductComment] = useMutation(CREATE_PRODUCT_COMMENT);
   const [updateProductComment] = useMutation(UPDATE_PRODUCT_COMMENT);
+
+  useEffect(() => {
+    if (props.isEdit) setContents(props.el?.contents);
+  }, []);
 
   const onChangeContents = (event: ChangeEvent<HTMLInputElement>) => {
     setContents(event.target.value);
@@ -36,6 +40,7 @@ export default function QuestionWrite(props) {
         ],
       });
       console.log(result);
+      setContents('');
     } catch (error) {
       alert(error instanceof Error);
     }
@@ -58,6 +63,8 @@ export default function QuestionWrite(props) {
         ],
       });
       console.log(result);
+      setContents('');
+      props.setIsEdit(false);
     } catch (error) {
       alert(error instanceof Error);
     }
@@ -70,6 +77,7 @@ export default function QuestionWrite(props) {
       onClickQuestionUpdate={onClickQuestionUpdate}
       isEdit={props.isEdit}
       el={props.el}
+      contents={contents}
     />
   );
 }

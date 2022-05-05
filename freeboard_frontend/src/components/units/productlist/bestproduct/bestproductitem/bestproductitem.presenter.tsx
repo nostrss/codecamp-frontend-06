@@ -17,7 +17,9 @@ export default function BestProductItemUI(props) {
         <U.DivFlexRow>
           <U.DivFlexCol>
             <U.ItemH4>{props.el?.remarks}</U.ItemH4>
-            <U.ItemH3Strong>{props.el?.price}</U.ItemH3Strong>
+            <U.ItemH3Strong>
+              {props.el?.price.toLocaleString('ko-KR')}
+            </U.ItemH3Strong>
           </U.DivFlexCol>
           <U.DivFlexCol>
             <U.IconImage src='/image/ic_favorite-24px.png' />

@@ -39,7 +39,9 @@ export default function ProductListItemUI(props) {
       <U.DivFlexCol>
         <U.DivFlexRow>
           <U.IconImage src='/image/ic_favorite-24px.png' />
-          <U.ItemH3Strong>{props.el?.price}</U.ItemH3Strong>
+          <U.ItemH3Strong>
+            {props.el?.price.toLocaleString('ko-KR')}
+          </U.ItemH3Strong>
         </U.DivFlexRow>
       </U.DivFlexCol>
     </U.WrappDivFlexRow>

@@ -146,3 +146,47 @@ export const LocationIcon = styled.img`
   width: 20px;
   height: auto;
 `;
+
+export const QuillWrapper = styled.div`
+  width: 100%;
+  height: 450px;
+  display: flex;
+  flex-direction: row;
+  padding: 20px 0px;
+  margin-bottom: 20px;
+`;
+
+export const ButtonZip = styled.button`
+  width: 124px;
+  height: 52px;
+  background-color: black;
+  color: white;
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+`;
+
+export const InputZipCode = styled.input`
+  width: 77px;
+  height: 52px;
+  border: 1px solid #bdbdbd;
+  text-align: center;
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #bdbdbd;
+  margin-right: 20px;
+`;
+
+export const ImageItempWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
+  margin-bottom: 20px;
+`;
