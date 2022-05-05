@@ -23,7 +23,7 @@ export default function TodayUI(props) {
             ''
           )}
         </U.DivFlexCol>
-        <button>글쓰기</button>
+        <button onClick={props.onClickNewProduct}>글쓰기</button>
       </U.WrappFIXDivFlexCol>
     </>
   );
