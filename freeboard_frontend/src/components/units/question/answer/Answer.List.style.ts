@@ -2,15 +2,31 @@ import styled from '@emotion/styled';
 
 export const ItemWrapper = styled.div`
   width: 1200px;
-  margin: 0px 100px;
+  height: auto;
+
+  /* margin: 0px 100px; */
   padding-top: 20px;
-  height: 128px;
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: 1px solid lightgray; */
 `;
 
 export const FlexWrapper = styled.div`
+  width: auto;
   display: flex;
   flex-direction: row;
+`;
+
+export const FlexColWrapper = styled.div`
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  margin-right: 20px;
+`;
+
+export const ReplyImg = styled.img`
+  width: 15px;
+  height: 17px;
 `;
 
 export const Avatar = styled.img`
@@ -51,7 +67,6 @@ export const DeleteIcon = styled.img`
 export const DateString = styled.div`
   color: lightgray;
   padding-top: 15px;
-  padding-left: 60px;
 `;
 
 export const PasswordInput = styled.input`

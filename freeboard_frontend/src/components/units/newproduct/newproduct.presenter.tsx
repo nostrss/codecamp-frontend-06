@@ -1,11 +1,11 @@
 import ImageUpload from '../../commons/uploadimg/uploadimg.conatiner';
 import * as p from './newproduct.style';
 import { v4 as uuidv4 } from 'uuid';
-import KakaoMapPage from '../../commons/map';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
-import NewMap from '../../commons/map/newmap';
-import EditMap from '../../commons/map/editmap';
+import SearchMap from '../../commons/map/searchmap';
+import { Modal } from 'antd';
+import DaumPostcode from 'react-daum-postcode';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export default function NewProductUI(props) {
@@ -34,13 +34,26 @@ export default function NewProductUI(props) {
             placeholder='한줄 설명을 입력해주세요'
             defaultValue={props.data?.fetchUseditem.remarks}
           ></p.IntputText>
-          <p.InputLable>상품설명</p.InputLable>
 
-          {/* <ReactQuill
-            onChange={props.onChangeContents}
-            placeholder='상품을 설명해주세요'
-            defaultValue={props.data?.fetchUseditem.contents}
-          /> */}
+          <p.InputLable>상품설명</p.InputLable>
+          <p.QuillWrapper>
+            {props.isEdit && props.data?.fetchUseditem?.contents && (
+              <ReactQuill
+                style={{ width: '100%', height: 'auto' }}
+                onChange={props.onChangeContents}
+                placeholder='상품을 설명해주세요'
+                defaultValue={props.data?.fetchUseditem.contents}
+              />
+            )}
+
+            {!props.isEdit && (
+              <ReactQuill
+                style={{ width: '100%', height: 'auto' }}
+                onChange={props.onChangeContents}
+                placeholder='상품을 설명해주세요'
+              />
+            )}
+          </p.QuillWrapper>
 
           <p.InputLable>판매가격</p.InputLable>
           <p.IntputText
@@ -61,46 +74,90 @@ export default function NewProductUI(props) {
           <p.ColumnWrapper>
             <p.InputLable>거래위치</p.InputLable>
             <p.Map>
-              {props.isEdit ? (
-                <EditMap
-                  setIsAddress={props.setIsAddress}
-                  prevAddress={props.data?.fetchUseditem?.useditemAddress}
+              {typeof window !== 'undefined' ? (
+                <SearchMap
+                  id='map'
+                  isAddress={
+                    props.isAddress?.address ||
+                    props.data?.fetchUseditem.useditemAddress.address ||
+                    ''
+                  }
+                  setIsGps={props.setIsGps}
                 />
               ) : (
-                <NewMap setIsAddress={props.setIsAddress} />
+                ''
               )}
             </p.Map>
           </p.ColumnWrapper>
+
           <p.ColumnWrapper>
             <p.InputLable>GPS</p.InputLable>
             <p.RowWrapper>
               <p.IntputText
                 id='lng'
-                onChange={props.onChangeAddress}
                 readOnly
-                value={props.isAddress?.lng}
+                value={
+                  props.isGps?.lng ||
+                  props.data?.fetchUseditem?.useditemAddress.lng ||
+                  ''
+                }
               />
-              <p.LocationIcon src='/image/location.png' alt='' />
               <p.IntputText
                 id='lat'
-                onChange={props.onChangeAddress}
                 readOnly
-                value={props.isAddress?.lat}
+                value={
+                  props.isGps?.lat ||
+                  props.data?.fetchUseditem?.useditemAddress.lat ||
+                  ''
+                }
               />
             </p.RowWrapper>
-            <p.InputLable>주소</p.InputLable>
+
+            <p.RowWrapper>
+              <p.InputZipCode
+                id='zipcode'
+                name='address'
+                placeholder='07250'
+                readOnly
+                value={
+                  props.isAddress?.zipcode ||
+                  props.data?.fetchUseditem?.useditemAddress.zipcode ||
+                  ''
+                }
+                onChange={props.onChangeAddress}
+              ></p.InputZipCode>
+              <p.ButtonZip onClick={props.showModal}>우편번호검색</p.ButtonZip>
+              {props.isOpen && (
+                <Modal
+                  title='주소검색'
+                  visible={props.isOpen}
+                  onOk={props.handleOk}
+                  onCancel={props.handleCancel}
+                >
+                  <DaumPostcode onComplete={props.handleComplete} />
+                </Modal>
+              )}
+            </p.RowWrapper>
             <p.InputAddress
               id='address'
               onChange={props.onChangeAddress}
               readOnly
-              value={props.isAddress?.address}
+              value={
+                props.isAddress?.address ||
+                props.data?.fetchUseditem?.useditemAddress.address ||
+                ''
+              }
             />
             <p.IntputText
               id='addressDetail'
               onChange={props.onChangeAddress}
+              defaultValue={
+                props.data?.fetchUseditem?.useditemAddress.addressDetail
+              }
             ></p.IntputText>
           </p.ColumnWrapper>
         </p.RowWrapper>
+
         <p.UploadImageWrapper>
           <ImageUpload
             setInputs={props.setInputs}
@@ -110,15 +167,17 @@ export default function NewProductUI(props) {
           />
           {props.fileUrls?.map((el, index) => (
             <>
-              <p.ImageThumbnail
-                key={uuidv4()}
-                src={
-                  el.startsWith('https', 0)
-                    ? el
-                    : `https://storage.googleapis.com/${el}`
-                }
-              />
-              <button onClick={props.onClickImageDelete(index)}>삭제</button>
+              <p.ImageItempWrap>
+                <p.ImageThumbnail
+                  key={uuidv4()}
+                  src={
+                    el.startsWith('https', 0)
+                      ? el
+                      : `https://storage.googleapis.com/${el}`
+                  }
+                />
+                <button onClick={props.onClickImageDelete(index)}>삭제</button>
+              </p.ImageItempWrap>
             </>
           ))}
         </p.UploadImageWrapper>

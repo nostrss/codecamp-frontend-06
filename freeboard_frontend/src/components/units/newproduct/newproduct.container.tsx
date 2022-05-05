@@ -1,11 +1,10 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { CREAT_ITEM, UPDATE_ITEM } from './newproduct.queries';
 import NewProductUI from './newproduct.presenter';
 import { productDataState } from '../../../commons/store';
 import { useRecoilState } from 'recoil';
-import ReactQuill from 'react-quill';
 
 export default function NewProductContainer(props) {
   const router = useRouter();
@@ -20,13 +19,22 @@ export default function NewProductContainer(props) {
     images: [],
   });
 
+  // 주소 관련 state 모읍
   const [isAddress, setIsAddress] = useState({
     zipcode: '',
     address: '',
     addressDetail: '',
-    lat: 0,
-    lng: 0,
+    // lat: 0,
+    // lng: 0,
   });
+
+  const [isGps, setIsGps] = useState({
+    La: 0,
+    Ma: 0,
+  });
+
+  // const [isGpsLa, setIsGpsLa] = useState();
+  // const [isGpsMa, setIsGpsMa] = useState();
 
   const [fileUrls, setFileUrls] = useState([]);
   const [hashArr, setHashArr] = useState([]);
@@ -84,7 +92,7 @@ export default function NewProductContainer(props) {
 
   const onChangeTags = (event) => {
     const tagArr = event.target.value.split(' ');
-    setHashArr(tagArr);
+    setHashArr(tagArr.filter((el) => el !== ''));
   };
 
   // 상품등록
@@ -100,7 +108,13 @@ export default function NewProductContainer(props) {
             contents: isContents,
             price: Number(inputs.price),
             images: fileUrls,
-            useditemAddress: isAddress,
+            useditemAddress: {
+              zipcode: isAddress.zipcode,
+              address: isAddress.address,
+              addressDetail: isAddress.addressDetail,
+              lat: isGps.Ma,
+              lng: isGps.La,
+            },
             tags: hashArr,
           },
         },
@@ -115,6 +129,18 @@ export default function NewProductContainer(props) {
   const [updateItem] = useMutation(UPDATE_ITEM);
 
   const onClickUpdateComplete = async () => {
+    if (!inputs.name) inputs.name = props.data.fetchUseditem.name;
+    if (!inputs.remarks) inputs.remarks = props.data.fetchUseditem.remarks;
+    if (!inputs.price) inputs.price = props.data.fetchUseditem.price;
+    if (!isAddress.zipcode)
+      isAddress.zipcode = props.data.fetchUseditem.useditemAddress.zipcode;
+    if (!isAddress.address)
+      isAddress.address = props.data.fetchUseditem.useditemAddress.address;
+    if (!isAddress.addressDetail)
+      isAddress.addressDetail =
+        props.data.fetchUseditem.useditemAddress.addressDetail;
+    if (!isGps.Ma) isGps.Ma = props.data.fetchUseditem.useditemAddress.lat;
+    if (!isGps.La) isGps.La = props.data.fetchUseditem.useditemAddress.lng;
     try {
       const result = await updateItem({
         variables: {
@@ -124,7 +150,13 @@ export default function NewProductContainer(props) {
             contents: isContents,
             price: Number(inputs.price),
             images: fileUrls,
-            useditemAddress: isAddress,
+            useditemAddress: {
+              zipcode: isAddress.zipcode,
+              address: isAddress.address,
+              addressDetail: isAddress.addressDetail,
+              lat: isGps.Ma,
+              lng: isGps.La,
+            },
             tags: hashArr,
           },
           useditemId: router.query.id,
@@ -135,6 +167,33 @@ export default function NewProductContainer(props) {
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  // antd 모달 띄우기
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+
+  const handleComplete = (data: any) => {
+    setIsAddress({
+      ...isAddress,
+      address: data.address,
+      zipcode: data.zonecode,
+    });
+  };
+
+  const onClickCancle = () => {
+    router.push(`/product/${router.query.id}`);
   };
 
   return (
@@ -154,7 +213,15 @@ export default function NewProductContainer(props) {
       data={props.data}
       isContents={isContents}
       onClickImageDelete={onClickImageDelete}
-      // QuillRef={QuillRef}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      showModal={showModal}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+      handleComplete={handleComplete}
+      onClickCancle={onClickCancle}
+      setIsGps={setIsGps}
+      isGps={isGps}
     />
   );
 }

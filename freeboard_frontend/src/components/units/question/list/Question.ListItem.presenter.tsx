@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client/react';
 import { Modal } from 'antd';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { getDate } from '../../../../commons/libraries/utils';
 import AnswerContainer from '../answer/Answer.List.container';
 import AnswerWriteContainer from '../answer/write/Answer.write.container';
 import QuestionWrite from '../write/QuestionWrite.container';
@@ -54,7 +55,7 @@ export default function QuestionListUIItem(props) {
             <S.Avatar src='/image/user.png' />
             <S.MainWrapper>
               <S.WriterWrapper>
-                <S.Writer>{props.el?.user.name}</S.Writer>
+                <S.Writer>댓글{props.el?.user.name}</S.Writer>
               </S.WriterWrapper>
               <S.Contents>{props.el?.contents}</S.Contents>
             </S.MainWrapper>
@@ -64,8 +65,8 @@ export default function QuestionListUIItem(props) {
               <button onClick={onClickAnswer}>대댓글쓰기</button>
             </S.OptionWrapper>
           </S.FlexWrapper>
-          <S.DateString>{props.el?.createdAt}</S.DateString>
-          <AnswerContainer />
+          <S.DateString>{getDate(String(props.el?.createdAt))}</S.DateString>
+          <AnswerContainer Qid={props.el._id} />
         </S.ItemWrapper>
       )}
       {isEdit && (
@@ -78,8 +79,6 @@ export default function QuestionListUIItem(props) {
           Qid={props.el._id}
         />
       )}
-
-      <AnswerContainer Qid={props.el._id} />
     </div>
   );
 }

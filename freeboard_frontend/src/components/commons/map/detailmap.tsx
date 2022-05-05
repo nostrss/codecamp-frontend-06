@@ -41,7 +41,7 @@ export default function MapDetail(props) {
 
   return (
     <div>
-      <div id='map' style={{ width: 380, height: 252 }}></div>
+      <div id='map' style={{ width: 792, height: 360 }}></div>
     </div>
   );
 }

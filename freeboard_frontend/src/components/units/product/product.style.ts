@@ -93,12 +93,13 @@ export const FlexRowDiv = styled.div`
   align-items: center;
   width: 100%;
   height: auto;
-  border: 1px solid black;
 `;
 
 export const FlexColDiv = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: end;
   width: 100%;
   height: auto;
 `;
@@ -106,16 +107,27 @@ export const FlexColDiv = styled.div`
 export const PostBodyTitle = styled.h2`
   width: 100%;
   height: auto;
-  font-size: 36px;
   text-align: left;
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: #4f4f4f;
+  margin: 0px;
 `;
 
 export const H3 = styled.h3`
   width: 100%;
   height: auto;
-  font-size: 20px;
   text-align: left;
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
   color: #bdbdbd;
+  margin: 0px;
 `;
 
 export const PostBodyImg = styled.img`
@@ -217,8 +229,8 @@ export const ColumnItems = styled.div`
 `;
 
 export const SliderWrapper = styled.div`
-  width: 100%;
-  height: 600px;
+  width: 400px;
+  height: 400px;
   padding: 20px 20px;
   flex-direction: row;
   justify-content: center;
@@ -228,13 +240,15 @@ export const SliderWrapper = styled.div`
 export const SliderItem = styled.div`
   display: flex;
   flex-direction: row;
-  width: 90%;
-  height: 500px;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
   background-color: #fff;
 `;
 
 export const SliderImg = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 300px;
   object-fit: cover;
 `;

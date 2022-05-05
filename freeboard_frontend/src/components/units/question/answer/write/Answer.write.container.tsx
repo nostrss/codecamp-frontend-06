@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FETCH_ANSWER } from '../Answer.List.queries';
 import AnswerWriteUI from './Answer.write.presenter';
 import { CREATE_ANSWER, UPDATE_ANSWER } from './Answer.write.queries';
@@ -8,6 +8,10 @@ export default function AnswerWriteContainer(props) {
   const [isAnswerContents, setIsAnswerContents] = useState('');
   const [createAnswer] = useMutation(CREATE_ANSWER);
   const [updateAnswer] = useMutation(UPDATE_ANSWER);
+
+  useEffect(() => {
+    if (props.isUpdate) setIsAnswerContents(props.answerContents);
+  }, []);
 
   const onChangeAnswer = (event) => {
     setIsAnswerContents(event.target.value);
@@ -65,6 +69,8 @@ export default function AnswerWriteContainer(props) {
       onClickAnswerWrite={onClickAnswerWrite}
       onClickUpdateAnswerComplete={onClickUpdateAnswerComplete}
       isUpdate={props.isUpdate}
+      answerContents={props.answerContents}
+      isAnswerContents={isAnswerContents}
     />
   );
 }

@@ -1,17 +1,13 @@
 import Tooltip from '@material-ui/core/Tooltip';
 import { Wrapper, WrapperCanvas } from '../posting/posting.style';
 import * as P from './product.style';
-import { IFetchPost } from './product.type';
 import { getDate } from '../../../commons/libraries/utils';
-// import { v4 as uuidv4 } from 'uuid';
-// import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import QuestionWrite from '../question/write/QuestionWrite.container';
 import QuestionListContainer from '../question/list/Question.List.container';
 import Slider from 'react-slick';
 import { v4 as uuidv4 } from 'uuid';
-import KakaoMapPage from '../../commons/map';
 import DOMPurify from 'dompurify';
 import MapDetail from '../../commons/map/detailmap';
 
@@ -26,6 +22,7 @@ export default function ProductUI(props) {
   return (
     <Wrapper>
       <WrapperCanvas>
+        {/* 헤더시작 */}
         <P.PostHeader>
           <P.PostProfile>
             <P.Profileimage src='/image/user.png'></P.Profileimage>
@@ -54,6 +51,8 @@ export default function ProductUI(props) {
             </P.RowPostInfo>
           </P.PostInfo>
         </P.PostHeader>
+        {/* 헤더종료 */}
+
         <P.ProductBody>
           <P.FlexRowDiv>
             <P.FlexColDiv>
@@ -61,32 +60,15 @@ export default function ProductUI(props) {
               <P.PostBodyTitle>
                 {props.data?.fetchUseditem.name}
               </P.PostBodyTitle>
-              {props.data?.fetchUseditem?.images[0] ? (
-                <P.SliderWrapper>
-                  <Slider {...settings}>
-                    {props.data?.fetchUseditem.images.map((el, index) => (
-                      <P.SliderItem key={uuidv4()}>
-                        <P.SliderImg
-                          hidden={!props.data?.fetchUseditem.images[index]}
-                          src={
-                            el?.startsWith('https', 0)
-                              ? el
-                              : `https://storage.googleapis.com/${el}`
-                          }
-                        />
-                      </P.SliderItem>
-                    ))}
-                  </Slider>
-                </P.SliderWrapper>
-              ) : (
-                ''
-              )}
+              <P.PostBodyTitle>
+                {props.data?.fetchUseditem.price.toLocaleString('ko-KR')}원
+              </P.PostBodyTitle>
             </P.FlexColDiv>
             <P.FlexColDiv>
               <P.PostLikeItem>
                 <P.PostLikeBtn
                   onClick={props.onClickPickTogle}
-                  src='/image/like.png'
+                  src='/image/pick.png'
                 ></P.PostLikeBtn>
                 <P.PostLikeCounts>
                   {props.data?.fetchUseditem.pickedCount}
@@ -94,6 +76,30 @@ export default function ProductUI(props) {
               </P.PostLikeItem>
             </P.FlexColDiv>
           </P.FlexRowDiv>
+
+          {/* 이미지 시작 */}
+
+          {props.data?.fetchUseditem?.images[0] ? (
+            <P.SliderWrapper>
+              <Slider {...settings}>
+                {props.data?.fetchUseditem.images.map((el, index) => (
+                  <P.SliderItem key={uuidv4()}>
+                    <P.SliderImg
+                      hidden={!props.data?.fetchUseditem.images[index]}
+                      src={
+                        el?.startsWith('https', 0)
+                          ? el
+                          : `https://storage.googleapis.com/${el}`
+                      }
+                    />
+                  </P.SliderItem>
+                ))}
+              </Slider>
+            </P.SliderWrapper>
+          ) : (
+            ''
+          )}
+          {/* 이미지 종료 */}
           <P.FlexColDiv>
             {typeof window !== 'undefined' ? (
               <P.PostBodyText
