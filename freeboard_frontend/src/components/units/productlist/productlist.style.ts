@@ -94,6 +94,6 @@ export const ButtonFix = styled.button`
   height: 50px;
   position: fixed;
   bottom: 200px;
-  right: 400px;
+  right: 150px;
   z-index: 100;
 `;
