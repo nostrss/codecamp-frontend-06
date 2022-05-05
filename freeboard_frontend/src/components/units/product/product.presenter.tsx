@@ -129,6 +129,7 @@ export default function ProductUI(props) {
         <P.PostBtnItem onClick={props.onClickByeProduct}>
           구매하기
         </P.PostBtnItem>
+        <P.PostBtnItem onClick={props.onClickDelete}>삭제하기</P.PostBtnItem>
       </P.PostBtns>
       <QuestionWrite></QuestionWrite>
       <QuestionListContainer></QuestionListContainer>

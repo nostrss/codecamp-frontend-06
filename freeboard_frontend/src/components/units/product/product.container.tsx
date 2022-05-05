@@ -1,6 +1,11 @@
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from '@apollo/client';
-import { FETCH_PRODUCT, BUY_PRODUCT, PICK_TOGLE } from './product.queries';
+import {
+  FETCH_PRODUCT,
+  BUY_PRODUCT,
+  PICK_TOGLE,
+  DELETE_PRODUCT,
+} from './product.queries';
 import ProductUI from './product.presenter';
 import { Modal } from 'antd';
 import { useRecoilState } from 'recoil';
@@ -18,6 +23,7 @@ export default function ProductContainer() {
 
   const [buyProduct] = useMutation(BUY_PRODUCT);
   const [pickTogle] = useMutation(PICK_TOGLE);
+  const [deleteProduct] = useMutation(DELETE_PRODUCT);
 
   // 찜하기 버튼
   const onClickPickTogle = async () => {
@@ -66,6 +72,20 @@ export default function ProductContainer() {
     }
   };
 
+  const onClickDelete = async () => {
+    try {
+      await deleteProduct({
+        variables: {
+          useditemId: router?.query.id,
+        },
+      });
+      alert('상품이 정상적으로 삭제되었습니다');
+      router.push('/usedmarket');
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
   return (
     <>
       <ProductUI
@@ -74,6 +94,7 @@ export default function ProductContainer() {
         onClickMoveToList={onClickMoveToList}
         onClickByeProduct={onClickByeProduct}
         onClickPickTogle={onClickPickTogle}
+        onClickDelete={onClickDelete}
       />
     </>
   );
