@@ -1,7 +1,10 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { accessTokenState } from '../../../commons/store';
+import { useRecoilState, useRecoilValueLoadable } from 'recoil';
+import {
+  accessTokenState,
+  restoreAccessTokenLoadable,
+} from '../../../commons/store';
 
 // 함수명을 use ***, 그래야 나중에 예측이 된다.
 
@@ -11,11 +14,22 @@ export function useAuth() {
   const router = useRouter();
   const [accessToken] = useRecoilState(accessTokenState);
   const [isLoading] = useState(true);
+  const restoreAccessToken = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
+  // useEffect(() => {
+  //   if (!accessToken) {
+  //     alert('로그인 후 이용 가능합니다');
+  //     router.push('/signin');
+  //   }
+  // }, []);
   useEffect(() => {
     if (!accessToken) {
-      alert('로그인 후 이용 가능합니다');
-      router.push('/signin');
+      restoreAccessToken.toPromise().then((newAccessToken) => {
+        if (!newAccessToken) {
+          alert('로그인 후 이용 가능합니다!!!');
+          router.push('/signin');
+        }
+      });
     }
   }, []);
 
