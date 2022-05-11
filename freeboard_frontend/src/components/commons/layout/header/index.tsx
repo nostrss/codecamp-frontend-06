@@ -125,15 +125,18 @@ export default function LayoutHeader() {
         <WrapperHeaderMenu>
           <div>{data?.fetchUserLoggedIn.userPoint.amount}포인트</div>
           <SignUpButton onClick={onClickReCharge}>충전하기</SignUpButton>
-          <Modal
-            title='충전하기'
-            visible={isOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            footer={null}
-          >
-            <RechargeModal setIsOpen={setIsOpen}></RechargeModal>
-          </Modal>
+          <React.StrictMode>
+            <Modal
+              title='충전하기'
+              visible={isOpen}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              footer={null}
+              centered
+            >
+              <RechargeModal setIsOpen={setIsOpen}></RechargeModal>
+            </Modal>
+          </React.StrictMode>
 
           {isToken ? (
             <>

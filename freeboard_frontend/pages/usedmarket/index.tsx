@@ -26,9 +26,9 @@ export default function UsedMarket() {
   useAuth();
   return (
     <>
-      <Wrapper>
+      {/* <Wrapper>
         <PageTitle>베스트 상품</PageTitle>
-      </Wrapper>
+      </Wrapper> */}
       <BestProductContainer />
       <ProductListContainer />
     </>

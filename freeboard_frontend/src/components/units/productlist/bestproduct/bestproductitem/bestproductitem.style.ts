@@ -7,9 +7,9 @@ export const WrappDivFlexCol = styled.div`
   height: 391px;
   background: #ffffff;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   padding: 20px 20px;
-  margin: 0px 12px;
+  margin: 10px 12px;
 `;
 
 export const DivFlexRow = styled.div`
@@ -23,13 +23,30 @@ export const DivFlexCol = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: auto%;
+  height: 100%;
+`;
+
+export const DivFlexCol80 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80%;
+  height: 100%;
+`;
+
+export const DivFlexCol20 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: auto;
 `;
 
 export const ItemImage = styled.img`
   width: 242px;
   height: 242px;
-  background-color: lightblue;
+  /* background-color: lightblue; */
 `;
 
 export const ItemH3 = styled.h3`
@@ -39,7 +56,7 @@ export const ItemH3 = styled.h3`
   font-weight: 500;
   font-size: 18px;
   line-height: 27px;
-  margin: 0px;
+  margin-bottom: 10px;
 `;
 
 export const ItemH3Strong = styled.h3`

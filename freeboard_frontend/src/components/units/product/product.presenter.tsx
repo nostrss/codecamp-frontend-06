@@ -112,11 +112,13 @@ export default function ProductUI(props) {
             ) : (
               ''
             )}
-            {props.data?.fetchUseditem.tags
-              ? props.data?.fetchUseditem.tags.map((el) => (
-                  <P.H3 key={uuidv4()}>{el}</P.H3>
-                ))
-              : ''}
+            <P.FlexRowTag>
+              {props.data?.fetchUseditem.tags
+                ? props.data?.fetchUseditem.tags.map((el) => (
+                    <P.H3 key={uuidv4()}>{el}</P.H3>
+                  ))
+                : ''}
+            </P.FlexRowTag>
           </P.FlexColDiv>
           {props.data?.fetchUseditem?.useditemAddress ? (
             <MapDetail address={props.data?.fetchUseditem.useditemAddress} />

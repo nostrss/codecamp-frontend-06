@@ -95,6 +95,14 @@ export const FlexRowDiv = styled.div`
   height: auto;
 `;
 
+export const FlexRowTag = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: auto;
+`;
+
 export const FlexColDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -118,7 +126,7 @@ export const PostBodyTitle = styled.h2`
 `;
 
 export const H3 = styled.h3`
-  width: 100%;
+  width: auto;
   height: auto;
   text-align: left;
   font-family: 'Noto Sans CJK KR';
@@ -127,7 +135,7 @@ export const H3 = styled.h3`
   font-size: 18px;
   line-height: 27px;
   color: #bdbdbd;
-  margin: 0px;
+  margin: 0px 20px 0px 0px;
 `;
 
 export const PostBodyImg = styled.img`

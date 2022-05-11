@@ -6,7 +6,7 @@ export default function ProductListItemUI(props) {
       <U.ItemImage
         src={
           props.el.images[0] === '' || props.el?.images.length === 0
-            ? '/image/undraw_profile_pic_ic-5-t.svg/'
+            ? '/image/magic-box.png/'
             : props.el.images[0]?.startsWith('https', 0)
             ? `${props.el.images[0]}`
             : `https://storage.googleapis.com/${props.el.images[0]}`
@@ -38,9 +38,9 @@ export default function ProductListItemUI(props) {
       </U.DivFlexCol>
       <U.DivFlexCol>
         <U.DivFlexRow>
-          <U.IconImage src='/image/ic_favorite-24px.png' />
+          {/* <U.IconImage src='/image/ic_favorite-24px.png' /> */}
           <U.ItemH3Strong>
-            {props.el?.price.toLocaleString('ko-KR')}
+            {props.el?.price.toLocaleString('ko-KR')}원
           </U.ItemH3Strong>
         </U.DivFlexRow>
       </U.DivFlexCol>

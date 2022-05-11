@@ -40,6 +40,8 @@ export default function Layout(props: ILayoutProps) {
     '/boards/new',
     '/boards/post/[postid]/edit',
     '/artic',
+    '/usedmarket',
+    '/usedmarket/product/[id]',
   ];
   const isHiddenBanner = HIDDEN_BANNER.includes(router.pathname);
 

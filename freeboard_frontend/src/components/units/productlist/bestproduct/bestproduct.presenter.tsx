@@ -7,6 +7,7 @@ import BestProductItemContainer from './bestproductitem/bestproductitem.containe
 export default function BestProductUI(props: IFetchBestProductUI) {
   return (
     <>
+      <U.PageTitle>베스트 상품</U.PageTitle>
       <U.DivFlexRow>
         {props.data?.fetchUseditemsOfTheBest.map((el) => (
           <Fragment key={String(uuidv4())}>

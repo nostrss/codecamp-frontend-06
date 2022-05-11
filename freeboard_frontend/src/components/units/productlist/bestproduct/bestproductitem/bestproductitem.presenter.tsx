@@ -7,7 +7,7 @@ export default function BestProductItemUI(props) {
         <U.ItemImage
           src={
             props.el.images[0] === '' || props.el?.images.length === 0
-              ? '/image/undraw_profile_pic_ic-5-t.svg/'
+              ? '/image/magic-box.png/'
               : props.el.images[0]?.startsWith('https', 0)
               ? `${props.el.images[0]}`
               : `https://storage.googleapis.com/${props.el.images[0]}`
@@ -15,16 +15,16 @@ export default function BestProductItemUI(props) {
         />
         <U.ItemH3>{props.el?.name}</U.ItemH3>
         <U.DivFlexRow>
-          <U.DivFlexCol>
+          <U.DivFlexCol80>
             <U.ItemH4>{props.el?.remarks}</U.ItemH4>
             <U.ItemH3Strong>
-              {props.el?.price.toLocaleString('ko-KR')}
+              {props.el?.price.toLocaleString('ko-KR')}원
             </U.ItemH3Strong>
-          </U.DivFlexCol>
-          <U.DivFlexCol>
+          </U.DivFlexCol80>
+          <U.DivFlexCol20>
             <U.IconImage src='/image/ic_favorite-24px.png' />
             <span>{props.el?.pickedCount}</span>
-          </U.DivFlexCol>
+          </U.DivFlexCol20>
         </U.DivFlexRow>
       </U.WrappDivFlexCol>
     </>
