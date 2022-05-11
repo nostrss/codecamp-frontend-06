@@ -6,6 +6,7 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
 import { Modal } from 'antd';
 import RechargeModal from '../../rechargeModal/rechargeModal';
+import React from 'react';
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
