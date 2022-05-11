@@ -7,8 +7,6 @@ import _ from 'lodash';
 
 export default function ProductListContainer() {
   const [keyword, setKeyword] = useState('');
-  // const [startDate, setStartDate] = useState(0);
-  // const [endDate, setEndDate] = useState(0);
   const [isSoldout, setIsSoldout] = useState(false);
   const { data, fetchMore, refetch } = useQuery(FETCH_PRODUCTS, {
     variables: {
@@ -64,44 +62,6 @@ export default function ProductListContainer() {
     });
     setKeyword(searchKeyword);
   }, 200);
-
-  // const onChangeStart = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const date = new Date(event.target.value);
-  //   const startUtc = Date.UTC(
-  //     date.getUTCFullYear(),
-  //     date.getUTCMonth(),
-  //     date.getUTCDate()
-  //   );
-  //   setStartDate(startUtc);
-  //   console.log(event.target.value);
-  // };
-
-  // const onChangeEnd = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const date = new Date(event.target.value);
-  //   const endUtc = Date.UTC(
-  //     date.getUTCFullYear(),
-  //     date.getUTCMonth(),
-  //     date.getUTCDate()
-  //   );
-  //   setEndDate(endUtc);
-  //   console.log(event.target.value);
-  // };
-
-  // const onClickSearch = (event: MouseEvent<HTMLButtonElement>) => {
-  //   if (event.target instanceof Element) {
-  //     refetch({
-  //       search: keyword,
-  //       // page: 1,
-  //       // startDate: startDate,
-  //       // endDate: endDate,
-  //     });
-  //     // BoardsCount({
-  //     //   search: keyword,
-  //     //   startDate: startDate,
-  //     //   endDate: endDate,
-  //     // });
-  //   }
-  // };
 
   return (
     <>

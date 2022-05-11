@@ -5,19 +5,21 @@ export const WrappDivFlexRow = styled.div`
   flex-direction: row;
   width: 100%;
   height: 200px;
-  border: 1px solid gray;
+  border-top: 1px solid gray;
   padding: 20px;
+  margin-bottom: 20px;
 `;
 
 export const ItemImage = styled.img`
   width: 160px;
   height: 160px;
-  background-color: lightblue;
+  margin-right: 40px;
 `;
 
 export const DivFlexCol = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: stretch;
   width: 100%;
   height: auto;
 `;
@@ -78,6 +80,7 @@ export const Span = styled.span`
 `;
 
 export const ItemH3Strong = styled.h3`
+  width: 100%;
   font-style: normal;
   font-weight: 700;
   font-size: 24px;

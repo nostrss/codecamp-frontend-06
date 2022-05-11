@@ -11,19 +11,21 @@ export default function ProductListUI(props: IFetchProductListUI) {
     <P.Wrapper>
       <P.WrapperCanvas>
         <P.WrapperFlexRow>
-          <button onClick={props.onClickSell}>판매중상품</button>
-          <button onClick={props.onClickSold}>판매된상품</button>
+          <P.IsSellBtn isSoldout={props.isSoldout} onClick={props.onClickSell}>
+            판매중상품
+          </P.IsSellBtn>
+          <P.IsSoldBtn isSoldout={props.isSoldout} onClick={props.onClickSold}>
+            판매된상품
+          </P.IsSoldBtn>
         </P.WrapperFlexRow>
         <P.WrapperSearch>
           <P.WrapperSearchBar>
             <BsSearch size='24'></BsSearch>
-            <P.SearchBar onChange={props.onChangeSearch}></P.SearchBar>
+            <P.SearchBar
+              onChange={props.onChangeSearch}
+              defaultValue={'검색어를 입력하세요'}
+            ></P.SearchBar>
           </P.WrapperSearchBar>
-          {/* <P.DatePeeker id='start' type='date'></P.DatePeeker>
-          <P.DatePeeker id='end' type='date'></P.DatePeeker> */}
-          {/* <P.SearchButton onClick={props.onClickSearch}>
-            검색하기
-          </P.SearchButton> */}
         </P.WrapperSearch>
         <InfiniteScroll
           style={{ width: '100%' }}

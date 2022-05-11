@@ -97,3 +97,23 @@ export const ButtonFix = styled.button`
   right: 150px;
   z-index: 100;
 `;
+
+export const IsSoldBtn = styled.button`
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: ${(props) => (props.isSoldout ? 'blue' : 'gray')};
+  margin-right: 20px;
+  cursor: pointer;
+  color: white;
+`;
+
+export const IsSellBtn = styled.button`
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: ${(props) => (props.isSoldout ? 'gray' : 'blue')};
+  margin-right: 20px;
+  cursor: pointer;
+  color: white;
+`;
