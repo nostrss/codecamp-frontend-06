@@ -18,7 +18,7 @@ import { postDataState } from '../../../commons/store';
 
 export default function PostContainer() {
   const router = useRouter();
-  const [postData, setPostData] = useRecoilState(postDataState);
+  const [, setPostData] = useRecoilState(postDataState);
 
   // 작성된 컨텐츠 정보 불러오기
   const { data } = useQuery(FETCH_POST, {
@@ -109,7 +109,6 @@ export default function PostContainer() {
         onClickLike={onClickLike}
         onClickDislike={onClickDislike}
       />
-      {/* <PostComment data={data} />  comment1 */}
     </>
   );
 }

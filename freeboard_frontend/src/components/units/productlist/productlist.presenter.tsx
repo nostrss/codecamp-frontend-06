@@ -41,7 +41,6 @@ export default function ProductListUI(props: IFetchProductListUI) {
             />
           )) || <div></div>}
         </InfiniteScroll>
-        {/* <P.ButtonFix onClick={props.onClickMoveNew}>상품등록하기</P.ButtonFix> */}
         <TodayContainer />
       </P.WrapperCanvas>
     </P.Wrapper>

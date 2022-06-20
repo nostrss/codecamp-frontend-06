@@ -1,4 +1,4 @@
-import { useMutation, useApolloClient, gql } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { accessTokenState, userInfoState } from '../../../commons/store';
@@ -23,14 +23,6 @@ const schema = yup
   })
   .required();
 
-const LOGIN_EXAM = gql`
-  mutation loginUser($email: String!, $password: String!) {
-    loginUserExample(email: $email, password: $password) {
-      accessToken
-    }
-  }
-`;
-
 export default function SignInContainer() {
   const [, setAccessToken] = useRecoilState(accessTokenState);
   const [, setUserInfo] = useRecoilState(userInfoState);
@@ -51,7 +43,6 @@ export default function SignInContainer() {
     const accessToken = result.data.loginUser.accessToken;
     setAccessToken(accessToken);
     localStorage.setItem('accessToken', accessToken);
-    console.log(accessToken);
 
     const resultUserInfo = await client.query({
       query: FETCH_USER_LOGGED_IN,
@@ -74,7 +65,7 @@ export default function SignInContainer() {
       register={register}
       handleSubmit={handleSubmit}
       formState={formState}
-      isActive={formState}
+      isActive={formState.isValid}
     />
   );
 }

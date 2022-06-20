@@ -1,16 +1,14 @@
 import { Fragment } from 'react';
 import * as A from './artic.api.syle';
-// import InfiniteScroll from 'react-infinite-scroller';
 
-export default function ArticUI(props) {
+export default function ArticUI(props: any) {
   return (
     <>
       <A.WrapperTitle>
         <A.Title> Art Institute of Chicago</A.Title>
       </A.WrapperTitle>
       <A.Wrapper>
-        {/* <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}> */}
-        {props.articList?.map((el) => (
+        {props.articList?.map((el: any) => (
           <Fragment key={el.id}>
             <A.ArticItem>
               <A.ArticImage
@@ -22,7 +20,6 @@ export default function ArticUI(props) {
             </A.ArticItem>
           </Fragment>
         ))}
-        {/* </InfiniteScroll> */}
       </A.Wrapper>
     </>
   );

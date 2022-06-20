@@ -23,7 +23,7 @@ export const CREATE_RECHARGE = gql`
 `;
 
 const Wrapper = styled.div`
-  width: 460px%;
+  width: 460px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -72,10 +72,10 @@ export const Button = styled.button`
   }
 `;
 
-export default function RechargeModal(props) {
+export default function RechargeModal(props: any) {
   const [createRecharge] = useMutation(CREATE_RECHARGE);
   const [amount, setAmount] = useState(100);
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [accessToken] = useRecoilState(accessTokenState);
 
   useEffect(() => {
     const jqueryScript = document.createElement('script');
@@ -138,7 +138,7 @@ export default function RechargeModal(props) {
     );
   };
 
-  const onChangeRecharge = (event) => {
+  const onChangeRecharge = (event: any) => {
     setAmount(event.target.value);
   };
   return (

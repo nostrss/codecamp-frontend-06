@@ -29,7 +29,10 @@ export default function SignInUI(props: ISingninPresenter) {
           </U.SignUpItemDiv>
 
           <U.SignUpItemDiv>
-            <U.SignUpItemBtn type='submit' isActive={props.formState?.isValid}>
+            <U.SignUpItemBtn
+              type='submit'
+              // isActive={props.formState?.isValid}
+            >
               로그인
             </U.SignUpItemBtn>
           </U.SignUpItemDiv>

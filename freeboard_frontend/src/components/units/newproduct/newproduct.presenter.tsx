@@ -8,7 +8,7 @@ import { Modal } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-export default function NewProductUI(props) {
+export default function NewProductUI(props: any) {
   return (
     <p.Wrapper>
       <p.WrapperCanvas>
@@ -165,7 +165,7 @@ export default function NewProductUI(props) {
             onChangeFileUrls={props.onChangeFileUrls}
             fileUrls={props.fileUrls}
           />
-          {props.fileUrls?.map((el, index) => (
+          {props.fileUrls?.map((el: any, index: any) => (
             <>
               <p.ImageItempWrap>
                 <p.ImageThumbnail

@@ -6,9 +6,9 @@ import NewProductUI from './newproduct.presenter';
 import { productDataState } from '../../../commons/store';
 import { useRecoilState } from 'recoil';
 
-export default function NewProductContainer(props) {
+export default function NewProductContainer(props: any) {
   const router = useRouter();
-  const [productData, setProductData] = useRecoilState(productDataState);
+  const [productData] = useRecoilState(productDataState);
 
   // input state 모음
   const [inputs, setInputs] = useState({
@@ -61,13 +61,14 @@ export default function NewProductContainer(props) {
 
   // // input중 이미지는 배열이라 따로 함수 생성
 
-  const onChangeFileUrls = (fileUrl: string) => {
+  const onChangeFileUrls = (fileUrl: any) => {
     const newFileUrls = [...fileUrls];
+    // @ts-ignore
     newFileUrls.push(fileUrl);
     setFileUrls(newFileUrls);
   };
 
-  const onClickImageDelete = (index) => () => {
+  const onClickImageDelete = (index: number) => () => {
     const newFileUrls = [...fileUrls];
     newFileUrls.splice(index, 1);
     setFileUrls(newFileUrls);
@@ -90,9 +91,9 @@ export default function NewProductContainer(props) {
     setIsContents(value);
   };
 
-  const onChangeTags = (event) => {
+  const onChangeTags = (event: any) => {
     const tagArr = event.target.value.split(' ');
-    setHashArr(tagArr.filter((el) => el !== ''));
+    setHashArr(tagArr.filter((el: any) => el !== ''));
   };
 
   // 상품등록

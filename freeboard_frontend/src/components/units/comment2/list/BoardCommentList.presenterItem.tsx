@@ -47,7 +47,7 @@ export default function BoardCommentListUIItem(
       });
       setIsOpenDeleteModal(false);
     } catch (error) {
-      Modal.error({ content: error.message });
+      if (error instanceof Error) alert(error.message);
     }
   };
 

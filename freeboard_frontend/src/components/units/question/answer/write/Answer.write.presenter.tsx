@@ -1,6 +1,6 @@
 import * as S from './Answer.write.style';
 
-export default function AnswerWriteUI(props) {
+export default function AnswerWriteUI(props: any) {
   return (
     <>
       <S.Wrapper>

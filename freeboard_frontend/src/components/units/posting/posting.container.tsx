@@ -15,7 +15,7 @@ import { postDataState } from '../../../commons/store';
 
 export default function PostingContainer(props: IPostingPathProps) {
   const router = useRouter();
-  const [postData, setPostData] = useRecoilState(postDataState);
+  const [postData] = useRecoilState(postDataState);
 
   // input state 모음
   const [inputs, setInputs] = useState({
@@ -58,8 +58,9 @@ export default function PostingContainer(props: IPostingPathProps) {
 
   // input중 이미지는 배열이라 따로 함수 생성
 
-  const onChangeFileUrls = (fileUrl: string) => {
+  const onChangeFileUrls = (fileUrl: any) => {
     const newFileUrls = [...fileUrls];
+    // @ts-ignore
     newFileUrls.push(fileUrl);
     setFileUrls(newFileUrls);
   };
@@ -156,7 +157,6 @@ export default function PostingContainer(props: IPostingPathProps) {
 
   // 모달에 필요한 state
   const [warning, setWarning] = useState(false);
-
   const [isOpen, setIsOpen] = useState(false);
 
   // antd 모달 띄우기

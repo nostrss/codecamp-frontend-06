@@ -1,4 +1,4 @@
-import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ChangeEvent, useState } from 'react';
 import {
   IMutationCreateBoardCommentArgs,
@@ -50,12 +50,16 @@ export default function PostComment(props: IPostToCommnetData) {
           Math.ceil(fetchCommentData.data.fetchBoardComments.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
+        // @ts-ignore
         if (!fetchMoreResult.fetchBoardComments) {
+          // @ts-ignore
           return { fetchBoardComments: [...prev.fetchBoardComments] };
         } else {
           return {
             fetchBoardComments: [
+              // @ts-ignore
               ...prev.fetchBoardComments,
+              // @ts-ignore
               ...fetchMoreResult.fetchBoardComments,
             ],
           };
@@ -123,7 +127,7 @@ export default function PostComment(props: IPostToCommnetData) {
 
   // 댓글 삭제 버튼 클릭
 
-  const onClickDeleteComment = async (data) => {
+  const onClickDeleteComment = async (data: any) => {
     const confirmPw = prompt('비밀번호를 입력하세요');
 
     try {
@@ -147,15 +151,14 @@ export default function PostComment(props: IPostToCommnetData) {
   };
 
   // 댓글 수정icon 클릭
-  const onClickEditComment = (data) => {
-    console.log(data);
+  const onClickEditComment = (data: any) => {
     setCommentId(data);
     setIsEdit(true);
   };
 
   // 수정 완료 버튼 클릭
 
-  const onClickSubmitEdit = async (data) => {
+  const onClickSubmitEdit = async (data: any) => {
     console.log(data);
     const updateData: IMutationUpdateBoardCommentArgs = {
       updateBoardCommentInput: {
@@ -198,7 +201,7 @@ export default function PostComment(props: IPostToCommnetData) {
       setCommentId('');
       Modal.success({ content: '댓글이 수정되었습니다.' });
     } catch (error) {
-      Modal.error({ content: `${error.message}` });
+      if (error instanceof Error) alert(error.message);
     }
   };
 

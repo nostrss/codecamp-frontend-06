@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+export interface ISingninStyle {
+  isActive: boolean;
+}
+
 // 순서
 // display
 // list-style

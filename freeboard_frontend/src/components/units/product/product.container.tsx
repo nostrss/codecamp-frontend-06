@@ -13,7 +13,7 @@ import { productDataState } from '../../../commons/store';
 
 export default function ProductContainer() {
   const router = useRouter();
-  const [productData, setProductData] = useRecoilState(productDataState);
+  const [, setProductData] = useRecoilState(productDataState);
 
   // 작성된 컨텐츠 정보 불러오기
   const { data } = useQuery(FETCH_PRODUCT, {
@@ -28,7 +28,7 @@ export default function ProductContainer() {
   // 찜하기 버튼
   const onClickPickTogle = async () => {
     try {
-      const result = await pickTogle({
+      await pickTogle({
         variables: {
           useditemId: router?.query.id,
         },

@@ -4,7 +4,7 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function NewMap(props) {
+export default function NewMap(props: any) {
   useEffect(() => {
     const script = document.createElement('script'); // <script></script> 태그 만들기
     const libray = document.createElement('script'); // <script></script> 태그 만들기
@@ -33,12 +33,12 @@ export default function NewMap(props) {
         let address = '';
 
         // 좌표로 주소를 검색하는 함수
-        function searchDetailAddrFromCoords(coords, callback) {
+        function searchDetailAddrFromCoords(coords: any, callback: any) {
           geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         }
 
         // 콜백함수
-        function getAddress(result, status) {
+        function getAddress(result: any, status: any) {
           if (status === window.kakao.maps.services.Status.OK) {
             address = result[0].road_address;
           }
@@ -54,11 +54,12 @@ export default function NewMap(props) {
             marker.setMap(map);
 
             searchDetailAddrFromCoords(latlng, getAddress);
-            console.log(address.address_name);
             props.setIsAddress({
               lat: latlng.Ma,
               lng: latlng.La,
+              // @ts-ignore
               address: address?.address_name,
+              // @ts-ignore
               zipcode: address?.zone_no,
             });
           }

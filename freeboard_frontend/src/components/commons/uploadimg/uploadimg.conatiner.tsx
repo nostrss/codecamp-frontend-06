@@ -38,7 +38,7 @@ export default function ImageUpload(props: {
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const [imageUrl, setImageUrl] = useState<string | undefined>('');
+  const [, setImageUrl] = useState<string | undefined>('');
   const [uploadFile] = useMutation<
     Pick<IMutation, 'uploadFile'>,
     IMutationUploadFileArgs

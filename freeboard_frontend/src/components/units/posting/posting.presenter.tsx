@@ -142,6 +142,27 @@ export default function PostingUI(props: IPostingUIProps) {
             />
           ))}
         </p.UploadImageWrapper>
+
+        <p.UploadImageWrapper>
+          <ImageUpload
+            setInputs={props.setInputs}
+            inputs={props.inputs}
+            onChangeFileUrls={props.onChangeFileUrls}
+            fileUrls={props.fileUrls}
+          />
+          {props.fileUrls?.map((el, index) => (
+            <video
+              style={{ width: '200', height: '200' }}
+              key={uuidv4()}
+              controls
+              src={
+                el[index]?.startsWith('https', 0)
+                  ? el
+                  : `https://storage.googleapis.com/${el}`
+              }
+            ></video>
+          ))}
+        </p.UploadImageWrapper>
         <p.RowWrapper>
           <p.ColumnWrapperItem>
             <p.InputLable>메인 설정</p.InputLable>

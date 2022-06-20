@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { IBoard } from '../../../../commons/types/generated/types';
 import ProductListItemUI from './productlistitem.presenter';
 
-export default function ProductListItemContainer(props) {
+export default function ProductListItemContainer(props: any) {
   const router = useRouter();
 
   const [isToday, setIsToday] = useState([]);
@@ -15,7 +16,7 @@ export default function ProductListItemContainer(props) {
     setIsToday(already);
   }, []);
 
-  const onClickProductList = (productid) => {
+  const onClickProductList = (productid: string) => {
     router.push(`/usedmarket/product/${productid}`);
 
     const today = JSON.parse(sessionStorage.getItem(DATE) || '[]');

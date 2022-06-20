@@ -1,6 +1,6 @@
 import * as U from './bestproductitem.style';
 
-export default function BestProductItemUI(props) {
+export default function BestProductItemUI(props: any) {
   return (
     <>
       <U.WrappDivFlexCol onClick={() => props.onClickBestProduct(props.el._id)}>

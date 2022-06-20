@@ -32,7 +32,7 @@
 import { useRouter } from 'next/router';
 import * as U from './today.style';
 
-export default function TodayItemUI(props) {
+export default function TodayItemUI(props: any) {
   const router = useRouter();
   const onClickTodayITem = () => {
     router.push(`/usedmarket/product/${props.el._id}`);
