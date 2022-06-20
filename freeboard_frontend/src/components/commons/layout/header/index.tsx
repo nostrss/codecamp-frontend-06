@@ -1,12 +1,11 @@
+import { StrictMode, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { accessTokenState } from '../../../../commons/store';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { useState } from 'react';
 import { Modal } from 'antd';
 import RechargeModal from '../../rechargeModal/rechargeModal';
-import React from 'react';
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -108,7 +107,7 @@ export default function LayoutHeader() {
 
   const onClickLogOut = async () => {
     try {
-      const result = await logout({
+      await logout({
         variables: {
           logoutUser: true,
         },
@@ -126,7 +125,7 @@ export default function LayoutHeader() {
         <WrapperHeaderMenu>
           <div>{data?.fetchUserLoggedIn.userPoint.amount}포인트</div>
           <SignUpButton onClick={onClickReCharge}>충전하기</SignUpButton>
-          <React.StrictMode>
+          <StrictMode>
             <Modal
               title='충전하기'
               visible={isOpen}
@@ -137,7 +136,7 @@ export default function LayoutHeader() {
             >
               <RechargeModal setIsOpen={setIsOpen}></RechargeModal>
             </Modal>
-          </React.StrictMode>
+          </StrictMode>
 
           {isToken ? (
             <>

@@ -82,6 +82,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                             <P.IconBox>
                               <button
                                 onClick={() =>
+                                  // @ts-ignore
                                   props.onClickEditComment(item._id)
                                 }
                               >
@@ -91,6 +92,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                             <P.IconBox>
                               <button
                                 onClick={() =>
+                                  // @ts-ignore
                                   props.onClickDeleteComment(item._id)
                                 }
                               >
@@ -134,6 +136,7 @@ export default function PostCommentUI(props: IFetchCommentData) {
                               {props.comment.length}/100
                             </P.CountTextLength>
                             <P.SubmitComment
+                              // @ts-ignore
                               onClick={() => props.onClickSubmitEdit(item._id)}
                             >
                               수정완료

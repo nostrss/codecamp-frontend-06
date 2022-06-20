@@ -8,7 +8,7 @@ export interface IPostListToPagination {
 export interface IPagenationToPaginationUI {
   startPage: number;
   currentPage: number;
-  onClickPage: (event: MouseEvent<HTMLElement>) => void;
+  onClickPage: (event: { target: { innerText: any } }) => void;
   onClickPrevPage: (event: MouseEvent<HTMLElement>) => void;
   onClickNextPage: (event: MouseEvent<HTMLElement>) => void;
   refetch: any;

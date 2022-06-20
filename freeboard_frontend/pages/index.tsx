@@ -1,20 +1,20 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import lottie from 'lottie-web';
-import { useEffect, useRef } from 'react';
+// import lottie from 'lottie-web';
+// import { useEffect, useRef } from 'react';
 
 export default function Home() {
-  const likecontainer = useRef();
-  useEffect(() => {
-    lottie.loadAnimation({
-      container: likecontainer.current,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      animationData: require('../public/lottie/101349-swing.json'),
-    });
-  }, []);
+  // const likecontainer = useRef();
+  // useEffect(() => {
+  //   lottie.loadAnimation({
+  //     container: likecontainer.current,
+  //     renderer: 'svg',
+  //     loop: true,
+  //     autoplay: true,
+  //     animationData: require('../public/lottie/101349-swing.json'),
+  //   });
+  // }, []);
 
   return (
     <div className={styles.container}>
@@ -28,7 +28,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href='https://nextjs.org'>Next.js!</a>
         </h1>
-        <div ref={likecontainer}></div>
+        {/* <div ref={likecontainer}></div> */}
 
         <p className={styles.description}>
           Get started by editing{' '}

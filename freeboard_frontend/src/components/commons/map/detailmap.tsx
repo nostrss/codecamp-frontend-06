@@ -4,7 +4,7 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function MapDetail(props) {
+export default function MapDetail(props: any) {
   useEffect(() => {
     const script = document.createElement('script'); // <script></script> 태그 만들기
 

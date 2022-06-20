@@ -16,11 +16,8 @@ export default function PostListContainer() {
   const [startDate, setStartDate] = useState(0);
   const [endDate, setEndDate] = useState(0);
 
-  const onClickTitle = (data) => {
-    console.log(data);
-    // if (event.target instanceof Element) {
+  const onClickTitle = (data: any) => {
     router.push(`/boards/post/${data}`);
-    // }
   };
 
   const onClickMoveWrite = () => {

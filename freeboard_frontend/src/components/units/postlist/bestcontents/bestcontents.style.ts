@@ -16,8 +16,6 @@ export const BestContentsItem = styled.div`
   flex-direction: column;
   width: 282px;
   height: 257px;
-  /* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 20px; */
 `;
 
 export const BestContentsImage = styled.img`

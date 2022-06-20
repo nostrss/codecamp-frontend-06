@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/client/react';
-import { Modal } from 'antd';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getDate } from '../../../../commons/libraries/utils';
@@ -12,12 +11,10 @@ import {
 } from './Question.List.queries';
 import * as S from './Question.List.style';
 
-export default function QuestionListUIItem(props) {
+export default function QuestionListUIItem(props: any) {
   const router = useRouter();
   const [isEdit, setIsEdit] = useState(false);
   const [isAnswerWrite, setIsAnswerWrite] = useState(false);
-  console.log('댓글시작');
-  console.log(props.el);
 
   const [deleteQuestion] = useMutation(DELETE_PRODUCT_COMMENT);
 
@@ -35,7 +32,7 @@ export default function QuestionListUIItem(props) {
         ],
       });
     } catch (error) {
-      Modal.error({ content: error.message });
+      if (error instanceof Error) alert(error.message);
     }
   };
 

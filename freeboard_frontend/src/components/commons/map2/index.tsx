@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-undef */
 // 디테일 > 마커생성 > 좌표 생성> 중심위치 이동
 // 등록 > 마커생성 > 좌표 생성 > 이벤트클릭 > 주소 검색 > 주소 반환
 // 수정 > 마커생성 > 좌표 생성 > 중심위치 이동 > 이벤트클릭 > 주소검색 > 주소 반환
@@ -8,7 +11,7 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function KakaoMapPage(props) {
+export default function KakaoMapPage(props: any) {
   useEffect(() => {
     const script = document.createElement('script'); // <script></script> 태그 만들기
     const libray = document.createElement('script'); // <script></script> 태그 만들기
@@ -34,18 +37,20 @@ export default function KakaoMapPage(props) {
         const marker = new window.kakao.maps.Marker();
 
         // 이동할 위도 경도 위치를 생성합니다
+
+        // @ts-ignore
         const markerPosition = new window.kakao.maps.LatLng(
           props.address?.lat,
           props.address?.lng
         );
 
         // 좌표로 주소를 검색하는 함수
-        function searchDetailAddrFromCoords(coords, callback) {
+        function searchDetailAddrFromCoords(coords: any, callback: any) {
           geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         }
 
         // 콜백함수
-        function getAddress(result, status) {
+        function getAddress(result: any, status: any) {
           if (status === window.kakao.maps.services.Status.OK) {
             address1 = result[0].road_address;
           }
@@ -58,7 +63,6 @@ export default function KakaoMapPage(props) {
           'click',
           function (mouseEvent: { latLng: any }) {
             const latlng = mouseEvent.latLng;
-            console.log(latlng);
             marker.setPosition(latlng);
             marker.setMap(map);
           }
@@ -66,15 +70,17 @@ export default function KakaoMapPage(props) {
 
         // 등록, 수정시 반환할 주소 스테이트
         props.setIsAddress({
+          // @ts-ignore
           lat: latlng.Ma,
+          // @ts-ignore
           lng: latlng.La,
+          // @ts-ignore
           address: address1?.address_name,
+          // @ts-ignore
           zipcode: address1?.zone_no,
         });
 
         let address1 = '';
-
-        console.log(props.mapfixed);
 
         // props가 있을때, 상품 상세일 경우, props값으로 마커를 보여주고 움직이지 못한다.
         if (props.mapfixed === true) {
@@ -90,7 +96,7 @@ export default function KakaoMapPage(props) {
             position: markerPosition,
           });
           marker.setMap(map);
-
+          // @ts-ignore
           function setCenter() {
             // 이동할 위도 경도 위치를 생성합니다
             const moveLatLon = new window.kakao.maps.LatLng(
@@ -116,11 +122,12 @@ export default function KakaoMapPage(props) {
               marker.setMap(map);
 
               searchDetailAddrFromCoords(latlng, getAddress);
-              console.log(address1?.address_name);
               props.setIsAddress({
                 lat: latlng.Ma,
                 lng: latlng.La,
+                // @ts-ignore
                 address: address1?.address_name,
+                // @ts-ignore
                 zipcode: address1?.zone_no,
               });
             }

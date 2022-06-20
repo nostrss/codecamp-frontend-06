@@ -10,7 +10,7 @@ export default function SignUpContainer() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password1, setPassword1] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [, setPassword2] = useState('');
   const [signupUser] = useMutation(SIGNUP_USER);
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ export default function SignUpContainer() {
 
   const onClickSignUp = async () => {
     try {
-      const result = await signupUser({
+      await signupUser({
         variables: {
           createUserInput: {
             email: email,

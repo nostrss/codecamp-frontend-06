@@ -1,10 +1,12 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-undef */
 import { useEffect } from 'react';
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function EditMap(props) {
+export default function EditMap(props: any) {
   useEffect(() => {
     const script = document.createElement('script'); // <script></script> 태그 만들기
     const libray = document.createElement('script'); // <script></script> 태그 만들기
@@ -44,7 +46,7 @@ export default function EditMap(props) {
         marker.setMap(map);
         map.setCenter(markerPosition);
 
-        function searchDetailAddrFromCoords(coords, callback) {
+        function searchDetailAddrFromCoords(coords: any, callback: any) {
           geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         }
 
@@ -56,13 +58,16 @@ export default function EditMap(props) {
             console.log(latlng);
             marker.setPosition(latlng);
             marker.setMap(map);
-
+            // @ts-ignore
             searchDetailAddrFromCoords(latlng, getAddress);
+            // @ts-ignore
             console.log(address.address_name);
             props.setIsAddress({
               lat: latlng.Ma,
               lng: latlng.La,
+              // @ts-ignore
               address: address?.address_name,
+              // @ts-ignore
               zipcode: address?.zone_no,
             });
           }

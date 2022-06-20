@@ -43,6 +43,7 @@ export default function PostListUI(props: IFetchPostList) {
           {props.data?.fetchBoards.map((el, index) => (
             <Fragment key={String(uuidv4())}>
               <P.BodyBox>{index + 1}</P.BodyBox>
+              {/* @ts-ignore */}
               <P.BodyBox onClick={() => props.onClickTitle(el._id)}>
                 {el.title
                   .replaceAll(props.keyword, `#$%${props.keyword}#$%`)

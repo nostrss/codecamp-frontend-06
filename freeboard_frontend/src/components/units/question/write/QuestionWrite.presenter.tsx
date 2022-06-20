@@ -1,7 +1,7 @@
 import * as S from './QuestionWrite.style';
 import { FaCommentAlt } from 'react-icons/fa';
 
-export default function QuestionWriteUI(props) {
+export default function QuestionWriteUI(props: any) {
   return (
     <S.Wrapper>
       {!props.isEdit && (

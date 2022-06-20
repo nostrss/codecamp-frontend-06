@@ -13,9 +13,8 @@ export default function PaginationUI(props: IPagenationToPaginationUI) {
           <P.ActivePage
             current={props.currentPage === index + props.startPage}
             key={String(uuidv4())}
+            // @ts-ignore
             onClick={props.onClickPage}
-            // className={String(index + props.startPage)}
-            // id={String(index + props.startPage)}
           >
             {index + props.startPage}
           </P.ActivePage>

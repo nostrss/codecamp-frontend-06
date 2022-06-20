@@ -5,7 +5,7 @@ import { FETCH_ANSWER, REMOVE_ANSWER } from './Answer.List.queries';
 import * as U from './Answer.List.style';
 import AnswerWriteContainer from './write/Answer.write.container';
 
-export default function AnswerItemUI(props) {
+export default function AnswerItemUI(props: any) {
   const [removeAnswer] = useMutation(REMOVE_ANSWER);
   const [isUpdate, setIsUpdate] = useState(false);
 

@@ -9,8 +9,8 @@ export const globalStyles = css`
     /* font-family: 'jintaek'  다운받은거 적용할때 */
   }
   // 나만의 폰트
-  @font-face {
+  /* @font-face {
     font-family: 'jintaek';
     src: url('/fonts/scifibit.ttf');
-  }
+  } */
 `;

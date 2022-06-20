@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import DOMPurify from 'dompurify';
 import MapDetail from '../../commons/map/detailmap';
 
-export default function ProductUI(props) {
+export default function ProductUI(props: any) {
   const settings = {
     dots: true,
     infinite: true,
@@ -82,6 +82,7 @@ export default function ProductUI(props) {
           {props.data?.fetchUseditem?.images[0] ? (
             <P.SliderWrapper>
               <Slider {...settings}>
+                {/* @ts-ignore */}
                 {props.data?.fetchUseditem.images.map((el, index) => (
                   <P.SliderItem key={uuidv4()}>
                     <P.SliderImg
@@ -114,7 +115,7 @@ export default function ProductUI(props) {
             )}
             <P.FlexRowTag>
               {props.data?.fetchUseditem.tags
-                ? props.data?.fetchUseditem.tags.map((el) => (
+                ? props.data?.fetchUseditem.tags.map((el: any) => (
                     <P.H3 key={uuidv4()}>{el}</P.H3>
                   ))
                 : ''}

@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function KakaoMapPage(props) {
+export default function KakaoMapPage(props: any) {
   useEffect(() => {
     const script = document.createElement('script'); // <script></script> 태그 만들기
     const libray = document.createElement('script'); // <script></script> 태그 만들기
@@ -26,14 +27,14 @@ export default function KakaoMapPage(props) {
         const geocoder = new window.kakao.maps.services.Geocoder();
         const map = new window.kakao.maps.Map(container, options);
 
-        function searchDetailAddrFromCoords(coords, callback) {
+        function searchDetailAddrFromCoords(coords: any, callback: any) {
           // 좌표로 법정동 상세 주소 정보를 요청합니다
           geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         }
 
         let address1 = '';
 
-        function getAddress(result, status) {
+        function getAddress(result: any, status: any) {
           if (status === window.kakao.maps.services.Status.OK) {
             address1 = result[0].road_address;
           }
@@ -56,7 +57,7 @@ export default function KakaoMapPage(props) {
             position: markerPosition,
           });
           marker.setMap(map);
-
+          // @ts-ignore
           function setCenter() {
             // 이동할 위도 경도 위치를 생성합니다
             const moveLatLon = new window.kakao.maps.LatLng(
@@ -82,11 +83,13 @@ export default function KakaoMapPage(props) {
               marker.setMap(map);
 
               searchDetailAddrFromCoords(latlng, getAddress);
-              console.log(address1?.address_name);
+              // @ts-ignore
               props.setIsAddress({
                 lat: latlng.Ma,
                 lng: latlng.La,
+                // @ts-ignore
                 address: address1?.address_name,
+                // @ts-ignore
                 zipcode: address1?.zone_no,
               });
             }

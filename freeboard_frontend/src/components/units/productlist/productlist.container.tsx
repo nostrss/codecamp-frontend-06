@@ -37,11 +37,15 @@ export default function ProductListContainer() {
     fetchMore({
       variables: { page: Math.ceil(data?.fetchUseditems.length / 10) + 1 },
       updateQuery: (prev, { fetchMoreResult }) => {
+        // @ts-ignore
         if (!fetchMoreResult?.fetchUseditems)
+          // @ts-ignore
           return { fetchUseditems: [...prev.fetchUseditems] };
         return {
           fetchUseditems: [
+            // @ts-ignore
             ...prev.fetchUseditems,
+            // @ts-ignore
             ...fetchMoreResult.fetchUseditems,
           ],
         };
@@ -55,8 +59,10 @@ export default function ProductListContainer() {
   };
 
   // 검색어 디바운스, 리패치 함수
+
   const getDebounce = _.debounce((searchKeyword) => {
     refetch({
+      // @ts-ignore
       search: searchKeyword,
       page: 1,
     });
@@ -74,9 +80,6 @@ export default function ProductListContainer() {
         onClickSold={onClickSold}
         isSoldout={isSoldout}
         onClickSell={onClickSell}
-        // onClickSearch={onClickSearch}
-        // onChangeStart={onChangeStart}
-        // onChangeEnd={onChangeEnd}
       />
     </>
   );

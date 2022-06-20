@@ -1,14 +1,8 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -153,91 +147,112 @@ export type IMutation = {
   uploadFile: IFileManager;
 };
 
+
 export type IMutationCreateBoardArgs = {
   createBoardInput: ICreateBoardInput;
 };
+
 
 export type IMutationCreateBoardCommentArgs = {
   boardId: Scalars['ID'];
   createBoardCommentInput: ICreateBoardCommentInput;
 };
 
+
 export type IMutationCreatePointTransactionOfBuyingAndSellingArgs = {
   useritemId: Scalars['ID'];
 };
+
 
 export type IMutationCreatePointTransactionOfLoadingArgs = {
   impUid: Scalars['ID'];
 };
 
+
 export type IMutationCreateUseditemArgs = {
   createUseditemInput: ICreateUseditemInput;
 };
+
 
 export type IMutationCreateUseditemQuestionArgs = {
   createUseditemQuestionInput: ICreateUseditemQuestionInput;
   useditemId: Scalars['ID'];
 };
 
+
 export type IMutationCreateUseditemQuestionAnswerArgs = {
   createUseditemQuestionAnswerInput: ICreateUseditemQuestionAnswerInput;
   useditemQuestionId: Scalars['ID'];
 };
 
+
 export type IMutationCreateUserArgs = {
   createUserInput: ICreateUserInput;
 };
 
+
 export type IMutationDeleteBoardArgs = {
   boardId: Scalars['ID'];
 };
+
 
 export type IMutationDeleteBoardCommentArgs = {
   boardCommentId: Scalars['ID'];
   password?: InputMaybe<Scalars['String']>;
 };
 
+
 export type IMutationDeleteBoardsArgs = {
   boardIds: Array<Scalars['ID']>;
 };
+
 
 export type IMutationDeleteUseditemArgs = {
   useditemId: Scalars['ID'];
 };
 
+
 export type IMutationDeleteUseditemQuestionArgs = {
   useditemQuestionId: Scalars['ID'];
 };
+
 
 export type IMutationDeleteUseditemQuestionAnswerArgs = {
   useditemQuestionAnswerId: Scalars['ID'];
 };
 
+
 export type IMutationDislikeBoardArgs = {
   boardId: Scalars['ID'];
 };
 
+
 export type IMutationLikeBoardArgs = {
   boardId: Scalars['ID'];
 };
+
 
 export type IMutationLoginUserArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
+
 export type IMutationLoginUserExampleArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
+
 export type IMutationResetUserPasswordArgs = {
   password: Scalars['String'];
 };
 
+
 export type IMutationToggleUseditemPickArgs = {
   useditemId: Scalars['ID'];
 };
+
 
 export type IMutationUpdateBoardArgs = {
   boardId: Scalars['ID'];
@@ -245,30 +260,36 @@ export type IMutationUpdateBoardArgs = {
   updateBoardInput: IUpdateBoardInput;
 };
 
+
 export type IMutationUpdateBoardCommentArgs = {
   boardCommentId: Scalars['ID'];
   password?: InputMaybe<Scalars['String']>;
   updateBoardCommentInput: IUpdateBoardCommentInput;
 };
 
+
 export type IMutationUpdateUseditemArgs = {
   updateUseditemInput: IUpdateUseditemInput;
   useditemId: Scalars['ID'];
 };
+
 
 export type IMutationUpdateUseditemQuestionArgs = {
   updateUseditemQuestionInput: IUpdateUseditemQuestionInput;
   useditemQuestionId: Scalars['ID'];
 };
 
+
 export type IMutationUpdateUseditemQuestionAnswerArgs = {
   updateUseditemQuestionAnswerInput: IUpdateUseditemQuestionAnswerInput;
   useditemQuestionAnswerId: Scalars['ID'];
 };
 
+
 export type IMutationUpdateUserArgs = {
   updateUserInput: IUpdateUserInput;
 };
+
 
 export type IMutationUploadFileArgs = {
   file: Scalars['Upload'];
@@ -319,14 +340,17 @@ export type IQuery = {
   fetchUserLoggedIn: IUser;
 };
 
+
 export type IQueryFetchBoardArgs = {
   boardId: Scalars['ID'];
 };
+
 
 export type IQueryFetchBoardCommentsArgs = {
   boardId: Scalars['ID'];
   page?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type IQueryFetchBoardsArgs = {
   endDate?: InputMaybe<Scalars['DateTime']>;
@@ -335,45 +359,54 @@ export type IQueryFetchBoardsArgs = {
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+
 export type IQueryFetchBoardsCountArgs = {
   endDate?: InputMaybe<Scalars['DateTime']>;
   search?: InputMaybe<Scalars['String']>;
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
+
 export type IQueryFetchPointTransactionsArgs = {
   page?: InputMaybe<Scalars['Int']>;
   search?: InputMaybe<Scalars['String']>;
 };
+
 
 export type IQueryFetchPointTransactionsOfBuyingArgs = {
   page?: InputMaybe<Scalars['Int']>;
   search?: InputMaybe<Scalars['String']>;
 };
 
+
 export type IQueryFetchPointTransactionsOfLoadingArgs = {
   page?: InputMaybe<Scalars['Int']>;
   search?: InputMaybe<Scalars['String']>;
 };
+
 
 export type IQueryFetchPointTransactionsOfSellingArgs = {
   page?: InputMaybe<Scalars['Int']>;
   search?: InputMaybe<Scalars['String']>;
 };
 
+
 export type IQueryFetchUseditemArgs = {
   useditemId: Scalars['ID'];
 };
+
 
 export type IQueryFetchUseditemQuestionAnswersArgs = {
   page?: InputMaybe<Scalars['Int']>;
   useditemQuestionId: Scalars['ID'];
 };
 
+
 export type IQueryFetchUseditemQuestionsArgs = {
   page?: InputMaybe<Scalars['Int']>;
   useditemId: Scalars['ID'];
 };
+
 
 export type IQueryFetchUseditemsArgs = {
   isSoldout?: InputMaybe<Scalars['Boolean']>;
@@ -381,15 +414,18 @@ export type IQueryFetchUseditemsArgs = {
   search?: InputMaybe<Scalars['String']>;
 };
 
+
 export type IQueryFetchUseditemsIBoughtArgs = {
   page?: InputMaybe<Scalars['Int']>;
   search?: InputMaybe<Scalars['String']>;
 };
 
+
 export type IQueryFetchUseditemsIPickedArgs = {
   page?: InputMaybe<Scalars['Int']>;
   search?: InputMaybe<Scalars['String']>;
 };
+
 
 export type IQueryFetchUseditemsISoldArgs = {
   page?: InputMaybe<Scalars['Int']>;

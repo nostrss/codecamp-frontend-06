@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import { useEffect } from 'react';
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function SearchMap(props) {
+export default function SearchMap(props: any) {
   const address = String(props.isAddress);
-  // const [tmpAddress, setTmpAddress] = useState(String(props.isAddress));
 
   useEffect(() => {
     console.log('searchmap useEffect');
@@ -32,7 +32,7 @@ export default function SearchMap(props) {
         const geocoder = new window.kakao.maps.services.Geocoder();
         // const marker = new window.kakao.maps.Marker();
 
-        geocoder.addressSearch(address, function (result, status) {
+        geocoder.addressSearch(address, function (result: any, status: any) {
           // 정상적으로 검색이 완료됐으면
           if (status === window.kakao.maps.services.Status.OK) {
             const coords = new window.kakao.maps.LatLng(

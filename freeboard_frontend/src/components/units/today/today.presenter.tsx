@@ -1,7 +1,7 @@
 import * as U from './today.style';
 import TodayItemUI from './todayitem.presenter';
 
-export default function TodayUI(props) {
+export default function TodayUI(props: any) {
   return (
     <>
       <U.WrappFIXDivFlexCol>

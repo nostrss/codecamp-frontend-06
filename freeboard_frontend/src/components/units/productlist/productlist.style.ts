@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+interface IPriductlistStyle {
+  isSoldout: boolean;
+}
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -102,7 +106,8 @@ export const IsSoldBtn = styled.button`
   width: 100px;
   height: 50px;
   border-radius: 10px;
-  background-color: ${(props) => (props.isSoldout ? 'blue' : 'gray')};
+  background-color: ${(props: IPriductlistStyle) =>
+    props.isSoldout ? 'blue' : 'gray'};
   margin-right: 20px;
   cursor: pointer;
   color: white;
@@ -112,7 +117,8 @@ export const IsSellBtn = styled.button`
   width: 100px;
   height: 50px;
   border-radius: 10px;
-  background-color: ${(props) => (props.isSoldout ? 'gray' : 'blue')};
+  background-color: ${(props: IPriductlistStyle) =>
+    props.isSoldout ? 'gray' : 'blue'};
   margin-right: 20px;
   cursor: pointer;
   color: white;
