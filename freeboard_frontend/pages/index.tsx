@@ -1,21 +1,10 @@
 import Head from 'next/head';
-import Image from 'next/image';
+// import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 // import lottie from 'lottie-web';
 // import { useEffect, useRef } from 'react';
 
 export default function Home() {
-  // const likecontainer = useRef();
-  // useEffect(() => {
-  //   lottie.loadAnimation({
-  //     container: likecontainer.current,
-  //     renderer: 'svg',
-  //     loop: true,
-  //     autoplay: true,
-  //     animationData: require('../public/lottie/101349-swing.json'),
-  //   });
-  // }, []);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -74,7 +63,7 @@ export default function Home() {
         >
           Powered by{' '}
           <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
+            {/* <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} /> */}
           </span>
         </a>
       </footer>
