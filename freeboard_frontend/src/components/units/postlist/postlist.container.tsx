@@ -3,7 +3,7 @@ import Pagination from '../../commons/pagination/pagination.container';
 import { useQuery } from '@apollo/client';
 import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from './postlist.queries';
 import { useRouter } from 'next/router';
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useRef, useState } from 'react';
 import _ from 'lodash';
 
 export default function PostListContainer() {
@@ -15,11 +15,16 @@ export default function PostListContainer() {
   const [keyword, setKeyword] = useState('');
   const [startDate, setStartDate] = useState(0);
   const [endDate, setEndDate] = useState(0);
+  // const thisFunction = useRef();
 
   const onClickTitle = (data: any) => {
+    // console.log(click);
+    // console.log(thisFunction);
     router.push(`/boards/post/${data}`);
   };
+  // const [click, setClick] = useState(onClickTitle);
 
+  // const click = onClickTitle;
   const onClickMoveWrite = () => {
     router.push('/boards/new');
   };
@@ -47,7 +52,7 @@ export default function PostListContainer() {
       date.getUTCDate()
     );
     setStartDate(startUtc);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const onChangeEnd = (event: ChangeEvent<HTMLInputElement>) => {
